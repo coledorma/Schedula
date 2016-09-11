@@ -1,14 +1,18 @@
 # 1st Weekly Dev Log
 
 ## Duty's:
-*
-*
-*
+ * Find group members
+ * Create team email
+ * Collectively pick a team name
+ * Submit team member names and information, team name, weekly meeting location and time, and team repo to cuLearn
+ * Setup weekly Dev Log section in repo
 
-## Acheivments:
-*
-*
-*
+## Achievements:
+ * Find group members
+ * Create team email
+ * Collectively pick a team name
+ * Submit team member names and information, team name, weekly meeting location and time, and team repo to cuLearn
+ * Setup weekly Dev Log section in repo
 
 ## Time Spent:
-*
+
