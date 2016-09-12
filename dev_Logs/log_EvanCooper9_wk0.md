@@ -1,4 +1,4 @@
-# 1st Weekly Dev Log
+# Week 0 - Dev Logs
 
 ## Duties
  - [X] Find group members
