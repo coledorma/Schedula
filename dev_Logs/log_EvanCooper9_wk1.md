@@ -9,4 +9,4 @@
  - [ ] Choose project idea
 
 ## Time Spent:
-* **_** _hours_ and **_** _minutes_
+* **5** _hours_ and **0** _minutes_
