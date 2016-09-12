@@ -1,6 +1,6 @@
 # 1st Weekly Dev Log
  
- ## Duty's:
+## Duty's:
   - [X] Find group members
   - [X] Create team email
   - [X] Collectively pick a team name
