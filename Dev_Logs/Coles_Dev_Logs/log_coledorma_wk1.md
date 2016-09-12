@@ -10,5 +10,6 @@
   - [X] Brainstorm ideas for group project
   - [X] Provide ideas for group project
 
-## Time Spent: **6** _hours_ and **0** _minutes_
+## Time Spent: 
+  **6** _hours_ and **0** _minutes_
 
