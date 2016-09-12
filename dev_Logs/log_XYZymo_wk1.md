@@ -7,4 +7,4 @@
 - [x]  Provided ideas for project
 
 ## Time spent:
-    
+  * **6** _hours_ and **0** _minutes_
