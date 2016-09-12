@@ -6,5 +6,6 @@
 - [x]  Setup weekly Dev Log section in repo
 - [x]  Provided ideas for project
 - [ ]  Decide on idea for project
+
 ## Time spent:
   * **_** _hours_ and **_** _minutes_
