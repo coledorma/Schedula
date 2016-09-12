@@ -1,6 +1,6 @@
 # Dev Log - Week: 0
  
-## Duty's:
+## Duties:
   - [X] Find group members
   - [X] Collectively pick a team name
   - [X] Brainstorm ideas for group project
