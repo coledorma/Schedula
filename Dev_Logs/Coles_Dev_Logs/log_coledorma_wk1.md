@@ -4,8 +4,11 @@
   - [X] Find group members
   - [X] Create team email
   - [X] Collectively pick a team name
-  - [X] Submit team member names and information, team name, weekly meeting location and time, and team repo to cuLearn
+  - [X] Create and finish Deliverable 0
+  - [X] Submit Deliverable 0 to cuLearn
   - [X] Setup weekly Dev Log section in repo
+  - [X] Brainstorm ideas for group project
+  - [X] Provide ideas for group project
 
-## Time Spent:
+## Time Spent: **6** _hours_ and **0** _minutes_
 
