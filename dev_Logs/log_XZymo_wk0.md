@@ -8,4 +8,4 @@
 - [ ]  Decide on idea for project
 
 ## Time spent:
-  * **_** _hours_ and **_** _minutes_
+  * **4** _hours_ and **35** _minutes_
