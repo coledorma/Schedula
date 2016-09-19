@@ -8,7 +8,7 @@
  - [X] Outline main goals for the project
  - [X] Create and prioritize additional features to be included
  - [X] Design the basics of the algorithm
- - [X] Update [README.md](https://github.com/EvanCooper9/COMP3004/blob/master/README.md) with new information
+ - [ ] Update [README.md](https://github.com/EvanCooper9/COMP3004/blob/master/README.md) with new information (waiting for project proposal)
 
 ## Time Spent:
 * **5** _hours_ and **30** _minutes_
