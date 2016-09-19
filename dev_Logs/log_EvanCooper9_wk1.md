@@ -1,6 +1,8 @@
 # Week 1 - Dev Logs
 
 ## Duties
+ - [X] Weekly meeting with team
+ - [X] Discuss and choose design process
  - [X] Discuss current ideas
  - [X] Choose best project idea
  - [X] Outline main goals for the project
@@ -9,4 +11,4 @@
  - [X] Update [README.md](https://github.com/EvanCooper9/COMP3004/blob/master/README.md) with new information
 
 ## Time Spent:
-* **4** _hours_ and **30** _minutes_
+* **5** _hours_ and **30** _minutes_
