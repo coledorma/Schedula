@@ -1,4 +1,4 @@
-# Week 0 Developpment log
+# Week 0 Development log
 
 ## Dutys:
 - [x]  Find group members
