@@ -5,7 +5,7 @@
  - [ ] Brainstorm and choose app name
  - [ ] Discuss, work on, and contribute to Deliverable_1
  - [ ] Discuss, work on, and contribute presentation proposal
- - [ ] Discuss and plan further in depth steps of the application algorithm
+ - [ ] Finish and get input on group presentation slides from team
  - [X] Inquire about using the school database
  - [X] Contribute to the design of the algorithm
  - [X] Create and update weekly dev log
