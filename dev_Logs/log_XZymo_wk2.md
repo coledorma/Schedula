@@ -1,4 +1,4 @@
-# Week 2 - Developpment Log
+# Week 2 - Development Log
 
 ## Duties
  - [ ] Weekly meeting with team
