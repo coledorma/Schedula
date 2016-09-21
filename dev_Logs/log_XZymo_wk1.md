@@ -1,4 +1,4 @@
-# Week 1 Developpment Log
+# Week 1 Development Log
 
 ## Dutys:
 - [x] Weekly meeting with team
