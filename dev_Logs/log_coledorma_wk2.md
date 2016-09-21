@@ -5,7 +5,7 @@
  - [ ] Discuss, work on, and contribute to Deliverable_1
  - [ ] Discuss, work on, and contribute presentation proposal
  - [ ] Discuss and plan further in depth steps of the application algorithm
- - [X] Braintstorm and sketch the interfaces of the application
+ - [X] Braintstorm and do rough sketches of the interfaces of the application
  - [X] Figure out and plan DB situation
  - [X] Create and update weekly Dev Log
 
