@@ -7,6 +7,7 @@
 - [x] Choose best project idea
 - [x] Outline main goals for the project
 - [x] Started creating presentation for first submission
+- [X] Create and update weekly dev log 
  
 ## Time spent
   * **6** _hours_ and **5** _minutes_
