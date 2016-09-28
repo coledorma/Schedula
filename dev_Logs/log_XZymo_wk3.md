@@ -1,4 +1,4 @@
-# Week 3 Development log
+# Week 3 - Development log
 
 ## Dutys:
  - [X] Submit finalized presentation slides in PDF format
