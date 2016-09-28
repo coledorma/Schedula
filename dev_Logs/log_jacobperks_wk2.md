@@ -8,4 +8,4 @@
   - [X] Work out plan for algorithm
  
 ## Time Spent: 
-  * 8 _hours_ and 0 _minutes_
+  * 9 _hours_ and 0 _minutes_
