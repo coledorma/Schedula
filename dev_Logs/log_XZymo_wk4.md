@@ -1,4 +1,4 @@
-# Week 3 - Development log
+# Week 4 - Development log
 
 ## Dutys:
  - [ ] Team follow-up on Carleton DB access
