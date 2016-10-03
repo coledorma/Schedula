@@ -6,4 +6,4 @@
   - [X] Work on algorithm
  
 ## Time Spent: 
-  * 3 _hours_ and 0 _minutes_
+  * 4 _hours_ and 0 _minutes_
