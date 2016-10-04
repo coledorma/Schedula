@@ -2,11 +2,11 @@
 
 ## Duties
  - [X] Create mock-drawings for the application
- - [ ] Prepare for the presentation
+ - [X] Prepare for the presentation
  - [ ] Delegate and figure out specific roles for each group member for the application build
- - [ ] Team follow-up on Carleton DB access
- - [ ] Weekly meeting with team
+ - [X] Team follow-up on Carleton DB access
+ - [X] Weekly meeting with team
  - [X] Create and update weekly dev log
 
 ## Time Spent:
-* **3** _hours_ and **0** _minutes_
+* **5** _hours_ and **0** _minutes_
