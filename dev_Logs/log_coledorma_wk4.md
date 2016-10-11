@@ -9,4 +9,4 @@
  - [X] Meet with Evan to discuss our specific in-app development roles
 
 ## Time Spent:
-* **6** _hours_ and **0** _minutes_
+* **8** _hours_ and **0** _minutes_
