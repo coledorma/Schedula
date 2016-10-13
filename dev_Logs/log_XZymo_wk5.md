@@ -1,11 +1,11 @@
 # Week 5 - Development log
 
 ## Dutys:
- - [ ] Team follow-up on Carleton DB access
- - [ ] Weekly meeting with team
- - [ ] Continue algorithm design
- - [ ] Further progress on deliverable 2 responsabilities
+ - [X] Team follow-up on Carleton DB access
+ - [X] Weekly meeting with team
+ - [X] Continue algorithm design
+ - [X] Further progress on deliverable 2 responsabilities
  - [X] Create and update weekly dev log
 
 ## Time Spent:
-* **0** _hours_ and **30** _minutes_
+* **8** _hours_ and **0** _minutes_
