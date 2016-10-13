@@ -1,10 +1,10 @@
 # Week 5 - Dev Logs
 
 ## Duties
- - [ ] Continue progress on UI
- - [ ] Contunue UI section delegation with Cole
+ - [X] Continue progress on UI
+ - [X] Contunue UI section delegation with Cole
  - [ ] Continue to follow up on DB access from Carleton
- - [ ] Weekly meeting with team
+ - [X] Weekly meeting with team
  - [X] Create and update weekly dev log
 
 ## Time Spent:
