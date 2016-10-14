@@ -1,24 +1,32 @@
+/**
+ * By Daniel Fitzhenry (14-10-2016)
+ *
+ *	SECTION CLASS
+ *
+ */
 package SchedulaAlgo;
 
 import java.util.LinkedList;
-import java.lang.*;
+import java.lang.String;
+
+//TODO: Figure out other useful functions/parameters
 
 public class Section {
 	
-	private char name;
-	private String prof;
-	private int crn;
-	private int startTimeMin;
-	private int startTimeHour;
-	private int endTimeMin; 
-	private int endTimeHour;
+	protected char name;
+	protected String prof;
+	protected int crn;
+	protected int startTimeMin;
+	protected int startTimeHour;
+	protected int endTimeMin; 
+	protected int endTimeHour;
 	private LinkedList<Tutorial> tuts;
 	
-	/**
-	 * Constructor for Section objects
-	 *	@params n (A,B,C,...etc.), p ("name"), c (123456,...etc.), st ("14:35"),
-	 *			et ("15:55"), t (Linked List = [TutorialA1,TutorialA2,...etc.])
-	 **/	 
+/**
+ * Constructor for Section objects
+ *	@params n (A,B,C,...etc.), p ("name"), c (123456,...etc.), st ("14:35"),
+ *			et ("15:55"), t (Linked List = [TutorialA1,TutorialA2,...etc.])
+ **/
 	public Section(char n, String p, int c, String st, String et, LinkedList<Tutorial> t){
 		name = n;
 		prof = p;
@@ -29,25 +37,16 @@ public class Section {
 		endTimeHour = Integer.parseInt(et.substring(0,2));
 		tuts = t;
 	}
-	
+
+/**
+ * toString() function returns String formatted print of Section 
+ *	@params n/a
+ *  @overwritable
+ **/
 	public String toString(){ 
 		return	"Section: "+name+"\nProf:"+prof+"\nTimes:"+
-				startTimeHour+":" + startTimeMin+" - "+
-				endTimeHour + ":" + endTimeMin+"\n"+
-				tuts;
-	}
-								
-	
-	/**
-	 * Calculate 
-	 *
-	 *
-	 */
-	
-	public static void main(String[] args) {
-		LinkedList<Section> s = new LinkedList<Section>();
-		s.add(new Section('A', "John Smith", 231454, "11:35","12:55",new LinkedList<Tutorial>()));
-		System.out.println(s.peek().toString());
-		return;
+				String.format("%02d", startTimeHour)+":" + String.format("%02d", startTimeMin)+" - "+
+				String.format("%02d", endTimeHour) + ":" + String.format("%02d", endTimeMin)+"\n"+
+				"Tutorial Sections: "+tuts;
 	}
 }
