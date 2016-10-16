@@ -1,10 +1,10 @@
 # Dev Log - Week: 5
  
 ## Duties:
-  - [ ] Weekly meeting with group
-  - [ ] Continue to work on getting access to course list (still in progress unfortunately....)
-  - [ ] Work on algorithm
-  - [ ] Coordinate algorithm with UI
+  - [X] Weekly meeting with group
+  - [X] Continue to work on getting access to course list (still in progress unfortunately....)
+  - [X] Work on algorithm
+  - [X] Coordinate algorithm with Dan
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 6 _hours_ and 0 _minutes_
