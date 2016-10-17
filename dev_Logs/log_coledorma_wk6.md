@@ -9,4 +9,4 @@
  - [X] Discuss and set date of 80% completion
 
 ## Time Spent:
-* **1** _hours_ and **** _minutes_
+* **1** _hours_ and **0** _minutes_
