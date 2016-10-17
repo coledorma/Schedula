@@ -2,7 +2,7 @@
 
 ## Dutys:
  - [ ] Team follow-up on Carleton DB access
- - [ ] Book room for team meeting
+ - [X] Book room (ML423) for team meeting
  - [ ] Continue algorithm design with jacob
  - [ ] Further progress on deliverable 2 responsabilities
  - [X] Create and update weekly dev log
