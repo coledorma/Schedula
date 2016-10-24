@@ -16,25 +16,19 @@ public class Section {
 	protected char name;
 	protected String prof;
 	protected int crn;
-	protected int startTimeMin;
-	protected int startTimeHour;
-	protected int endTimeMin; 
-	protected int endTimeHour;
-	private LinkedList<Tutorial> tuts;
+	protected String time;
+	private LinkedList<SubSection> tuts;
 	
 /**
  * Constructor for Section objects
  *	@params n (A,B,C,...etc.), p ("name"), c (123456,...etc.), st ("14:35"),
  *			et ("15:55"), t (Linked List = [TutorialA1,TutorialA2,...etc.])
  **/
-	public Section(char n, String p, int c, String st, String et, LinkedList<Tutorial> t){
+	public Section(char n, String p, int c, String ti, LinkedList<SubSection> t){
 		name = n;
 		prof = p;
 		crn = c;
-		startTimeMin = Integer.parseInt(st.substring(3,5));
-		startTimeHour = Integer.parseInt(st.substring(0,2));
-		endTimeMin = Integer.parseInt(et.substring(3,5));
-		endTimeHour = Integer.parseInt(et.substring(0,2));
+		time = ti;
 		tuts = t;
 	}
 
@@ -42,11 +36,20 @@ public class Section {
  * toString() function returns String formatted print of Section 
  *	@params n/a
  *  @overwritable
- **/
+ **//*
 	public String toString(){ 
 		return	"Section: "+name+"\nProf:"+prof+"\nTimes:"+
 				String.format("%02d", startTimeHour)+":" + String.format("%02d", startTimeMin)+" - "+
 				String.format("%02d", endTimeHour) + ":" + String.format("%02d", endTimeMin)+"\n"+
 				"Tutorial Sections: "+tuts;
 	}
+
+	public String timeOfDay(Section A){ 
+		if (A.time) // If class starts/ends between 8:00 am and 11:59am
+			return "Morning";
+		if (A.time) // If class starts/ends between 12:00pm and 3:59pm
+			return "Afternoon";
+		if (A.time) // If class starts/ends between 4:00pm and 10:00pm
+			return "Evening";
+	}*/	
 }
