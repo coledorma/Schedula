@@ -1,5 +1,5 @@
 /**
- * By Daniel Fitzhenry (14-10-2016)
+ * By Daniel Fitzhenry + Jacob Perks
  *
  *	SECTION CLASS
  *
