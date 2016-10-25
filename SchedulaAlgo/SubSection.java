@@ -14,8 +14,8 @@ public final class SubSection extends Section{
  * Constructor for Tutorial objects
  *	@params s (A,B,C,...etc.), c (123456,...etc.), st ("14:35"), et ("15:55")
  **/
-	public SubSection(char s, int c, String ti){
-		super(s,"T.A",c,ti,null);
+	public SubSection(char s, int c, int tr, String ti){
+		super(s,"T.A",c,tr,ti,null);
 	}
 	
 /**
