@@ -1,9 +1,9 @@
 # Dev Log - Week: 6
  
 ## Duties:
-  - [ ] Weekly meeting with group
-  - [ ] Work on re-formatting db and integrating with algorithm
-  - [ ] Continue work on algorithm
+  - [X] Weekly meeting with group
+  - [X] Work on re-formatting db and integrating with algorithm
+  - [X] Continue work on algorithm
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 6 _hours_ and 0 _minutes_
