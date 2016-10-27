@@ -13,7 +13,7 @@ import java.lang.*;
 
 public class Section {
 	
-	protected char ID;
+	protected String ID;
 	protected String prof;
 	protected int crn;
 	protected TimeSlot times;
@@ -24,7 +24,7 @@ public class Section {
  *	@params n (A,B,C,...etc.), p ("name"), c (123456,...etc.), st ("14:35"),
  *			et ("15:55"), t (Linked List = [TutorialA1,TutorialA2,...etc.])
  **/
-	public Section(char n, String p, int c, int term, String time, LinkedList<SubSection> s){
+	public Section(String n, String p, int c, int term, String time, LinkedList<SubSection> s){
 		int startHour, startMinute, endHour, endMinute;
 		int year = (int)(term/100);
 		int semester = term - year;
@@ -49,6 +49,6 @@ public class Section {
  *  @overwritable
  **/
 	public String toString(){ 
-		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\nAdditional Sections: "+subSec;
+		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\nAdditional Sections: \n"+subSec;
 	}
 }

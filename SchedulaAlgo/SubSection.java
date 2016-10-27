@@ -14,19 +14,17 @@ public final class SubSection extends Section{
  * Constructor for Tutorial objects
  *	@params s (A,B,C,...etc.), c (123456,...etc.), st ("14:35"), et ("15:55")
  **/
-	public SubSection(char s, int c, int tr, String ti){
-		super(s,"T.A",c,tr,ti,null);
+	public SubSection(String s, int c, int tr, String time){
+		super(s,"T.A",c,tr,time,null);
 	}
 	
 /**
  * toString() function returns String formatted print of Tutorial 
  *	@params n/a
  *  @overwritten
- **//*
+ **/
 	public final String toString(){ 
-		return	name+": "+"Times:"+
-				String.format("%02d", startTimeHour)+":"+String.format("%02d", startTimeMin)+" - "+
-				String.format("%02d", endTimeHour)+ ":"+String.format("%02d", endTimeMin);
-	}*/
+		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\n";
+	}
 
 }

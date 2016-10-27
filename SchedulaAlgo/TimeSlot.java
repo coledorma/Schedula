@@ -8,6 +8,7 @@ package SchedulaAlgo;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.lang.String;
+import java.lang.Math;
 
 public class TimeSlot {
 	private static final char MONDAY = 'M', TUESDAY = 'T', WEDNESDAY = 'W', THURSDAY = 'R', FRIDAY = 'F';
@@ -63,8 +64,8 @@ public class TimeSlot {
 		s += "Start-Time:\t"+start.get(Calendar.HOUR_OF_DAY)+":"+start.get(Calendar.MINUTE)+((start.get(Calendar.AM_PM)==0)?"AM":"PM")+"\n";
 		s += "End-Time:\t"+end.get(Calendar.HOUR_OF_DAY)+":"+end.get(Calendar.MINUTE)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
 		return s;
-	}
 	
+	}
 	public boolean conflicts(TimeSlot t) {
 		if ((start.equals(t.start)) || (end.equals(t.end)) || !term.equals(t.term)) return false;
 		return	(start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
@@ -73,4 +74,41 @@ public class TimeSlot {
 				((start.get(Calendar.MINUTE) <= t.start.get(Calendar.MINUTE) && t.start.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)) ||
 				(start.get(Calendar.MINUTE) <= t.end.get(Calendar.MINUTE) && t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
+
+	// Function that returns a string to determine whether it is a morning, afternoon, or evening class
+	public String period() {
+		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
+			return "Morning";
+		} else if (start.get(Calendar.HOUR_OF_DAY) < 16) {
+			return "Afternoon";
+		} else {
+			return "Evening";
+		} 
+	}
+
+	/* Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
+	   This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
+	   or "worse" (or further away from another timeslot)
+	*/
+	public int difference(TimeSlot t) {
+		int difference = 0;
+		if (conflicts(t) == true) {
+			return difference;
+		} else {
+			if (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) {
+				if ((start.get(Calendar.HOUR_OF_DAY) >= t.end.get(Calendar.HOUR_OF_DAY)) && (start.get(Calendar.MINUTE) > t.end.get(Calendar.MINUTE))) {
+					difference += start.get(Calendar.HOUR_OF_DAY) - t.end.get(Calendar.HOUR_OF_DAY);
+					difference += (start.get(Calendar.MINUTE) - t.end.get(Calendar.MINUTE)) / 100;
+				} else {
+					difference += t.start.get(Calendar.HOUR_OF_DAY) - end.get(Calendar.HOUR_OF_DAY);
+					difference += (t.start.get(Calendar.MINUTE) - end.get(Calendar.MINUTE)) / 100;
+				}
+			} else {
+				return difference;
+			}
+		}
+		return difference;
+	}
+
+
 }
