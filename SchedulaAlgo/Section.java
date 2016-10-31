@@ -58,7 +58,7 @@ public class Section {
 			times[0] = new TimeSlot(time.charAt(0),startHour,startMinute,endHour,endMinute,semester,year);
 			times[1] = new TimeSlot(time.charAt(1),startHour,startMinute,endHour,endMinute,semester,year);
 			times[2] = new TimeSlot(time.charAt(2),startHour,startMinute,endHour,endMinute,semester,year);
-		} else { times[0] = null; times[1] = null; times[2] = null; }
+		} else times[0] = times[1] = times[2] = null;
 	}
 
 /**
@@ -68,7 +68,7 @@ public class Section {
  **/
 	public String toString(){ 
 		String s = "Section: "+ID+"\nProf:"+prof+"\n";
-		for(TimeSlot t : times) if (t != null) s += t;
+		for(TimeSlot t : times) if (t != null) s += t+"\n";
 		s += "\nAdditional Sections: \n"+subSec;
 		return s;
 	}

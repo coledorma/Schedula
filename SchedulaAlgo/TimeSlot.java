@@ -71,12 +71,17 @@ public class TimeSlot {
 	
 	}
 	public boolean conflicts(TimeSlot t) {
-		if ((start.equals(t.start)) || (end.equals(t.end)) || !term.equals(t.term)) return false;
+		if (this == null || t == null) return false;
+		if (start.equals(t.start) || end.equals(t.end) || !term.equals(t.term)) return false;
 		return	(start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
-				((start.get(Calendar.HOUR_OF_DAY) <= t.start.get(Calendar.HOUR_OF_DAY) && t.start.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY)) ||
-				(start.get(Calendar.HOUR_OF_DAY) <= t.end.get(Calendar.HOUR_OF_DAY) && t.end.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY))) &&
-				((start.get(Calendar.MINUTE) <= t.start.get(Calendar.MINUTE) && t.start.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)) ||
-				(start.get(Calendar.MINUTE) <= t.end.get(Calendar.MINUTE) && t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
+				((start.get(Calendar.HOUR_OF_DAY) <= t.start.get(Calendar.HOUR_OF_DAY) && 
+				t.start.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY)) ||
+				(start.get(Calendar.HOUR_OF_DAY) <= t.end.get(Calendar.HOUR_OF_DAY) &&
+				t.end.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY))) &&
+				((start.get(Calendar.MINUTE) <= t.start.get(Calendar.MINUTE) && 
+				t.start.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)) ||
+				(start.get(Calendar.MINUTE) <= t.end.get(Calendar.MINUTE) &&
+				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
 	// Function that returns a string to determine whether it is a morning, afternoon, or evening class
@@ -85,9 +90,7 @@ public class TimeSlot {
 			return "Morning";
 		} else if (start.get(Calendar.HOUR_OF_DAY) < 16) {
 			return "Afternoon";
-		} else {
-			return "Evening";
-		} 
+		} else return "Evening";
 	}
 
 	/**
