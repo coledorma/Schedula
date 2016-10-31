@@ -1,9 +1,10 @@
 # Dev Log - Week: 7
  
 ## Duties:
-  - [ ] Weekly meeting with group
-  - [ ] Continue work on algorithm
-  - [ ] Work on querying database 
+  - [X] Weekly meeting with group
+  - [X] Continue work on algorithm
+  - [X] Coordinate work with Dan
+  - [X] Phone meeting with Dan
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 10 _hours_ and 0 _minutes_
