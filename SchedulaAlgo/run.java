@@ -15,7 +15,7 @@ public final class run{
 		System.out.println(s.get(0));
 
 		System.out.println();
-		System.out.println((t.get(0).times).difference(t.get(1).times));
+		System.out.println((t.get(0).times).difference(t.get(0).times));
 		return;
 	}
 }

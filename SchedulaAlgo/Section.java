@@ -27,7 +27,7 @@ public class Section {
 	public Section(String n, String p, int c, int term, String time, LinkedList<SubSection> s){
 		int startHour, startMinute, endHour, endMinute;
 		int year = (int)(term/100);
-		int semester = term - year;
+		int semester = term - year*100;
 		ID = n;
 		prof = p;
 		crn = c;
@@ -51,4 +51,14 @@ public class Section {
 	public String toString(){ 
 		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\nAdditional Sections: \n"+subSec;
 	}
+
+	public String getID() { return ID;}
+
+	public String getProf() { return prof;}
+
+	public int getCrn() { return crn;}
+
+	public TimeSlot getTimes() { return times;}
+
+	public LinkedList<SubSection> getSubSecs() { return subSec;}
 }
