@@ -15,7 +15,7 @@ public final class SubSection extends Section{
  *	@params s (A,B,C,...etc.), c (123456,...etc.), st ("14:35"), et ("15:55")
  **/
 	public SubSection(String s, int c, int tr, String time){
-		super(s,"T.A",c,tr,time,null);
+		super(s,"TUT",c,tr,time,null);
 	}
 	
 /**
@@ -24,7 +24,8 @@ public final class SubSection extends Section{
  *  @overwritten
  **/
 	public final String toString(){ 
-		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\n";
+		String s = "Section: "+ID+"\n"+prof+"\n"; //<<----TODO: super param Section.prof = type of section (TUT/LAB...etc.)
+		for(TimeSlot t : times) if (t != null) s += t;
+		return s+"\n";
 	}
-
 }

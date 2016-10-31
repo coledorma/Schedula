@@ -20,7 +20,7 @@ public class Schedule {
  *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
  **/
 	public Schedule(ArrayList<Section> s){
-		
+		sections = s;
 	}
 
 /**

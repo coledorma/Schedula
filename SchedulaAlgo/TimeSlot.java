@@ -61,8 +61,12 @@ public class TimeSlot {
 			case 5:	s+="THU\n";	break;
 			case 6:	s+="FRI\n";	break;
 		}
-		s += "Start-Time:\t"+start.get(Calendar.HOUR_OF_DAY)+":"+start.get(Calendar.MINUTE)+((start.get(Calendar.AM_PM)==0)?"AM":"PM")+"\n";
-		s += "End-Time:\t"+end.get(Calendar.HOUR_OF_DAY)+":"+end.get(Calendar.MINUTE)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
+		int sh = start.get(Calendar.HOUR_OF_DAY),
+			sm = start.get(Calendar.MINUTE),
+			eh = end.get(Calendar.HOUR_OF_DAY),
+			em = end.get(Calendar.MINUTE);
+		s += "Start-Time:\t"+((sh/10==0)?"0"+sh:sh)+":"+((sm/10==0)?"0"+sm:sm)+((start.get(Calendar.AM_PM)==0)?"AM":"PM")+"\n";
+		s += "End-Time:\t"+((eh/10==0)?"0"+eh:eh)+":"+((em/10==0)?"0"+em:em)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
 		return s;
 	
 	}
@@ -86,10 +90,11 @@ public class TimeSlot {
 		} 
 	}
 
-	/* Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
-	   This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
-	   or "worse" (or further away from another timeslot)
-	*/
+	/**
+	 * Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
+	 * This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
+	 * or "worse" (or further away from another timeslot)
+	 */
 	public int difference(TimeSlot t) {
 		int difference = 0;
 		if (conflicts(t) == true) {
@@ -109,6 +114,4 @@ public class TimeSlot {
 		}
 		return difference;
 	}
-
-
 }
