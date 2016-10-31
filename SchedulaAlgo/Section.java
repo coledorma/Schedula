@@ -9,8 +9,6 @@ package SchedulaAlgo;
 import java.util.LinkedList;
 import java.lang.*;
 
-//TODO: Figure out other useful functions/parameters
-
 public class Section {
 	
 	protected String ID;
@@ -32,13 +30,20 @@ public class Section {
 		prof = p;
 		crn = c;
 		subSec = s;
-		if (time.length() > 11){
+		if (time.length() == 13){
+			/* W 14:05-15:55
+			   123456789
+					   10
+					    11
+						 12
+						  13
+			*/
 			startHour = Integer.parseInt(time.substring(2,4));
 			startMinute = Integer.parseInt(time.substring(5,7));
-			endHour = Integer.parseInt(time.substring(7,9));
+			endHour = Integer.parseInt(time.substring(8,10));
 			endMinute = Integer.parseInt(time.substring(11));
 			times = new TimeSlot(time.charAt(0),startHour,startMinute,endHour,endMinute,semester,year);
-		} else {
+		} else { // TODO: Fix this DANIEL
 			times = null;
 		}
 	}
@@ -48,6 +53,8 @@ public class Section {
  *	@params n/a
  *  @overwritable
  **/
+ 
+ // TODO: FIX THIS  DANIEL
 	public String toString(){ 
 		return	"Section: "+ID+"\nProf:"+prof+"\n"+times+"\nAdditional Sections: \n"+subSec;
 	}
