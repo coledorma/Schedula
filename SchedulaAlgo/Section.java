@@ -38,8 +38,7 @@ public class Section {
 			endHour = Integer.parseInt(time.substring(8,10));
 			endMinute = Integer.parseInt(time.substring(11));
 			times[0] = new TimeSlot(time.charAt(0),startHour,startMinute,endHour,endMinute,semester,year);
-			times[1] = null;
-			times[2] = null;
+			times[1] = times[2] = null;
 		} else if (time.length() == 14){
 			/* TR 14:05-15:55 */
 			startHour = Integer.parseInt(time.substring(3,5));
@@ -49,7 +48,7 @@ public class Section {
 			times[0] = new TimeSlot(time.charAt(0),startHour,startMinute,endHour,endMinute,semester,year);
 			times[1] = new TimeSlot(time.charAt(1),startHour,startMinute,endHour,endMinute,semester,year);
 			times[2] = null;
-		} else if (time.length() > 14){
+		} else if (time.length() == 15){
 			/* MWF 14:05-15:55 */
 			startHour = Integer.parseInt(time.substring(4,6));
 			startMinute = Integer.parseInt(time.substring(7,9));
@@ -72,14 +71,13 @@ public class Section {
 		s += "\nAdditional Sections: \n"+subSec;
 		return s;
 	}
-
+/**
+ * GETTERS
+ * @params n/a
+ **/
 	public String getID() { return ID;}
-
 	public String getProf() { return prof;}
-
 	public int getCrn() { return crn;}
-
 	public TimeSlot[] getTimes() { return times;}
-
 	public LinkedList<SubSection> getSubSecs() { return subSec;}
 }

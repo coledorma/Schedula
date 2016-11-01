@@ -16,15 +16,15 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
-	/**
-	 *	CONSTRUCTOR
-	 *	@params 	dayOfWeek(M,T,W,R,F)~{WEEK\WEEKEND},
-	 *				startHour/endHour(0-23)~{MOD 24},
-	 *				startMinute/endMinute(0-59)~{MOD 60},
-	 *				termMonth(10,20,30)~{WNTR(Jan-May),SUMR(Jun-Aug),FALL(Sep-Dec)},
-	 *				termYear(0-9999)~{MOD 10000}
-	 *	example:	...new TimeSlot('M',11,35,12,55,10,2016)...
-	 */
+/**
+ *	CONSTRUCTOR
+ *	@params	dayOfWeek(M,T,W,R,F)~{WEEK\WEEKEND},
+ *			startHour/endHour(0-23)~{MOD 24},
+ *			startMinute/endMinute(0-59)~{MOD 60},
+ *			termMonth(10,20,30)~{WNTR(Jan-May),SUMR(Jun-Aug),FALL(Sep-Dec)},
+ *			termYear(0-9999)~{MOD 10000}
+ *	@example	new TimeSlot('M',11,35,12,55,10,2016)
+ **/
     public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
 		int tm,dw,sd; tm=dw=sd=0;
 		switch(dayOfWeek){
@@ -50,7 +50,11 @@ public class TimeSlot {
 		end.add(Calendar.DAY_OF_MONTH, -1);
 		end.set(Calendar.DAY_OF_WEEK, dw);
     }
-	
+/**
+ * toString() function returns String formatted print of TimeSlot
+ *	@params n/a
+ *  @overwritable
+ **/	
 	public String toString(){
 		String s = "\tTIMESLOT\nTerm:\t\t"+term+start.get(Calendar.YEAR)+"\nDay:\t\t";
 		switch(start.get(Calendar.DAY_OF_WEEK)){
@@ -84,7 +88,11 @@ public class TimeSlot {
 				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
-	// Function that returns a string to determine whether it is a morning, afternoon, or evening class
+/**
+ * PERIOD FUNCTION
+ * Function that returns a string to determine whether it is a morning, afternoon, or evening class
+ * @params n/a
+ **/
 	public String period() {
 		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
 			return "Morning";
@@ -93,11 +101,12 @@ public class TimeSlot {
 		} else return "Evening";
 	}
 
-	/**
-	 * Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
-	 * This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
-	 * or "worse" (or further away from another timeslot)
-	 */
+/**
+ * DIFFERENCE FUNCTION
+ * Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
+ * This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
+ * or "worse" (or further away from another timeslot)
+ **/
 	public int difference(TimeSlot t) {
 		int difference = 0;
 		if (conflicts(t) == true) {

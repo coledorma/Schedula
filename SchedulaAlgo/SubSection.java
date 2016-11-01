@@ -3,7 +3,7 @@
  *
  *	SUBSECTION CLASS
  *
- */
+ **/
 package SchedulaAlgo;
 
 //TODO: Figure out other useful functions/parameters
