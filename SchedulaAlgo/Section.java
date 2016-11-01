@@ -1,13 +1,11 @@
 /**
- * By Daniel Fitzhenry + Jacob Perks
- *
  *	SECTION CLASS
- *
- */
+ *	By Daniel Fitzhenry + Jacob Perks (2016-10-27)
+ **/
 package SchedulaAlgo;
 
 import java.util.LinkedList;
-import java.lang.*;
+import java.lang.String;
 
 public class Section {
 	

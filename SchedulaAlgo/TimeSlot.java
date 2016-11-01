@@ -8,7 +8,6 @@ package SchedulaAlgo;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.lang.String;
-import java.lang.Math;
 
 public class TimeSlot {
 	private static final char MONDAY = 'M', TUESDAY = 'T', WEDNESDAY = 'W', THURSDAY = 'R', FRIDAY = 'F';
@@ -23,7 +22,7 @@ public class TimeSlot {
  *			startMinute/endMinute(0-59)~{MOD 60},
  *			termMonth(10,20,30)~{WNTR(Jan-May),SUMR(Jun-Aug),FALL(Sep-Dec)},
  *			termYear(0-9999)~{MOD 10000}
- *	@example	new TimeSlot('M',11,35,12,55,10,2016)
+ *	@xmpl	new TimeSlot('M',11,35,12,55,10,2016)
  **/
     public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
 		int tm,dw,sd; tm=dw=sd=0;
@@ -72,7 +71,6 @@ public class TimeSlot {
 		s += "Start-Time:\t"+((sh/10==0)?"0"+sh:sh)+":"+((sm/10==0)?"0"+sm:sm)+((start.get(Calendar.AM_PM)==0)?"AM":"PM")+"\n";
 		s += "End-Time:\t"+((eh/10==0)?"0"+eh:eh)+":"+((em/10==0)?"0"+em:em)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
 		return s;
-	
 	}
 /**
  * CONFLICTS FUNCTION
