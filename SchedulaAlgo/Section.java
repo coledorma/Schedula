@@ -23,7 +23,7 @@ public class Section {
  *			p ("name jonhson"),
  *			c (123456,345675,...),
  *			term (201710,201620,...),
- *			time ("W 14:05-15:55","MW 14:05-15:55","MWF 14:05-15:55",...),
+ *			time ("W 14:05-15:55","MW 14:05-15:55","MWF 14:05-15:55",...) [MAX 3] else null,
  *			s (LinkedList = [SubSection1,SubSection2,...])
  **/
 	public Section(String n, String p, int c, int term, String time, LinkedList<SubSection> s){

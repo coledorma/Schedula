@@ -74,6 +74,11 @@ public class TimeSlot {
 		return s;
 	
 	}
+/**
+ * CONFLICTS FUNCTION
+ * Returns false if this timeslot is compatible with the given timeslot
+ * @params t (TimeSlotID)
+ **/
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
 		if (start.equals(t.start) || end.equals(t.end) || !term.equals(t.term)) return false;
