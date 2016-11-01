@@ -9,4 +9,4 @@
  - [ ] Start integrating UI with Algorithm for prototype
 
 ## Time Spent:
-* **30** _hours_ and **0** _minutes_
+* **0** _hours_ and **30** _minutes_
