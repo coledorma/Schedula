@@ -14,8 +14,39 @@ Expected output:
 $ java SchedulaAlgo/run
 Section: A
 Prof:John Smith
-Times:11:35 - 12:55
-Tutorial Sections: [A: Times:14:05 - 15:55]
+        TIMESLOT
+Term:           FALL2016
+Day:            TUE
+Start-Time:     11:35AM
+End-Time:       12:35PM
+        TIMESLOT
+Term:           FALL2016
+Day:            THU
+Start-Time:     11:35AM
+End-Time:       12:35PM
+
+Additional Sections:
+[
+Section:        A1
+Type:           TUT
+        TIMESLOT
+Term:           FALL2016
+Day:            WED
+Start-Time:     04:05AM
+End-Time:       15:50PM
+,
+Section:        A2
+Type:           TUT
+        TIMESLOT
+Term:           FALL2016
+Day:            WED
+Start-Time:     16:05PM
+End-Time:       17:25PM
+]
+false
+1
+Execution time: 23.395249ms
+
 $
 
 *PROPERTY OF ALACRITY DEVELOPMENT*

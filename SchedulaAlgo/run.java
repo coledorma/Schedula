@@ -21,7 +21,6 @@ public final class run{
 		System.out.println((t.get(0).getTimes()[0]).conflicts(t.get(1).getTimes()[0]));
 		System.out.println((t.get(0).getTimes()[0]).difference(t.get(1).getTimes()[0]));
 		
-		
 /**
  *	RESULTS
  **/
