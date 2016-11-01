@@ -18,9 +18,13 @@ public class Section {
 	private LinkedList<SubSection> subSec;
 	
 /**
- * Constructor for Section objects
- *	@params n (A,B,C,...etc.), p ("name"), c (123456,...etc.), st ("14:35"),
- *			et ("15:55"), t (Linked List = [TutorialA1,TutorialA2,...etc.])
+ * CONSTRUCTOR
+ *	@params n (A,B,C,...),
+ *			p ("name jonhson"),
+ *			c (123456,345675,...),
+ *			term (201710,201620,...),
+ *			time ("W 14:05-15:55","MW 14:05-15:55","MWF 14:05-15:55",...),
+ *			s (LinkedList = [SubSection1,SubSection2,...])
  **/
 	public Section(String n, String p, int c, int term, String time, LinkedList<SubSection> s){
 		int startHour, startMinute, endHour, endMinute;
