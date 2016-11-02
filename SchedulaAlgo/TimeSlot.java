@@ -112,17 +112,24 @@ public class TimeSlot {
  **/
 	public int difference(TimeSlot t) {
 		int difference = 0;
+		int startMinutes = 0;
+		int endMinutes = 0;
 		if (conflicts(t) == true) {
 			return difference;
 		} else {
 			if (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) {
 				if ((start.get(Calendar.HOUR_OF_DAY) >= t.end.get(Calendar.HOUR_OF_DAY)) && (start.get(Calendar.MINUTE) > t.end.get(Calendar.MINUTE))) {
-					difference += start.get(Calendar.HOUR_OF_DAY) - t.end.get(Calendar.HOUR_OF_DAY);
-					difference += (start.get(Calendar.MINUTE) - t.end.get(Calendar.MINUTE)) / 100;
+					startMinutes += start.get(Calendar.HOUR_OF_DAY) * 60;
+					startMinutes += start.get(Calendar.MINUTE);
+					endMinutes += t.end.get(Calendar.HOUR_OF_DAY) * 60;
+					endMinutes += t.end.get(Calendar.MINUTE);
 				} else {
-					difference += t.start.get(Calendar.HOUR_OF_DAY) - end.get(Calendar.HOUR_OF_DAY);
-					difference += (t.start.get(Calendar.MINUTE) - end.get(Calendar.MINUTE)) / 100;
+					startMinutes += t.start.get(Calendar.HOUR_OF_DAY) * 60;
+					startMinutes += t.start.get(Calendar.MINUTE);
+					endMinutes += end.get(Calendar.HOUR_OF_DAY) * 60;
+					endMinutes += end.get(Calendar.MINUTE);
 				}
+				difference = startMinutes - endMinutes;
 			} else {
 				return difference;
 			}
