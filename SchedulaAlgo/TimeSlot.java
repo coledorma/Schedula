@@ -118,7 +118,7 @@ public class TimeSlot {
 			return difference;
 		} else {
 			if (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) {
-				if ((start.get(Calendar.HOUR_OF_DAY) >= t.end.get(Calendar.HOUR_OF_DAY)) && (start.get(Calendar.MINUTE) > t.end.get(Calendar.MINUTE))) {
+				if (((start.get(Calendar.HOUR_OF_DAY)*60) + (start.get(Calendar.MINUTE))) >= ((t.end.get(Calendar.HOUR_OF_DAY)*60) + (t.end.get(Calendar.MINUTE)))) {
 					startMinutes += start.get(Calendar.HOUR_OF_DAY) * 60;
 					startMinutes += start.get(Calendar.MINUTE);
 					endMinutes += t.end.get(Calendar.HOUR_OF_DAY) * 60;
@@ -131,7 +131,7 @@ public class TimeSlot {
 				}
 				difference = startMinutes - endMinutes;
 			} else {
-				return difference;
+				return -1;
 			}
 		}
 		return difference;

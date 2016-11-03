@@ -14,14 +14,16 @@ import java.lang.*;
 public class Course {
 
 	protected String code;
+	protected String term;
 	protected ArrayList<Section> sections;
 	
 /**
  * Constructor for Sschedule objects
  *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
  **/
-	public Course(String c, ArrayList<Section> s){
+	public Course(String c, String t ArrayList<Section> s){
 		code = c;
+		term = t;
 	}
 
 /**
@@ -30,6 +32,6 @@ public class Course {
  *  @overwritable
  **/
 	public String toString(){ 
-		return "Course Code:" + code + "\n" + sections;
+		return "Course Code:" + code + "\n" "Term:" + term + "\n" + sections;
 	}
 }
