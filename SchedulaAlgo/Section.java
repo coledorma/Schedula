@@ -4,7 +4,7 @@
  **/
 package SchedulaAlgo;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.lang.String;
 
 public class Section {
@@ -81,5 +81,5 @@ public class Section {
 	public String getProf() { return prof;}
 	public int getCrn() { return crn;}
 	public TimeSlot[] getTimes() { return times;}
-	public ArrayList<SubSection> getSubSecs() { return subSec;}
+	private ArrayList<SubSection> getSubSecs() { return subSec;}
 }

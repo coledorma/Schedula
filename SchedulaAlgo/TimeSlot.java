@@ -70,7 +70,7 @@ public class TimeSlot {
 			em = end.get(Calendar.MINUTE);
 		s += "Start-Time:\t"+((sh/10==0)?"0"+sh:sh)+":"+((sm/10==0)?"0"+sm:sm)+((start.get(Calendar.AM_PM)==0)?"AM":"PM")+"\n";
 		s += "End-Time:\t"+((eh/10==0)?"0"+eh:eh)+":"+((em/10==0)?"0"+em:em)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
-		return s;
+		return s+="\n";
 	}
 /**
  * CONFLICTS FUNCTION
