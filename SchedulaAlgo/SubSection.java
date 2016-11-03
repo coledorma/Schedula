@@ -14,8 +14,8 @@ public final class SubSection extends Section{
  * Constructor for SubSection objects
  *	@params s (A,B,C,...etc.), c (123456,...etc.), st ("14:35"), et ("15:55")
  **/
-	public SubSection(String s, int c, int tr, String time){
-		super(s,"TUT",c,tr,time,null);
+	public SubSection(String s, String t, int c, int tr, String time){
+		super(s,t,c,tr,time,null);
 	}
 	
 /**

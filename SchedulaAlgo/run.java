@@ -7,14 +7,13 @@ public final class run{
 /**
  *	START TEST
  **/
-		LinkedList<SubSection> t = new LinkedList<SubSection>();
+		ArrayList<SubSection> t = new ArrayList<SubSection>();
 		ArrayList<Section> s = new ArrayList<Section>();
 		Schedule sched = new Schedule(s);
 
-		t.add(new SubSection("A1",223443,201630,"W 04:05-15:50"));	
-		t.add(new SubSection("A2",223444,201630,"W 16:05-17:25"));
+		t.add(new SubSection("A1","TUT",223443,201630,"W 04:05-15:50"));	
+		t.add(new SubSection("A2","TUT",223444,201630,"W 16:05-17:25"));
 		s.add(new Section("A", "John Smith", 231454,201630,"TR 11:35-12:35",t));
-
 
 		System.out.println(s.get(0));
 

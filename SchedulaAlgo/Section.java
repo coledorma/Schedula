@@ -13,7 +13,7 @@ public class Section {
 	protected String prof;
 	protected int crn;
 	protected TimeSlot[] times;
-	private LinkedList<SubSection> subSec;
+	private ArrayList<SubSection> subSec;
 	
 /**
  * CONSTRUCTOR
@@ -24,7 +24,7 @@ public class Section {
  *			time ("W 14:05-15:55","MW 14:05-15:55","MWF 14:05-15:55",...) [MAX 3] else null,
  *			s (LinkedList = [SubSection1,SubSection2,...])
  **/
-	public Section(String n, String p, int c, int term, String time, LinkedList<SubSection> s){
+	public Section(String n, String p, int c, int term, String time, ArrayList<SubSection> s){
 		int startHour, startMinute, endHour, endMinute;
 		int year = (int)(term/100);
 		int semester = term - year*100;
@@ -81,5 +81,5 @@ public class Section {
 	public String getProf() { return prof;}
 	public int getCrn() { return crn;}
 	public TimeSlot[] getTimes() { return times;}
-	public LinkedList<SubSection> getSubSecs() { return subSec;}
+	public ArrayList<SubSection> getSubSecs() { return subSec;}
 }
