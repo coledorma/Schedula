@@ -13,7 +13,7 @@ public class Section {
 	protected String prof;
 	protected int crn;
 	protected TimeSlot[] times;
-	private ArrayList<SubSection> subSec;
+	public ArrayList<SubSection> subSec;
 	
 /**
  * CONSTRUCTOR

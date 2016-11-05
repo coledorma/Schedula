@@ -13,17 +13,18 @@ import java.lang.*;
 
 public class Course {
 
-	protected String code;
-	protected String term;
-	protected ArrayList<Section> sections;
+	public String code;
+	public String term;
+	public ArrayList<Section> sections;
 	
 /**
- * Constructor for Sschedule objects
+ * Constructor for Schedule objects
  *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
  **/
-	public Course(String c, String t ArrayList<Section> s){
+	public Course(String c, String t, ArrayList<Section> s){
 		code = c;
 		term = t;
+		sections = s;
 	}
 
 /**
@@ -32,6 +33,8 @@ public class Course {
  *  @overwritable
  **/
 	public String toString(){ 
-		return "Course Code:" + code + "\n" "Term:" + term + "\n" + sections;
+		return "Course Code:" + code + "\n" + "Term:" + term + "\n" + sections;
 	}
+
+
 }
