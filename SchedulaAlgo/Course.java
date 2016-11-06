@@ -14,16 +14,14 @@ import java.lang.*;
 public class Course {
 
 	public String code;
-	public String term;
 	public ArrayList<Section> sections;
 	
 /**
  * Constructor for Schedule objects
  *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
  **/
-	public Course(String c, String t, ArrayList<Section> s){
+	public Course(String c, ArrayList<Section> s){
 		code = c;
-		term = t;
 		sections = s;
 	}
 
@@ -33,8 +31,13 @@ public class Course {
  *  @overwritable
  **/
 	public String toString(){ 
-		return "Course Code:" + code + "\n" + "Term:" + term + "\n" + sections;
+		return "Course Code:" + code + "\n" + "\n" + sections;
 	}
-
+	
+	@Override
+	public boolean equals(Course other){
+    		if (other == null) return false;
+		return this.code.equals(other.code);
+	}
 
 }
