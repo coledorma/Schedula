@@ -8,7 +8,19 @@ public class BinaryTree {
     public BinaryTree(Section data) {
         root = new Node(data);
     }
-
+	
+	public String toString(){
+		if (root == null) return "EMPTY";
+		Node n = root;
+		String s = "Root:\t" + n.toString();
+		while (n.getChildren().size() > 0){
+			for (Node m : n.getChildren()){
+				s += m.toString();
+				return s;
+			}
+		}
+		return s;
+	}
 
     public Node find(Section data, Node node) {
         if (node.getData()==data) {
@@ -24,5 +36,5 @@ public class BinaryTree {
         }
         return null;
     }
-
+	
 }

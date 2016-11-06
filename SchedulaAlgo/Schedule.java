@@ -35,6 +35,8 @@ public class Schedule {
 					}
 				}
 			}
+			System.out.println(b1.toString());
+			System.out.println(toString());
 		}
 	}
 
@@ -44,7 +46,7 @@ public class Schedule {
  *  @overwritable
  **/
 	public String toString(){ 
-		return "" + courses;
+		return "" + courses + "\n\nDIFFERENT OPTIONS:\n"+schedules;
 	}
 
 }

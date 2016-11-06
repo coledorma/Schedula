@@ -32,15 +32,9 @@ public class Node {
     public Section getData() {
         return data;
     }
-
-    public void print(int level) {
-        for (int i = 1; i < level; i++) {
-            System.out.print("\t");
-        }
-        System.out.println(data.getProf());
-        for (Node child : children) {
-            child.print(level + 1);
-        }
+	
+	public String toString() {
+		return data.toString() + " INCLUDES: " + children;
     }
 
 }
