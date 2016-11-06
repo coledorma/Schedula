@@ -9,4 +9,4 @@
 
  
 ## Time Spent: 
-  * 10 _hours_ and 30 _minutes_
+  * 14 _hours_ and 30 _minutes_
