@@ -13,31 +13,34 @@ import java.lang.*;
 
 public class Course {
 
-	public String code;
-	public ArrayList<Section> sections;
-	
-/**
- * Constructor for Schedule objects
- *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
- **/
-	public Course(String c, ArrayList<Section> s){
-		code = c;
-		sections = s;
-	}
+    public String code;
+    public ArrayList<Section> sections;
 
-/**
- * toString() function returns String formatted print of Section 
- *	@params n/a
- *  @overwritable
- **/
-	public String toString(){ 
-		return "Course Code:" + code + "\n" + "\n" + sections;
-	}
-	
-	@Override
-	public boolean equals(Course other){
-    		if (other == null) return false;
-		return this.code.equals(other.code);
-	}
+    /**
+     * Constructor for Schedule objects
+     *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
+     **/
+    public Course(String c, ArrayList<Section> s){
+        code = c;
+        sections = s;
+    }
+
+    /**
+     * toString() function returns String formatted print of Section
+     *	@params n/a
+     *  @overwritable
+     **/
+    public String toString(){
+        return "Course Code:" + code + "\n" + "\n" + sections;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Course))return false;
+        Course otherCourse = (Course) other;
+        return this.code.equals(otherCourse.code);
+    }
 
 }
