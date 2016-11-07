@@ -10,4 +10,4 @@
  - [X] Create and update weekly dev log
 
 ## Time Spent:
-* **1** _hours_ and **45** _minutes_
+* **8** _hours_ and **45** _minutes_
