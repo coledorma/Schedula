@@ -1,4 +1,4 @@
-package com.example.coop.schedula;
+package com.example.coop.schedulaui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import com.alamkanak.weekview.WeekViewEvent;
  * setMaxDate for mWeekView
  */
 
-public class CoursesFinal extends AppCompatActivity implements MonthLoader.MonthChangeListener, WeekView.ScrollListener, WeekView.EventClickListener {
+public class ActivityFinal extends AppCompatActivity implements MonthLoader.MonthChangeListener, WeekView.ScrollListener, WeekView.EventClickListener {
 
     private WeekView mWeekView;
     private Button selectButton;
@@ -220,7 +220,8 @@ public class CoursesFinal extends AppCompatActivity implements MonthLoader.Month
     }
 
     private boolean eventMatches(WeekViewEvent event, int year, int month) {
-        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1) || (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
+        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1) ||
+                (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
     }
 
     @Override
@@ -229,13 +230,16 @@ public class CoursesFinal extends AppCompatActivity implements MonthLoader.Month
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        ArrayList<ArrayList<ArrayList<Calendar>>> eventSets = (ArrayList<ArrayList<ArrayList<Calendar>>>) bundle.getSerializable(States.eventSets);
+        ArrayList<ArrayList<ArrayList<Object>>> eventSets = (ArrayList<ArrayList<ArrayList<Object>>>) bundle.getSerializable(States.eventSets);
 
-        for (ArrayList<ArrayList<Calendar>> eventSet : eventSets) {
+        for (ArrayList<ArrayList<Object>> eventSet : eventSets) {
             List<WeekViewEvent> events = new ArrayList<>();
 
-            for (ArrayList<Calendar> rawEvent : eventSet) {
-                WeekViewEvent event = new WeekViewEvent(1, generateCourseName("COMP\n0000A", rawEvent.get(0), rawEvent.get(1)), rawEvent.get(0), rawEvent.get(1));
+            for (ArrayList<Object> rawEvent : eventSet) {
+                Calendar startTime = (Calendar) rawEvent.get(0);
+                Calendar endTime = (Calendar) rawEvent.get(1);
+                String eventName = (String) rawEvent.get(2);
+                WeekViewEvent event = new WeekViewEvent(1, generateCourseName(eventName, startTime, endTime), startTime, endTime);
                 if (eventMatches(event, newYear, newMonth)) {
                     events.add(event);
                 }
