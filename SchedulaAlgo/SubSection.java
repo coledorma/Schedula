@@ -10,10 +10,14 @@ package SchedulaAlgo;
 
 public final class SubSection extends Section{
 
-/**
- * Constructor for SubSection objects
- *	@params s (A,B,C,...etc.), c (123456,...etc.), st ("14:35"), et ("15:55")
- **/
+    /**
+     * CONSTRUCTOR
+     *	@params s ("A","B1","C03",...),
+     *			t ("TUT","LAB",...),
+     *			c (123456,345675,...),
+     *			tr (201710,201620,...),
+     *			time ("W 1405-1555","MW 1405-1555","MWF 1405-1555",...) [MAX 3] else null
+     **/
 	public SubSection(String s, String t, int c, int tr, String time){
 		super(s,t,c,tr,time,null);
 	}

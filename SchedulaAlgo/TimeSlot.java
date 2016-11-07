@@ -79,7 +79,9 @@ public class TimeSlot {
  **/
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
-		if (start.equals(t.start) || end.equals(t.end) || !term.equals(t.term)) return false;
+		if (!term.equals(t.term)) return false;
+		if (start.compareTo(t.start) == 0) return true;
+		if (end.compareTo(t.end) == 0) return true;
 		return	(start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
 				((start.get(Calendar.HOUR_OF_DAY) <= t.start.get(Calendar.HOUR_OF_DAY) && 
 				t.start.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY)) ||

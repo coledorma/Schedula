@@ -4,24 +4,36 @@ import java.util.*;
 public class BinaryTree {
     
     public static Node root;
+	private int size;
 
     public BinaryTree(Section data) {
         root = new Node(data);
+		size = 1;
     }
 	
-	public String toString(){
-		if (root == null) return "EMPTY";
+	public BinaryTree(Node n) {
+        root = n;
+		int i = 0;
+		if(n == null){ size = i; return; }else i+=1;
+		if(n.getChildren() != null || !n.getChildren().isEmpty())
+			for(Node m : n.getChildren())
+				if (m != null) i += (new BinaryTree(m)).size();
+		size = i;
+    }
+	
+	public int size(){ 
 		Node n = root;
-		String s = "Root:\t" + n.toString();
-		while (n.getChildren().size() > 0){
-			for (Node m : n.getChildren()){
-				s += m.toString();
-				return s;
+		int i = 0;
+		if(n == null){ return i; } else i+=1;
+		if(n.getChildren() != null || !n.getChildren().isEmpty()){
+			for(Node m : n.getChildren()){
+				i += (new BinaryTree(m)).size();
+				i += n.getChildren().size();
 			}
 		}
-		return s;
+		return i;
 	}
-
+	
     public Node find(Section data, Node node) {
         if (node.getData()==data) {
             return node;

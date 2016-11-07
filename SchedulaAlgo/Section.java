@@ -70,9 +70,31 @@ public class Section {
     public String toString(){
         String s = "Section: "+ID+"\nProf:"+prof+"\n";
         for(TimeSlot t : times) if (t != null) s += t+"\n";
-        s += "\nAdditional Sections: \n"+subSec;
+        s += "\nAdditional Requirements: \n"+subSec;
         return s;
     }
+	
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Section))return false;
+        Section otherSec = (Section) other;
+        return this.crn == otherSec.crn;
+    }
+	
+	public boolean conflicts(Section s) {
+		boolean b = false;
+		if (this == null || s == null) return b;
+		for(TimeSlot t1 : times){
+			if (t1 == null) continue;
+			for (TimeSlot t2 : s.times){
+				if (t2 == null) continue;
+				if (t1.conflicts(t2) || t2.conflicts(t1)) b = true;
+			}
+		}
+		return b;
+	}
     /**
      * GETTERS
      * @params n/a
@@ -81,7 +103,7 @@ public class Section {
     public String getProf() { return prof;}
     public int getCrn() { return crn;}
     public TimeSlot[] getTimes() { return times;}
-    private ArrayList<SubSection> getSubSecs() { return subSec;}
+    public ArrayList<SubSection> getSubSecs() { return subSec;}
     
     public void addSubSection(SubSection subSection) {
         subSec.add(subSection);

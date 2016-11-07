@@ -21,7 +21,7 @@ public class Commitment {
  * Constructor for Commitment objects
  *	@params ty ("Work","Sports",etc...)
  *			te (201610,201720,etc...)
- *			ti (("W 14:05-15:55","MW 14:05-15:55","MWF 14:05-15:55",...) [MAX 3] else null
+ *			ti (("W 1405-1555","MW 1405-1555","MWF 1405-1555",...) [MAX 3] else null
  **/
 	public Commitment(String ty, int te, String ti){
 		type = ty;

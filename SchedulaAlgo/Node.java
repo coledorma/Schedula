@@ -9,6 +9,7 @@ public class Node {
 
     public Node(Section d) {
         data = d;
+		parent = null;
     }
 
     public Node(Section d, Node p) {
@@ -19,7 +20,7 @@ public class Node {
     public List<Node> getChildren() {
         return children;
     }
-
+	
     public void addChild(Section data) {
         Node child = new Node(data);
         children.add(child);
@@ -33,8 +34,18 @@ public class Node {
         return data;
     }
 	
-	public String toString() {
-		return data.toString() + " INCLUDES: " + children;
+	public Section getParent() {
+		return (parent != null) ? parent.getData() : null;
+	}
+	
+    public void print(int level) {
+        for (int i = 1; i < level; i++) {
+            System.out.print("\t");
+        }
+        System.out.println(data.getProf());
+        for (Node child : children) {
+            child.print(level + 1);
+        }
     }
 
 }

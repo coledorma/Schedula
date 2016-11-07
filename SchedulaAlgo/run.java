@@ -19,28 +19,32 @@ public final class run{
 		ArrayList<Section> sections2 = new ArrayList<Section>();
 		ArrayList<Section> sections3 = new ArrayList<Section>();
 		
-		commitments.add(new Commitment("LAX",201630,"TR 11:35-12:35"));
-		subsections1.add(new SubSection("A1","TUT",223443,201630,"W 0405-1550"));
-		subsections1.add(new SubSection("A2","TUT",223444,201630,"W 1605-1725"));
-		subsections2.add(new SubSection("B1","TUT",223443,201630,"W 0405-1550"));
-		subsections2.add(new SubSection("B2","TUT",223444,201630,"W 1605-1725"));
-		sections1.add(new Section("A", "Bobby", 231454,201630,"TR 1135-1235",subsections1));
-		sections1.add(new Section("B", "Timmy", 231454,201630,"TR 1135-1235",subsections2));
+		commitments.add(new Commitment("LAX",201630,"TR 1135-1235"));
+		
+		subsections1.add(new SubSection("A1","TUT",111111,201630,"M 1405-1555"));
+		subsections1.add(new SubSection("A2","TUT",111112,201630,"W 1605-1755"));
+		subsections2.add(new SubSection("B1","TUT",111113,201630,"R 1405-1555"));
+		subsections2.add(new SubSection("B2","TUT",111114,201630,"W 1605-1755"));
+		subsections3.add(new SubSection("A1","TUT",222221,201630,"R 1305-1455"));
+		subsections3.add(new SubSection("A2","TUT",222222,201630,"M 1605-1755"));
+		subsections4.add(new SubSection("A1","TUT",333331,201630,"F 1405-1555"));
+		subsections4.add(new SubSection("A2","TUT",333332,201630,"W 1605-1755"));
+		subsections5.add(new SubSection("B1","TUT",333333,201630,"F 1405-1555"));
+		subsections5.add(new SubSection("B2","TUT",333334,201630,"W 1605-1755"));
+		
+		sections1.add(new Section("A", "Bobby", 111110,201630,"TR 1135-1255",subsections1));
+		sections1.add(new Section("B", "Timmy", 111100,201630,"TR 1135-1255",subsections2));
+		sections2.add(new Section("A", "John", 222220,201630,"W 1135-1255",subsections3));
+		sections3.add(new Section("A", "Hannah", 333330,201630,"TR 1135-1255",subsections4));
+		sections3.add(new Section("B", "Samuel", 333300,201630,"TR 1135-1255",subsections5));
+		
 		courses.add(new Course("COMP300", sections1));
-
-		subsections3.add(new SubSection("A1","TUT",223443,201630,"W 0405-1550"));
-		subsections3.add(new SubSection("A2","TUT",223444,201630,"W 1605-1725"));
-		sections2.add(new Section("A", "John", 231454,201630,"TR 11:35-12:35",subsections3));
 		courses.add(new Course("COMP100", sections2));
-
-		subsections4.add(new SubSection("A1","TUT",223443,201630,"W 0405-1550"));
-		subsections4.add(new SubSection("A2","TUT",223444,201630,"W 1605-1725"));
-		subsections5.add(new SubSection("B1","TUT",223443,201630,"W 0405-1550"));
-		subsections5.add(new SubSection("B2","TUT",223444,201630,"W 1605-1725"));
-		sections3.add(new Section("A", "Hannah", 231454,201630,"TR 1135-1235",subsections4));
-		sections3.add(new Section("B", "Samuel", 231454,201630,"TR 1135-1235",subsections5));
-		courses.add(new Course("COMP500", sections1));
-
+		courses.add(new Course("COMP500", sections3));
+		
+		sections1.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections1));
+		courses.add(new Course("COMP666", sections1));
+		
 		Schedule sched = new Schedule(commitments, courses);
 
 
