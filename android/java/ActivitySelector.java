@@ -1,11 +1,10 @@
-package com.example.coop.schedula;
+package com.example.coop.schedulaui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.alamkanak.weekview.WeekViewEvent;
+import SchedulaAlgo.Course;
 
 /**
  * Created by coop on 2016-10-11.
  */
 
-public class CourseSelector extends AppCompatActivity {
+public class ActivitySelector extends AppCompatActivity {
 
     private  final String TAG = this.getClass().getSimpleName() + " @" + System.identityHashCode(this);
 
@@ -27,14 +26,15 @@ public class CourseSelector extends AppCompatActivity {
      * UI elements
      */
     private ClearableAutoCompleteTextView course_selector;
+    private ListView courseList;
 
     /*
      * Data elements
      */
-    private ArrayList<String> selectedCourses;
-    private ArrayList<String> availableCourses;
-    private ArrayAdapter<String> selectorAdapter;
-    private ArrayAdapter<String> listAdapter;
+    private ArrayList<Course> selectedCourses;
+    private ArrayList<Course> availableCourses;
+    private ArrayAdapter<Course> selectorAdapter;
+    private ArrayAdapter<Course> listAdapter;
 
     /*
      * Unable to re-initialize the ArrayAdapter of an object within it's own OnItemClickListener
@@ -62,21 +62,27 @@ public class CourseSelector extends AppCompatActivity {
         return courseName;
     }
 
+    /*
+     * Called before onCreate of the new Configuration.
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        States.AVAILABLE_COURSES = availableCourses;
+        States.SELECTED_COURSES = selectedCourses;
+        States.IS_SET = true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selector);
 
         /*
-         * Load resources required
-         */
-        Resources res = getResources();
-        final String[] raw_courses = res.getStringArray(R.array.courses_array);
-
-        /*
          * Setup additional resources needed
          */
-        availableCourses = new ArrayList<>(Arrays.asList(raw_courses));
+        availableCourses = States.courses;
         selectedCourses = new ArrayList<>();
 
         /*
@@ -103,7 +109,7 @@ public class CourseSelector extends AppCompatActivity {
         course_selector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
-                String selection = course_selector.getText().toString();
+                Course selection = (Course) parent.getItemAtPosition(pos);
 
                 if (selectedCourses.contains(selection)) {
                     selectedCourses.remove(selection);
@@ -122,7 +128,7 @@ public class CourseSelector extends AppCompatActivity {
         /*
          * Init the chosen courses object
          */
-        ListView courseList = (ListView) findViewById(R.id.course_list);
+        courseList = (ListView) findViewById(R.id.course_list);
         courseList.setAdapter(listAdapter);
         courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -148,7 +154,7 @@ public class CourseSelector extends AppCompatActivity {
                 States.SELECTED_COURSES = selectedCourses;
                 States.IS_SET = true;
 
-                Intent intent = new Intent(CourseSelector.this, Preferences.class);
+                Intent intent = new Intent(ActivitySelector.this, ActivityPreferences.class);
 
                 startActivity(intent);
             }
