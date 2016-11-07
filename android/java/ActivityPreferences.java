@@ -1,4 +1,4 @@
-package com.example.coop.schedula;
+package com.example.coop.schedulaui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +11,22 @@ import android.widget.ExpandableListView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import SchedulaAlgo.Commitment;
+import SchedulaAlgo.Schedule;
+
 
 /**
  * Created by ColeDorma on 2016-10-20.
  */
 
-public class Preferences extends AppCompatActivity{
+public class ActivityPreferences extends AppCompatActivity{
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
@@ -33,7 +37,7 @@ public class Preferences extends AppCompatActivity{
     EditText preferredTime;
     Button addTime;
     List<String> specificTimes = new ArrayList<String>();
-    List<String> specificDays = new ArrayList<String>();
+    List<Character> specificDays = new ArrayList<Character>();
     TextView specificTimesList;
 
     @Override
@@ -56,8 +60,11 @@ public class Preferences extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 specificTimes.add(preferredTime.getText().toString());
+
                 Log.d("myTag", "This is in preferredDay: " + specificTimes);
+
                 specificTimesList.setText("Specific Time(s) Listed: " + specificTimes.toString());
+
                 preferredTime.setText("");
             }
         });
@@ -68,10 +75,10 @@ public class Preferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkMon.isChecked()) {
                     checkMon.setChecked(false);
-                    specificDays.remove("Monday");
+                    specificDays.remove('M');
                 }else {
                     checkMon.setChecked(true);
-                    specificDays.add("Monday");
+                    specificDays.add('M');
                 }
 
             }
@@ -83,10 +90,10 @@ public class Preferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkTue.isChecked()) {
                     checkTue.setChecked(false);
-                    specificDays.remove("Tuesday");
+                    specificDays.remove('T');
                 }else {
                     checkTue.setChecked(true);
-                    specificDays.add("Tuesday");
+                    specificDays.add('T');
                 }
 
             }
@@ -98,10 +105,10 @@ public class Preferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkWed.isChecked()) {
                     checkWed.setChecked(false);
-                    specificDays.remove("Wednesday");
+                    specificDays.remove('W');
                 }else {
                     checkWed.setChecked(true);
-                    specificDays.add("Wednesday");
+                    specificDays.add('W');
                 }
 
             }
@@ -113,10 +120,10 @@ public class Preferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkThu.isChecked()) {
                     checkThu.setChecked(false);
-                    specificDays.remove("Thursday");
+                    specificDays.remove('R');
                 }else {
                     checkThu.setChecked(true);
-                    specificDays.add("Thursday");
+                    specificDays.add('R');
                 }
 
             }
@@ -128,10 +135,10 @@ public class Preferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkFri.isChecked()) {
                     checkFri.setChecked(false);
-                    specificDays.remove("Friday");
+                    specificDays.remove('F');
                 }else {
                     checkFri.setChecked(true);
-                    specificDays.add("Friday");
+                    specificDays.add('F');
                 }
 
             }
@@ -141,15 +148,21 @@ public class Preferences extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Preferences.this, CoursesFinal.class);
+                long start = System.nanoTime();
+                System.out.println(States.SELECTED_COURSES);
+                States.SCHEDULE = new Schedule(new ArrayList<Commitment>(), States.SELECTED_COURSES);
+                long stop = System.nanoTime();
+                System.out.println("Finished generating: " + (start - stop) / 1000000000.0 + "s");
+
+                Intent intent = new Intent(ActivityPreferences.this, ActivityFinal.class);
                 Bundle bundle = new Bundle();
 
-                ArrayList<ArrayList<Calendar>> eventSetA = new ArrayList<>();
-                ArrayList<ArrayList<Calendar>> eventSetB = new ArrayList<>();
-                ArrayList<ArrayList<Calendar>> eventSetC = new ArrayList<>();
+                ArrayList<ArrayList<Object>> eventSetA = new ArrayList<>();
+                ArrayList<ArrayList<Object>> eventSetB = new ArrayList<>();
+                ArrayList<ArrayList<Object>> eventSetC = new ArrayList<>();
 
-                ArrayList<Calendar> startEndPairA = new ArrayList<>();
-                ArrayList<Calendar> startEndPairB = new ArrayList<>();
+                ArrayList<Object> startEndPairA = new ArrayList<>();
+                ArrayList<Object> startEndPairB = new ArrayList<>();
 
                 // Populate the week view with some events.
                 Calendar startTime;
@@ -172,6 +185,7 @@ public class Preferences extends AppCompatActivity{
                 endTime.set(Calendar.DAY_OF_MONTH, 1);
                 endTime.set(Calendar.YEAR, 2016);
                 startEndPairA.add(endTime);
+                startEndPairA.add("COMP\n3004");
 
                 startTime = Calendar.getInstance();
                 startTime.set(Calendar.HOUR, 10);
@@ -190,6 +204,7 @@ public class Preferences extends AppCompatActivity{
                 endTime.set(Calendar.DAY_OF_MONTH, 3);
                 endTime.set(Calendar.YEAR, 2016);
                 startEndPairB.add(endTime);
+                startEndPairB.add("COMP\n3000");
 
                 eventSetA.add(startEndPairA);
 
@@ -198,7 +213,7 @@ public class Preferences extends AppCompatActivity{
                 eventSetC.add(startEndPairA);
                 eventSetC.add(startEndPairB);
 
-                ArrayList<ArrayList<ArrayList<Calendar>>> eventSets = new ArrayList<>();
+                ArrayList<ArrayList<ArrayList<Object>>> eventSets = new ArrayList<>();
                 eventSets.add(eventSetA);
                 eventSets.add(eventSetB);
                 eventSets.add(eventSetC);
@@ -206,54 +221,24 @@ public class Preferences extends AppCompatActivity{
                 bundle.putSerializable(States.eventSets, eventSets);
                 intent.putExtras(bundle);
 
-                /*
-                When data needs to be passed...
-
-                Bundle bundle = new Bundle();
-                intent.putExtra(States.STATE_BUNDLE, bundle);
-                */
                 Log.d("myTag", "This is in specificDay: " + specificDays);
 
                 startActivity(intent);
             }
         });
 
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                /*Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();*/
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                /*Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();*/
-
-            }
-        });
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                /*Toast.makeText(
-                        getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();*/
-
                 preferredTOD = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
+
                 Log.d("myTag", "This is in preferredDay: " + preferredTOD);
+
+                Toast.makeText(getApplicationContext(),
+                        expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) + " chosen.",
+                        Toast.LENGTH_SHORT).show();
 
                 expandableListView.collapseGroup(0);
 
@@ -261,7 +246,4 @@ public class Preferences extends AppCompatActivity{
             }
         });
     }
-
-
 }
-
