@@ -22,11 +22,12 @@ public class Node {
     }
 	
     public void addChild(Section data) {
-        Node child = new Node(data);
+        Node child = new Node(data,this);
         children.add(child);
     }
 
     public void addChild(Node child) {
+		child.parent = this;
         children.add(child);
     }
 
@@ -34,16 +35,28 @@ public class Node {
         return data;
     }
 	
-	public Section getParent() {
-		return (parent != null) ? parent.getData() : null;
+	public Node getParent() {
+		return parent;
 	}
 	
 	public void traverse(Node n){
-		System.out.println(n.data.getCrn());
+		System.out.println(n.data);
 		for(Node each : n.getChildren()){
 			traverse(each);
 		}
 	}
+	
+	public Set<Node> getAllLeafNodes() {
+    Set<Node> leafNodes = new HashSet<Node>();
+    if (this.children.isEmpty()) {
+        leafNodes.add(this);
+    } else {
+        for (Node child : this.children) {
+            leafNodes.addAll(child.getAllLeafNodes());
+        }
+    }
+    return leafNodes;
+}
 	
     public void print(int level) {
         for (int i = 1; i < level; i++) {
