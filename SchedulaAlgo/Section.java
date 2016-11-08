@@ -12,7 +12,7 @@ public class Section {
     protected String ID;
     protected String prof;
     protected int crn;
-    protected TimeSlot[] times;
+    public TimeSlot[] times;
     public ArrayList<SubSection> subSec;
 
     /**
@@ -68,10 +68,11 @@ public class Section {
      *  @overwritable
      **/
     public String toString(){
-        String s = "Section: "+ID+"\nProf:"+prof+"\n";
+    /*	String s = "Section: "+ID+"\nProf:"+prof+"\n";
         for(TimeSlot t : times) if (t != null) s += t+"\n";
         s += "\nAdditional Requirements: \n"+subSec;
         return s;
+	*/	return prof+crn;
     }
 	
     @Override
@@ -90,7 +91,7 @@ public class Section {
 			if (t1 == null) continue;
 			for (TimeSlot t2 : s.times){
 				if (t2 == null) continue;
-				if (t1.conflicts(t2) || t2.conflicts(t1)) b = true;
+				b = (t1.conflicts(t2) || t2.conflicts(t1));
 			}
 		}
 		return b;
@@ -102,6 +103,7 @@ public class Section {
     public String getID() { return ID;}
     public String getProf() { return prof;}
     public int getCrn() { return crn;}
+	public int numDays() { int count = 0; for(TimeSlot t : times) count += (t!=null) ? 1:0; return count; }
     public TimeSlot[] getTimes() { return times;}
     public ArrayList<SubSection> getSubSecs() { return subSec;}
     

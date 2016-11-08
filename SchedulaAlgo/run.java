@@ -15,9 +15,11 @@ public final class run{
 		ArrayList<SubSection> subsections3 = new ArrayList<SubSection>();
 		ArrayList<SubSection> subsections4 = new ArrayList<SubSection>();
 		ArrayList<SubSection> subsections5 = new ArrayList<SubSection>();
+	//	ArrayList<SubSection> subsections6 = new ArrayList<SubSection>();
 		ArrayList<Section> sections1 = new ArrayList<Section>();
 		ArrayList<Section> sections2 = new ArrayList<Section>();
 		ArrayList<Section> sections3 = new ArrayList<Section>();
+	//	ArrayList<Section> sections4 = new ArrayList<Section>();
 		
 		commitments.add(new Commitment("LAX",201630,"TR 1135-1235"));
 		
@@ -31,7 +33,9 @@ public final class run{
 		subsections4.add(new SubSection("A2","TUT",333332,201630,"W 1605-1755"));
 		subsections5.add(new SubSection("B1","TUT",333333,201630,"F 1405-1555"));
 		subsections5.add(new SubSection("B2","TUT",333334,201630,"W 1605-1755"));
-		
+	/*	subsections6.add(new SubSection("A1","TUT",100001,201630,"F 1405-1555"));
+		subsections6.add(new SubSection("A2","TUT",100002,201630,"W 1605-1755"));
+	*/	
 		sections1.add(new Section("A", "Bobby", 111110,201630,"TR 1135-1255",subsections1));
 		sections1.add(new Section("B", "Timmy", 111100,201630,"TR 1135-1255",subsections2));
 		sections2.add(new Section("A", "John", 222220,201630,"W 1135-1255",subsections3));
@@ -42,9 +46,9 @@ public final class run{
 		courses.add(new Course("COMP100", sections2));
 		courses.add(new Course("COMP500", sections3));
 		
-		sections1.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections1));
-		courses.add(new Course("COMP666", sections1));
-		
+	/*	sections4.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections6));
+		courses.add(new Course("COMP666", sections4));
+	*/	
 		Schedule sched = new Schedule(commitments, courses);
 
 

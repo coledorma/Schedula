@@ -14,7 +14,7 @@ import java.lang.*;
 
 public class Schedule {
 	
-	protected ArrayList<ArrayList<Integer>> schedules;
+	protected HashMap<Integer,HashMap<Section,SubSection>> schedules;
 	protected ArrayList<Course> courses;
 	protected ArrayList<Commitment> commits;
 	
@@ -26,59 +26,63 @@ public class Schedule {
 		courses = co;
 		commits = com;
 		Collections.sort(courses, new CustomComparator());
+		// IF THERE IS A COURSE WITH 1 SECTION
 		if (courses.get(0).sections.size() == 1) {
-			BinaryTree b1 = new BinaryTree(courses.get(0).sections.get(0));
-			Node x;
-			for (int i = 0; i < courses.size()-1; i++) {
-				for (int k = 0; k < courses.get(i).sections.size(); k++) {
-					for (int j = 0; j < courses.get(i+1).sections.size(); j++) {
-						x = b1.find(courses.get(i).sections.get(k), b1.root);
-						x.addChild(courses.get(i+1).sections.get(j));
-					}
-				}
+			// USED FOR STORING CLASSES IN TREE-LIKE FASION (FAST + SIMPLE)
+			HashMap<Course, HashMap<Section, TimeSlot[]>> courseMap = new HashMap<Course, HashMap<Section, TimeSlot[]>>();
+			// POPULATING courseMap WITH COURSES FROM courses
+			for(Course c : courses){
+				HashMap<Section, TimeSlot[]> cMap = new HashMap<Section, TimeSlot[]>();
+				for(Section s : c.sections) cMap.put(s, s.getTimes());
+				courseMap.put(c, cMap);
 			}
-			b1.root.print(1);
-			System.out.println("SIZE OF BINARY TREE:\t"+ b1.size());
-			schedules = new ArrayList<ArrayList<Integer>>();
-			generate(b1.root);
-			System.out.println(toString());
+			System.out.println("SIZE OF MAP:\t"+ numberOfTimeSlots(courseMap)+"\n");
+			generate(courseMap);
 		}
 	}
-	
-	private void generate(Node n){
-		for (Course cc : courses){
-		for (Course c : courses){
-			if (c.equals(cc)) continue;
-			for (Section s : c.sections){
-			for (Section s1 : cc.sections){
-				System.out.println(s.equals(s1));
-				System.out.println(s.conflicts(s1));
-				System.out.println(s.getCrn());
-				System.out.println(s1.getCrn()+"\n___________________________________");
-				if (s.equals(s1) || s.conflicts(s1)) continue;
-				ArrayList<Integer> temp = new ArrayList<Integer>();
-				System.out.println(s.getCrn());
-				for (TimeSlot t : s.getTimes()) System.out.println(((t==null)? "":t));
-				System.out.println(s1.getCrn());
-				for (TimeSlot t1 : s1.getTimes())System.out.println(((t1==null)? "":t1));
-				temp.add(s.getCrn());
-				temp.add(s1.getCrn());
-				if (schedules.isEmpty()) schedules.add(temp);
-				else {
-					boolean unique = false;
-					for (ArrayList<Integer> ai : schedules){
-						if (ai.contains(temp.get(0)) || ai.contains(temp.get(1))) {
-							unique = false;
-							break;
-						} else 	unique = true;
-					}
-					if (unique) schedules.add(temp);
-					else continue;
+
+/**
+ * 	numberOfTimeSlots(HashMap<Course, HashMap<Section, TimeSlot[]>>) helper function   
+ *	@params map (HashMap<Course, HashMap<Section, TimeSlot[]>>)
+ *  @return number of time slots in courses
+ **/
+	private int numberOfTimeSlots(HashMap<Course, HashMap<Section, TimeSlot[]>> map){
+		int i = 0;
+		for(HashMap<Section, TimeSlot[]> secs : map.values()){
+			for(TimeSlot[] tArray : secs.values()){
+				for (TimeSlot t : tArray) i += (t != null) ? 1:0;
+			}
+			for(Section s : secs.keySet()){
+				for (SubSection ss : s.getSubSecs()){
+					for (TimeSlot t : ss.getTimes()) i += (t != null) ? 1:0;
 				}
 			}
+		}
+		return i;
+	}
+	
+	private void generate(HashMap<Course, HashMap<Section, TimeSlot[]>> map){
+		schedules = new HashMap<Integer, HashMap<Section,SubSection>>();
+		int schedCount = 0;
+		HashMap<Section,SubSection> posSchedg = new HashMap<Section,SubSection>();
+		for(int i = 0; i < numberOfTimeSlots(map); i++){
+			for(HashMap<Section, TimeSlot[]> secs : map.values()){
+				Section prevSec = null;
+				for(Section s : secs.keySet()){
+					for (SubSection ss : s.getSubSecs()){
+						if (prevSec == null) prevSec = s;
+						else if (ss.conflicts(prevSec)) continue;
+						if (!s.conflicts(ss)) posSchedg.put(s,ss);
+					}
+				}
+			}
+			if(!schedules.containsValue(posSchedg)){
+				schedules.put(schedCount, posSchedg);
+				schedCount += 1;
+				posSchedg = new HashMap<Section,SubSection>();
 			}
 		}
-		}
+		System.out.println(toString());
 	}
 
 /**
@@ -99,7 +103,16 @@ public class Schedule {
 				}
 			}
 		}
-		return "INPUT COURSES:\n" + crns + "\nINPUT COMMITMENTs:"+ commits +"\nDIFFERENT OPTIONS:\n"+schedules;
+		return "INPUT COURSES:\n" + crns + "\nINPUT COMMITMENTs:"+ commits +"\nDIFFERENT OPTIONS:\n"+mapToString(schedules);
 	}
-
+	public static String mapToString(Map mp) {
+		String s = "\n";
+		Iterator it = mp.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry)it.next();
+			s += pair.getKey() + " = " + pair.getValue() + "\n";
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+		return s;
+	}
 }

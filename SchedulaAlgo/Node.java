@@ -38,6 +38,13 @@ public class Node {
 		return (parent != null) ? parent.getData() : null;
 	}
 	
+	public void traverse(Node n){
+		System.out.println(n.data.getCrn());
+		for(Node each : n.getChildren()){
+			traverse(each);
+		}
+	}
+	
     public void print(int level) {
         for (int i = 1; i < level; i++) {
             System.out.print("\t");
