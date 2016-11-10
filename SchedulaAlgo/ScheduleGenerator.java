@@ -46,7 +46,6 @@ public class ScheduleGenerator {
 		while (j < 100){
 			j++;
 			if (i ==10) { break;}
-			System.out.println(j);
 			long seed = System.nanoTime();
 			Collections.shuffle(courses, new Random(seed));
 			Schedule posSchedg = new Schedule();
