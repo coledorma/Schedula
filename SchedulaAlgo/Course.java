@@ -1,40 +1,44 @@
 /**
- * By Jacob Perks
+ * By Daniel Fitzhenry and Jacob Perks
  *
- *	Course CLASS
+ *  Course CLASS
  *
  */
+
 package SchedulaAlgo;
 
 import java.util.ArrayList;
 import java.lang.*;
-
-//TODO: Figure out other useful functions/parameters
 
 public class Course {
 
     public String code;
     public ArrayList<Section> sections;
 
-    /**
-     * Constructor for Schedule objects
-     *	@params  s (ArrayList = [SectionA,SectionB,...etc.])
-     **/
+    /*
+    Ctor
+    Params:
+    c = course code
+    s = array list of sections of particular course
+    */
     public Course(String c, ArrayList<Section> s){
         code = c;
         sections = s;
     }
 
-    /**
-     * toString() function returns String formatted print of Section
-     *	@params n/a
-     *  @overwritable
-     **/
+    /*
+    Function: returns formatted string
+    */
     public String toString(){
         return "Course Code:" + code + "\n" + sections;
     }
 
     @Override
+    /*
+    Function: compares two courses to see if they are the same object
+    Params:
+    other = Object to be comapred with this
+    */
     public boolean equals(Object other){
         if (other == null) return false;
         if (other == this) return true;

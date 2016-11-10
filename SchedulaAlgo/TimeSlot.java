@@ -1,8 +1,10 @@
 /**
- *	TimeSlot Class
- *	Made to  calculate optimal time al
- *	By Daniel Fitzhenry (14-10-2016)
+ * By Daniel Fitzhenry and Jacob Perks
+ *
+ *  TimeSlot CLASS
+ *
  */
+
 package SchedulaAlgo;
 
 import java.util.Calendar;
@@ -15,15 +17,17 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
-/**
- *	CONSTRUCTOR
- *	@params	dayOfWeek(M,T,W,R,F)~{WEEK\WEEKEND},
- *			startHour/endHour(0-23)~{MOD 24},
- *			startMinute/endMinute(0-59)~{MOD 60},
- *			termMonth(10,20,30)~{WNTR(Jan-May),SUMR(Jun-Aug),FALL(Sep-Dec)},
- *			termYear(0-9999)~{MOD 10000}
- *	@xmpl	new TimeSlot('M',11,35,12,55,10,2016)
- **/
+	/*
+	Ctor: creates Gregorian Calendar
+	Params:
+	dayOfWeek = day of the week of the timeslot
+	startHour = start hour of the timeslot
+	startMinute = start minute of the timeslot
+	endHour = end hour of the timeslot
+	endMinute = end minute of the timeslot
+	termMonth = indicates the semester of the timeslot
+	termYear = year timeslot is in
+	*/
     public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
 		int tm,dw,sd; tm=dw=sd=0;
 		switch(dayOfWeek){
@@ -36,9 +40,9 @@ public class TimeSlot {
 		}
 		switch(termMonth){
 			default: break;
-			case 10: tm=Calendar.JANUARY;	sd=9;	term="WINTER";	break; //<<<<<< sd: Will need to be updated in future!
-			case 20: tm=Calendar.MAY;		sd=1;	term="SUMMER";	break; //<<<<<< sd: Will need to be updated in future! (START DATE)
-			case 30: tm=Calendar.SEPTEMBER;	sd=12;	term="FALL";	break; //<<<<<< sd: Will need to be updated in future!
+			case 10: tm=Calendar.JANUARY;	sd=9;	term="WINTER";	break;
+			case 20: tm=Calendar.MAY;		sd=1;	term="SUMMER";	break; 
+			case 30: tm=Calendar.SEPTEMBER;	sd=12;	term="FALL";	break; 
 		}
 		// Instantiate start time
 		start = new GregorianCalendar(termYear, tm, sd+(dw-2), startHour,startMinute);
@@ -49,11 +53,9 @@ public class TimeSlot {
 		end.add(Calendar.DAY_OF_MONTH, -1);
 		end.set(Calendar.DAY_OF_WEEK, dw);
     }
-/**
- * toString() function returns String formatted print of TimeSlot
- *	@params n/a
- *  @overwritable
- **/	
+    /*
+    Function: returns formatted string of TimeSlot info
+    */
 	public String toString(){
 		String s = "\tTIMESLOT\nTerm:\t\t"+term+start.get(Calendar.YEAR)+"\nDay:\t\t";
 		switch(start.get(Calendar.DAY_OF_WEEK)){
@@ -72,11 +74,12 @@ public class TimeSlot {
 		s += "End-Time:\t"+((eh/10==0)?"0"+eh:eh)+":"+((em/10==0)?"0"+em:em)+((end.get(Calendar.AM_PM)==0)?"AM":"PM");
 		return s+="\n";
 	}
-/**
- * CONFLICTS FUNCTION
- * Returns false if this timeslot is compatible with the given timeslot
- * @params t (TimeSlotID)
- **/
+
+    /*
+    Function: compares two TimeSlots to see if they conflict
+    Params:
+    t = TimeSlot that will be comapared with this
+    */
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
 		if (!term.equals(t.term)) return false;
@@ -93,11 +96,9 @@ public class TimeSlot {
 				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
-/**
- * PERIOD FUNCTION
- * Function that returns a string to determine whether it is a morning, afternoon, or evening class
- * @params n/a
- **/
+    /*
+    Function: returns string indicating period of the day, used for time of day preferences
+    */
 	public String period() {
 		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
 			return "Morning";
@@ -106,12 +107,11 @@ public class TimeSlot {
 		} else return "Evening";
 	}
 
-/**
- * DIFFERENCE FUNCTION
- * Function that returns an integer (3.45 == 3 hours and 45 minutes) corresponding to the difference in end and start time between two timeslots, 
- * This will allow us to determine whether a timeslot is "better" (or closer to another timeslot),
- * or "worse" (or further away from another timeslot)
- **/
+    /*
+    Function: compares two TimeSlots and returns the difference between end and start time in minutes
+    Params:
+    t = TimeSlot that will be compared with this
+    */
 	public int difference(TimeSlot t) {
 		int difference = 0;
 		int startMinutes = 0;

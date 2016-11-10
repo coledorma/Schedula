@@ -1,7 +1,10 @@
 /**
- *	SECTION CLASS
- *	By Daniel Fitzhenry + Jacob Perks (2016-10-27)
- **/
+ * By Daniel Fitzhenry and Jacob Perks
+ *
+ *  Section CLASS
+ *
+ */
+
 package SchedulaAlgo;
 
 import java.util.ArrayList;
@@ -15,15 +18,16 @@ public class Section {
     public TimeSlot[] times;
     public ArrayList<SubSection> subSec;
 
-    /**
-     * CONSTRUCTOR
-     *	@params n (A,B,C,...),
-     *			p ("name jonhson"),
-     *			c (123456,345675,...),
-     *			term (201710,201620,...),
-     *			time ("W 1405-1555","MW 1405-1555","MWF 1405-1555",...) [MAX 3] else null,
-     *			s (LinkedList = [SubSection1,SubSection2,...])
-     **/
+    /*
+    Ctor: parses time and creates a an array of TimeSlot objects
+    Params:
+    n = section number (ie A, B, V, ...)
+    p = professor's name
+    c = course registration number 
+    term = term section is in
+    time = time of section, including days of the week
+    s = array list of SubSections
+    */
     public Section(String n, String p, int c, int term, String time, ArrayList<SubSection> s){
         int startHour, startMinute, endHour, endMinute;
         int year = (int)(term/100);
@@ -34,7 +38,7 @@ public class Section {
         subSec = s;
         times = new TimeSlot[3];
         if (time.length() == 11){
-			/* W 1405-1555 */
+			// If once a week (W 1405-1555) 
             startHour = Integer.parseInt(time.substring(2,4));
             startMinute = Integer.parseInt(time.substring(4,6));
             endHour = Integer.parseInt(time.substring(7,9));
@@ -42,7 +46,7 @@ public class Section {
             times[0] = new TimeSlot(time.charAt(0),startHour,startMinute,endHour,endMinute,semester,year);
             times[1] = times[2] = null;
         } else if (time.length() == 12){
-			/* TR 1405-1555 */
+			// If twice a week (TR 1405-1555)
             startHour = Integer.parseInt(time.substring(3,5));
             startMinute = Integer.parseInt(time.substring(5,7));
             endHour = Integer.parseInt(time.substring(8,10));
@@ -51,7 +55,7 @@ public class Section {
             times[1] = new TimeSlot(time.charAt(1),startHour,startMinute,endHour,endMinute,semester,year);
             times[2] = null;
         } else if (time.length() == 13){
-			/* MWF 1405-1555 */
+			// If three times a wekk (MWF 1405-1555)
             startHour = Integer.parseInt(time.substring(4,6));
             startMinute = Integer.parseInt(time.substring(6,8));
             endHour = Integer.parseInt(time.substring(9,11));
@@ -62,20 +66,24 @@ public class Section {
         } else times[0] = times[1] = times[2] = null;
     }
 
-    /**
-     * toString() function returns String formatted print of Section
-     *	@params n/a
-     *  @overwritable
-     **/
+
+    /*
+    Function: returns formatted string of Section info
+    */
     public String toString(){
-    /*	String s = "Section: "+ID+"\nProf:"+prof+"\n";
+    	/*String s = "Section: "+ID+"\nProf:"+prof+"\n";
         for(TimeSlot t : times) if (t != null) s += t+"\n";
         s += "\nAdditional Requirements: \n"+subSec;
-        return s;
-	*/	return prof+crn;
+        return s;*/
+		return prof+crn;
     }
 	
     @Override
+    /*
+    Function: compares two sections to see if they are the same object
+    Params:
+    other = Object to be comapred with this
+    */
     public boolean equals(Object other){
         if (other == null) return false;
         if (other == this) return true;
@@ -84,6 +92,11 @@ public class Section {
         return this.crn == otherSec.crn;
     }
 	
+    /*
+    Function: compares two courses to see if their times conflict
+    Params:
+    s = Section that will be comapared with this
+    */
 	public boolean conflicts(Section s) {
 		boolean b = false;
 		if (this == null || s == null) return b;
@@ -96,10 +109,17 @@ public class Section {
 		}
 		return b;
 	}
-    /**
-     * GETTERS
-     * @params n/a
-     **/
+
+    /*
+    Function: adds SubSection to array list of SubSections
+    Params:
+    subSection: SubSection to be added
+    */
+    public void addSubSection(SubSection subSection) {
+        subSec.add(subSection);
+    }
+
+    // Getters
     public String getID() { return ID;}
     public String getProf() { return prof;}
     public int getCrn() { return crn;}
@@ -107,7 +127,4 @@ public class Section {
     public TimeSlot[] getTimes() { return times;}
     public ArrayList<SubSection> getSubSecs() { return subSec;}
     
-    public void addSubSection(SubSection subSection) {
-        subSec.add(subSection);
-    }
 }

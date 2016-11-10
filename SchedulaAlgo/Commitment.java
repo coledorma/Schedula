@@ -1,15 +1,14 @@
 /**
- * By Jacob Perks & Daniel Fitzhenry
+ * By Daniel Fitzhenry and Jacob Perks
  *
  *	Commitment CLASS
  *
  */
+
 package SchedulaAlgo;
 
 import java.util.ArrayList;
 import java.lang.*;
-
-//TODO: Figure out other useful functions/parameters
 
 public class Commitment {
 
@@ -17,12 +16,13 @@ public class Commitment {
 	protected int term;
 	protected SubSection times;
 	
-/**
- * Constructor for Commitment objects
- *	@params ty ("Work","Sports",etc...)
- *			te (201610,201720,etc...)
- *			ti (("W 1405-1555","MW 1405-1555","MWF 1405-1555",...) [MAX 3] else null
- **/
+	/*
+	Ctor
+	Params:
+	ty = name of commitment
+	te = term of commitment 
+	ti = time of commitment, including days of the week
+	*/
 	public Commitment(String ty, int te, String ti){
 		type = ty;
 		term = te;
@@ -30,14 +30,15 @@ public class Commitment {
 	}
 
 
-/**
- * toString() function returns String formatted print of Section 
- *	@params n/a
- *  @overwritable
- **/
+	/*
+	Function: returns formatted string
+	*/
 	public String toString(){ 
 		return times.toString();
 	}
 
+	// Getters
 	public SubSection getTimes() { return times; }
+	public String getType() { return type; }
+	public int getTerm() { return term; }
 }

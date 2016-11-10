@@ -1,34 +1,33 @@
 /**
- * 
+ * By Daniel Fitzhenry and Jacob Perks
  *
- *	ScheduleGenerator CLASS
+ *	Schedule CLASS
  *
  */
+
 package SchedulaAlgo;
 
 import java.util.Collections;
 import java.util.*;
 import java.lang.*;
 
-//TODO: Figure out other useful functions/parameters
-
 public class Schedule {
 	
 	private LinkedList<Section> sections;
 	private int size;
 	
-/**
- * Constructors for Schedule objects
- *	@params  n/a
- **/
-	public Schedule(){ sections = new LinkedList<Section>(); }
+	/*
+	Ctor: creates new linked list of sections
+	*/
+	public Schedule() { 
+		sections = new LinkedList<Section>(); 
+	}
 
-/**
- * Add function 
- *	@params	s (Section, SubSection)
- *	@return	boolean indicating if Section fits inside this Schedule
- **/
-
+    /*
+    Function: adds Section to sections and returns true if add was successful and false if Section conflicts and cannot be added
+    Params:
+    s = Section to be added
+    */
 	public boolean add(Section s){
 		for (Section inSchedg : sections)
 			if (inSchedg.conflicts(s)){
@@ -42,16 +41,19 @@ public class Schedule {
 		return false;
 	}
  
-/**
- * toString() function returns String formatted print of Section 
- *	@params n/a
- *  @overwritable
- **/
+    /*
+    Function: returns formatted string
+    */
 	public String toString() {
 		return sections.toString();
 	}
 	
     @Override
+    /*
+    Function: compares two schedules to see if they are the same
+    Params:
+    other = Object to be comapred with this
+    */
     public boolean equals(Object other){
         if (other == null) return false;
         if (other == this) return true;

@@ -1,14 +1,13 @@
 /**
- * By Jacob Perks
+ * By Daniel Fitzhenry and Jacob Perks
  *
- *	Custom Comparator
+ *	Custom Comparator CLASS
  *
  */
+
 package SchedulaAlgo;
 
 import java.util.*;
-
-//TODO: Figure out other useful functions/parameters
 
 public class CustomComparator implements Comparator<Course>{
 
@@ -17,6 +16,12 @@ public class CustomComparator implements Comparator<Course>{
 	}
 
 	@Override 
+	/*
+    Function: overrides compare function to compare courses based on size of sections
+    Params:
+    c1 = first course to be compared
+    c2 = second course to be compared
+    */
 	public int compare(Course c1, Course c2) {
 		if (c1.sections.size() > c2.sections.size()) {
 			return 1;
