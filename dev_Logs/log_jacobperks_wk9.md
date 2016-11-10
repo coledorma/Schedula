@@ -2,8 +2,8 @@
  
 ## Duties:
   - [ ] Weekly meeting with group
-  - [ ] Work on finsihng algorithm
-  - [ ] traverse built tree to generate possible schedules
+  - [ ] Work on optimizing schedules with commitments and time preferences (Dan tested algorithm with linked list and randomizer so going forward with that)
+  - [ ] Further work on optimization with difference() function
 
  
 ## Time Spent: 
