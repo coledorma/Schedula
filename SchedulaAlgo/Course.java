@@ -31,7 +31,7 @@ public class Course {
      *  @overwritable
      **/
     public String toString(){
-        return "Course Code:" + code + "\n" + "\n" + sections;
+        return "Course Code:" + code + "\n" + sections;
     }
 
     @Override

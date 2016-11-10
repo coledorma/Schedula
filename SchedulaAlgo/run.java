@@ -49,8 +49,7 @@ public final class run{
 	/*	sections4.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections6));
 		courses.add(new Course("COMP666", sections4));
 	*/	
-		Schedule sched = new Schedule(commitments, courses);
-
+		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, 10);
 
 	/**
 	 *	RESULTS
