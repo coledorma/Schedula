@@ -15,6 +15,7 @@ import java.lang.*;
 public class Schedule {
 	
 	private LinkedList<Section> sections;
+	private int size;
 	
 /**
  * Constructors for Schedule objects
@@ -35,6 +36,7 @@ public class Schedule {
 			}
 		if (!sections.contains(s)){
 			sections.add(s);
+			size++;
 			return true;
 		}
 		return false;
@@ -45,7 +47,7 @@ public class Schedule {
  *	@params n/a
  *  @overwritable
  **/
-	public String toString(){
+	public String toString() {
 		return sections.toString();
 	}
 	
@@ -57,4 +59,6 @@ public class Schedule {
         Schedule otherSchedg = (Schedule) other;
         return this.sections.equals(otherSchedg.sections);
     }
+
+    public int getSize() { return size;}
 }

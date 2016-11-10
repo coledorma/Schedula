@@ -38,4 +38,6 @@ public class Commitment {
 	public String toString(){ 
 		return times.toString();
 	}
+
+	public SubSection getTimes() { return times; }
 }

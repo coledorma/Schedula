@@ -101,7 +101,7 @@ public class TimeSlot {
 	public String period() {
 		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
 			return "Morning";
-		} else if (start.get(Calendar.HOUR_OF_DAY) < 16) {
+		} else if (start.get(Calendar.HOUR_OF_DAY) < 17) {
 			return "Afternoon";
 		} else return "Evening";
 	}
