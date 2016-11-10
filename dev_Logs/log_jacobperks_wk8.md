@@ -5,7 +5,6 @@
   - [X] Work on useful logic TimeSlot functions 
   - [X] Creation of CustomComparator, BinaryTree, and Node classes
   - [X] Work on building the tree
-  - [ ] Begin coordination of Algorithm with UI
 
  
 ## Time Spent: 
