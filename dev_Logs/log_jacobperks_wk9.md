@@ -2,9 +2,10 @@
  
 ## Duties:
   - [ ] Weekly meeting with group
-  - [ ] Work on optimizing schedules with commitments and time preferences (Dan tested algorithm with linked list and randomizer so going forward with that)
+  - [X] Work on optimizing schedules with commitments and time preferences (Dan tested algorithm with linked list and randomizer so going forward with that)
   - [ ] Further work on optimization with difference() function
+  - [ ] Refactoring
 
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 6 _hours_ and **** _minutes_
