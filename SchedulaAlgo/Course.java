@@ -15,7 +15,7 @@ public class Course {
     public String code;
     public ArrayList<Section> sections;
 
-    /*
+    /**
     Ctor
     Params:
     c = course code
@@ -26,19 +26,19 @@ public class Course {
         sections = s;
     }
 
-    /*
+    /**
     Function: returns formatted string
     */
     public String toString(){
         return "Course Code:" + code + "\n" + sections;
     }
-
-    @Override
-    /*
+	
+    /**
     Function: compares two courses to see if they are the same object
     Params:
     other = Object to be comapred with this
     */
+	@Override
     public boolean equals(Object other){
         if (other == null) return false;
         if (other == this) return true;

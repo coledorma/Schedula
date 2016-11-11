@@ -16,7 +16,7 @@ public class Commitment {
 	protected int term;
 	protected SubSection times;
 	
-	/*
+	/**
 	Ctor
 	Params:
 	ty = name of commitment
@@ -30,14 +30,16 @@ public class Commitment {
 	}
 
 
-	/*
+	/**
 	Function: returns formatted string
 	*/
 	public String toString(){ 
 		return times.toString();
 	}
 
-	// Getters
+	/** 
+	 * Getters
+	 */
 	public SubSection getTimes() { return times; }
 	public String getType() { return type; }
 	public int getTerm() { return term; }

@@ -18,7 +18,7 @@ public class Section {
     public TimeSlot[] times;
     public ArrayList<SubSection> subSec;
 
-    /*
+    /**
     Ctor: parses time and creates a an array of TimeSlot objects
     Params:
     n = section number (ie A, B, V, ...)
@@ -67,7 +67,7 @@ public class Section {
     }
 
 
-    /*
+    /**
     Function: returns formatted string of Section info
     */
     public String toString(){
@@ -79,7 +79,7 @@ public class Section {
     }
 	
     @Override
-    /*
+    /**
     Function: compares two sections to see if they are the same object
     Params:
     other = Object to be comapred with this
@@ -92,7 +92,7 @@ public class Section {
         return this.crn == otherSec.crn;
     }
 	
-    /*
+    /**
     Function: compares two courses to see if their times conflict
     Params:
     s = Section that will be comapared with this

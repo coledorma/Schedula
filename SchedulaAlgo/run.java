@@ -26,15 +26,15 @@ public final class run{
 		commitments.add(new Commitment("LAX",201630,"W 0605-0606"));
 		
 		subsections1.add(new SubSection("A1","TUT",111111,201630,"M 1405-1555"));
-		subsections1.add(new SubSection("A2","TUT",111112,201630,"W 1605-1755"));
-		subsections2.add(new SubSection("B1","TUT",111113,201630,"W 1405-1855"));
-		subsections2.add(new SubSection("B2","TUT",111114,201630,"W 1605-1755"));
-		subsections3.add(new SubSection("A1","TUT",222221,201630,"R 1305-1455"));
-		subsections3.add(new SubSection("A2","TUT",222222,201630,"M 1605-1755"));
-		subsections4.add(new SubSection("A1","TUT",333331,201630,"F 1405-1555"));
-		subsections4.add(new SubSection("A2","TUT",333332,201630,"W 1605-1755"));
-		subsections5.add(new SubSection("B1","TUT",333333,201630,"F 1405-1555"));
-		subsections5.add(new SubSection("B2","TUT",333334,201630,"W 1605-1755"));
+		subsections1.add(new SubSection("A2","TUT",211112,201630,"W 1605-1755"));
+		subsections2.add(new SubSection("B1","TUT",311113,201630,"W 1405-1855"));
+		subsections2.add(new SubSection("B2","TUT",411114,201630,"W 1605-1755"));
+		subsections3.add(new SubSection("A1","TUT",522221,201630,"R 1305-1455"));
+		subsections3.add(new SubSection("A2","TUT",622222,201630,"M 1605-1755"));
+		subsections4.add(new SubSection("A1","TUT",733331,201630,"F 1405-1555"));
+		subsections4.add(new SubSection("A2","TUT",833332,201630,"W 1605-1755"));
+		subsections5.add(new SubSection("B1","TUT",933333,201630,"F 1405-1555"));
+		subsections5.add(new SubSection("B2","TUT",033334,201630,"W 1605-1755"));
 	/*	subsections6.add(new SubSection("A1","TUT",100001,201630,"F 1405-1555"));
 		subsections6.add(new SubSection("A2","TUT",100002,201630,"W 1605-1755"));
 	*/	
@@ -54,7 +54,7 @@ public final class run{
 	/*	sections4.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections6));
 		courses.add(new Course("COMP666", sections4));
 	*/	
-		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 10);
+		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 5);
 
 	/**
 	 *	RESULTS

@@ -17,7 +17,7 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
-	/*
+	/**
 	Ctor: creates Gregorian Calendar
 	Params:
 	dayOfWeek = day of the week of the timeslot
@@ -53,7 +53,7 @@ public class TimeSlot {
 		end.add(Calendar.DAY_OF_MONTH, -1);
 		end.set(Calendar.DAY_OF_WEEK, dw);
     }
-    /*
+    /**
     Function: returns formatted string of TimeSlot info
     */
 	public String toString(){
@@ -75,7 +75,7 @@ public class TimeSlot {
 		return s+="\n";
 	}
 
-    /*
+    /**
     Function: compares two TimeSlots to see if they conflict
     Params:
     t = TimeSlot that will be comapared with this
@@ -96,7 +96,7 @@ public class TimeSlot {
 				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
-    /*
+    /**
     Function: returns string indicating period of the day, used for time of day preferences
     */
 	public String period() {
@@ -107,7 +107,7 @@ public class TimeSlot {
 		} else return "Evening";
 	}
 
-    /*
+    /**
     Function: compares two TimeSlots and returns the difference between end and start time in minutes
     Params:
     t = TimeSlot that will be compared with this
