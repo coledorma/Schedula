@@ -3,7 +3,7 @@
  *	ALACRITYDEVELOPMENT©
  *  ScheduleGenerator CLASS
  *
- */
+**/
 package SchedulaAlgo;
 
 import java.util.LinkedList;
