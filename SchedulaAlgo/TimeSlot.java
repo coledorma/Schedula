@@ -1,7 +1,7 @@
 /**
  *	Authors: Daniel Fitzhenry and Jacob Perks
  *	ALACRITYDEVELOPMENT©
- *  TimeSlot CLASS
+ *	TimeSlot CLASS
  *
 **/
 
@@ -27,8 +27,8 @@ public class TimeSlot {
 	 *			endMinute = end minute of the timeslot
 	 *			termMonth = indicates the semester of the timeslot
 	 *			termYear = year timeslot is in		
-    **/
-    public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
+	 **/
+	public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
 		int tm,dw,sd; tm=dw=sd=0;
 		switch(dayOfWeek){
 			default: break;
@@ -52,7 +52,8 @@ public class TimeSlot {
 		end = new GregorianCalendar(termYear, tm, sd+(dw-2), endHour,endMinute);
 		end.add(Calendar.DAY_OF_MONTH, -1);
 		end.set(Calendar.DAY_OF_WEEK, dw);
-    }
+	}
+	
 	/** TO STRING
 	 *	Function:	string formatted representation of this TimeSlot obj
 	 *	@params	n/a
@@ -77,10 +78,10 @@ public class TimeSlot {
 		return s+="\n";
 	}
 
-    /** CONFLICTS
+	/** CONFLICTS
 	 *	Function:	compares two TimeSlots to see if they conflict
 	 *	@params	t = TimeSlot to be compared with
-    **/
+	 **/
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
 		if (!term.equals(t.term)) return false;
@@ -97,11 +98,11 @@ public class TimeSlot {
 				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
-    /** PERIOD
+	/** PERIOD
 	 *	Function:	returns string indicating period of the day, used for time of day preferences
 	 *	@params	n/a
 	 *	
-    **/
+	 **/
 	public String period() {
 		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
 			return "Morning";
@@ -113,8 +114,8 @@ public class TimeSlot {
 	/** DIFFERENCE
 	 *	Function:	compares two TimeSlots and returns the difference between end and start time in minutes
 	 *	@params	t = TimeSlot that will be compared with this
-	 *	
-    **/
+	 *
+	 **/
 	public int difference(TimeSlot t) {
 		int difference = 0;
 		int startMinutes = 0;
