@@ -26,7 +26,7 @@ public final class SubSection extends Section{
 	 *	Function:	string formatted representation of this SubSection obj
 	 *	@params	n/a
 	 *	@overwritten
-	**/
+	 **/
 /*	public final String toString(){ 
 		String s = "\nSection:\t"+ID+"\nType:\t\t"+prof+"\n"; //<<----TODO: super param Section.prof = type of section (TUT/LAB...etc.)
 		for(TimeSlot t : times) if (t != null) s += t;
