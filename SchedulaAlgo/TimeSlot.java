@@ -1,9 +1,9 @@
 /**
- * By Daniel Fitzhenry and Jacob Perks
- *
+ *	Authors: Daniel Fitzhenry and Jacob Perks
+ *	ALACRITYDEVELOPMENT©
  *  TimeSlot CLASS
  *
- */
+**/
 
 package SchedulaAlgo;
 
@@ -17,17 +17,17 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
-	/**
-	Ctor: creates Gregorian Calendar
-	Params:
-	dayOfWeek = day of the week of the timeslot
-	startHour = start hour of the timeslot
-	startMinute = start minute of the timeslot
-	endHour = end hour of the timeslot
-	endMinute = end minute of the timeslot
-	termMonth = indicates the semester of the timeslot
-	termYear = year timeslot is in
-	*/
+	/** CONSTRUCTOR
+	 *	Function:	creates Gregorian Calendar TimeSlots
+	 *	@params	c = course code
+	 *			dayOfWeek = day of the week of the timeslot
+	 *			startHour = start hour of the timeslot
+	 *			startMinute = start minute of the timeslot
+	 *			endHour = end hour of the timeslot
+	 *			endMinute = end minute of the timeslot
+	 *			termMonth = indicates the semester of the timeslot
+	 *			termYear = year timeslot is in		
+    **/
     public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
 		int tm,dw,sd; tm=dw=sd=0;
 		switch(dayOfWeek){
@@ -53,9 +53,11 @@ public class TimeSlot {
 		end.add(Calendar.DAY_OF_MONTH, -1);
 		end.set(Calendar.DAY_OF_WEEK, dw);
     }
-    /**
-    Function: returns formatted string of TimeSlot info
-    */
+	/** TO STRING
+	 *	Function:	string formatted representation of this TimeSlot obj
+	 *	@params	n/a
+	 *	
+	**/
 	public String toString(){
 		String s = "\tTIMESLOT\nTerm:\t\t"+term+start.get(Calendar.YEAR)+"\nDay:\t\t";
 		switch(start.get(Calendar.DAY_OF_WEEK)){
@@ -75,11 +77,10 @@ public class TimeSlot {
 		return s+="\n";
 	}
 
-    /**
-    Function: compares two TimeSlots to see if they conflict
-    Params:
-    t = TimeSlot that will be comapared with this
-    */
+    /** CONFLICTS
+	 *	Function:	compares two TimeSlots to see if they conflict
+	 *	@params	t = TimeSlot to be compared with
+    **/
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
 		if (!term.equals(t.term)) return false;
@@ -96,9 +97,11 @@ public class TimeSlot {
 				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
 	}
 
-    /**
-    Function: returns string indicating period of the day, used for time of day preferences
-    */
+    /** PERIOD
+	 *	Function:	returns string indicating period of the day, used for time of day preferences
+	 *	@params	n/a
+	 *	
+    **/
 	public String period() {
 		if (start.get(Calendar.HOUR_OF_DAY) < 12) {
 			return "Morning";
@@ -107,11 +110,11 @@ public class TimeSlot {
 		} else return "Evening";
 	}
 
-    /**
-    Function: compares two TimeSlots and returns the difference between end and start time in minutes
-    Params:
-    t = TimeSlot that will be compared with this
-    */
+	/** DIFFERENCE
+	 *	Function:	compares two TimeSlots and returns the difference between end and start time in minutes
+	 *	@params	t = TimeSlot that will be compared with this
+	 *	
+    **/
 	public int difference(TimeSlot t) {
 		int difference = 0;
 		int startMinutes = 0;

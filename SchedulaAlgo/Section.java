@@ -1,33 +1,30 @@
 /**
- * By Daniel Fitzhenry and Jacob Perks
- *
+ *	Authors: Daniel Fitzhenry and Jacob Perks
+ *	ALACRITYDEVELOPMENT©
  *  Section CLASS
  *
- */
+**/
 
 package SchedulaAlgo;
 
 import java.util.ArrayList;
-import java.lang.String;
 
 public class Section {
-
     protected String ID;
     protected String prof;
     protected int crn;
     public TimeSlot[] times;
     public ArrayList<SubSection> subSec;
 
-    /**
-    Ctor: parses time and creates a an array of TimeSlot objects
-    Params:
-    n = section number (ie A, B, V, ...)
-    p = professor's name
-    c = course registration number 
-    term = term section is in
-    time = time of section, including days of the week
-    s = array list of SubSections
-    */
+	/** CONSTRUCTOR
+	 *	Function:	parses time and creates a an array of TimeSlot objects
+	 *	@params	n = section number (ie A, B, V, ...)
+	 *			p = professor's name
+	 *			c = course registration number 
+	 *			term = term section is in
+	 *			time = time of section, including days of the week
+	 *			s = array list of SubSections
+	**/
     public Section(String n, String p, int c, int term, String time, ArrayList<SubSection> s){
         int startHour, startMinute, endHour, endMinute;
         int year = (int)(term/100);
@@ -66,10 +63,11 @@ public class Section {
         } else times[0] = times[1] = times[2] = null;
     }
 
-
-    /**
-    Function: returns formatted string of Section info
-    */
+	/** TO STRING
+	 *	Function:	string formatted representation of this Section obj
+	 *	@params	n/a
+	 *	
+	**/
     public String toString(){
     	/*String s = "Section: "+ID+"\nProf:"+prof+"\n";
         for(TimeSlot t : times) if (t != null) s += t+"\n";
@@ -78,25 +76,11 @@ public class Section {
 		return prof+crn;
     }
 	
-    @Override
-    /**
-    Function: compares two sections to see if they are the same object
-    Params:
-    other = Object to be comapred with this
-    */
-    public boolean equals(Object other){
-        if (other == null) return false;
-        if (other == this) return true;
-        if (!(other instanceof Section))return false;
-        Section otherSec = (Section) other;
-        return this.crn == otherSec.crn;
-    }
-	
-    /**
-    Function: compares two courses to see if their times conflict
-    Params:
-    s = Section that will be comapared with this
-    */
+    /** CONFLICTS
+	 *	Function:	compares two sections to see if their times conflict
+	 *	@params	s = Section that will be compared with this
+	 *	
+    **/
 	public boolean conflicts(Section s) {
 		boolean b = false;
 		if (this == null || s == null) return b;
@@ -110,11 +94,11 @@ public class Section {
 		return b;
 	}
 
-    /*
-    Function: adds SubSection to array list of SubSections
-    Params:
-    subSection: SubSection to be added
-    */
+	/** ADD SUB-SECTION
+	 *	Function:	adds SubSection to array list of SubSections
+	 *	@params	subSection: SubSection to be added
+	 *
+	**/
     public void addSubSection(SubSection subSection) {
         subSec.add(subSection);
     }
@@ -126,5 +110,14 @@ public class Section {
 	public int numDays() { int count = 0; for(TimeSlot t : times) count += (t!=null) ? 1:0; return count; }
     public TimeSlot[] getTimes() { return times;}
     public ArrayList<SubSection> getSubSecs() { return subSec;}
-    
+	
+	// Overrides
+	@Override
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (other == this) return true;
+		if (!(other instanceof Section))return false;
+		Section otherSec = (Section) other;
+		return this.crn == otherSec.crn;
+	}    
 }

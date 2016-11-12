@@ -1,45 +1,42 @@
 /**
- * By Daniel Fitzhenry and Jacob Perks
- *
+ *	Authors: Daniel Fitzhenry and Jacob Perks
+ *	ALACRITYDEVELOPMENT©
  *	Commitment CLASS
  *
- */
+**/
 
 package SchedulaAlgo;
 
 import java.util.ArrayList;
-import java.lang.*;
 
 public class Commitment {
-
 	protected String type;
 	protected int term;
 	protected SubSection times;
 	
-	/**
-	Ctor
-	Params:
-	ty = name of commitment
-	te = term of commitment 
-	ti = time of commitment, including days of the week
-	*/
+	/** CONSTRUCTOR
+	 *	Function:	Construct a Commitment obj
+	 *	@params	ty = name of commitment
+	 *			s = array list of sections of particular course
+	 *			te = term of commitment 
+	 *			ti = time of commitment, including days of the week
+    **/
 	public Commitment(String ty, int te, String ti){
 		type = ty;
 		term = te;
 		times = new SubSection(null, ty, 0,  te, ti);
 	}
-
-
-	/**
-	Function: returns formatted string
-	*/
+	
+	/** TO STRING
+	 *	Function:	string formatted representation of this Commitment obj
+	 *	@params	n/a
+	 *	
+	**/
 	public String toString(){ 
 		return times.toString();
 	}
 
-	/** 
-	 * Getters
-	 */
+	// Getters
 	public SubSection getTimes() { return times; }
 	public String getType() { return type; }
 	public int getTerm() { return term; }

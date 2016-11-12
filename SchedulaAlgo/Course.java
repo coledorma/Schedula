@@ -1,43 +1,41 @@
 /**
- * By Daniel Fitzhenry and Jacob Perks
- *
+ *	Authors: Daniel Fitzhenry and Jacob Perks
+ *	ALACRITYDEVELOPMENT©
  *  Course CLASS
  *
- */
+**/
 
 package SchedulaAlgo;
 
 import java.util.ArrayList;
-import java.lang.*;
 
 public class Course {
-
     public String code;
     public ArrayList<Section> sections;
 
-    /**
-    Ctor
-    Params:
-    c = course code
-    s = array list of sections of particular course
-    */
+	/** CONSTRUCTOR
+	 *	Function:	Construct a course obj
+	 *	@params	c = course code
+	 *			s = array list of sections of particular course
+    **/
     public Course(String c, ArrayList<Section> s){
         code = c;
         sections = s;
     }
 
-    /**
-    Function: returns formatted string
-    */
+	/** TO STRING
+	 *	Function:	string formatted representation of this Course obj
+	 *	@params	n/a
+	 *	
+	**/
     public String toString(){
         return "Course Code:" + code + "\n" + sections;
     }
 	
-    /**
-    Function: compares two courses to see if they are the same object
-    Params:
-    other = Object to be comapred with this
-    */
+	// Getters
+	//TODO:
+	
+	// Overrides
 	@Override
     public boolean equals(Object other){
         if (other == null) return false;
