@@ -3,7 +3,7 @@
  *	ALACRITYDEVELOPMENT©
  *	Schedule CLASS
  *
- */
+**/
 package SchedulaAlgo;
 
 import java.util.LinkedList;
@@ -15,7 +15,7 @@ public class Schedule {
 	/** CONSTRUCTOR
 	 *	Function:	creates new linked list of sections
 	 *	@params	n/a
-    **/
+	 **/
 	public Schedule() { 
 		sections = new LinkedList<Section>(); 
 	}
@@ -24,7 +24,7 @@ public class Schedule {
 	 *	Function:	adds Section to LinkedList of Sections
 	 *	@params	s = Section to be added
 	 *	@return boolean indication if add successful
-	**/
+	 **/
 	public boolean add(Section s){
 		for (Section inSchedg : sections)
 			if (inSchedg.conflicts(s)){
@@ -42,7 +42,7 @@ public class Schedule {
 	 *	Function:	string formatted representation of sections data member
 	 *	@params	n/a
 	 *	@overwritten
-	**/
+	 **/
 	public String toString() {
 		return sections.toString();
 	}
