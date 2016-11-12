@@ -24,7 +24,7 @@ public class ScheduleGenerator {
 	 *			cm = array list of commitments user has
 	 *			p = array list of strings, max size 2, representing preferable time of day to have classes ("Morning", Afternoon", "Evening")
 	 *			size = max number of schedules wanted to generate
-    **/
+	 **/
 	public ScheduleGenerator(ArrayList<Course> cr, ArrayList<Commitment> cm, ArrayList<String> p,  int size){
 		courses = cr;
 		commits = cm;
@@ -37,7 +37,7 @@ public class ScheduleGenerator {
 	/** GENERATE (MAIN LOGICAL ASPECT)
 	 *	Function:	generates Schedule objects and stores them in linked list schedules
 	 *	@params	size = max number of schedules wanted to generate
-    **/
+	 **/
 	private void generate(int size){
 		int searchCount = 0, subCount;
 		for(int i = 0; i < size;){
@@ -100,7 +100,7 @@ public class ScheduleGenerator {
 	/** TO STRING
 	 *	Function:	string formatted representation of this ScheduleGenerator
 	 *	@params	n/a
-	**/
+	 **/
 	public String toString(){
 		String s = "INPUT COURSES:\n";
 		for (Course c : courses) s += c+"\n";
@@ -115,7 +115,7 @@ public class ScheduleGenerator {
 	 *	Function:	checks to see if a given section conflicts with a commitment, returns true if conflict and false if no conflict
 	 *	@params	s = Section object that will be compared with commitment
 	 *	@return boolean indicating if given Section s conflicts with a commitment in commits 
-	**/
+	 **/
 	public boolean commitConflicts(Section s) {
 		for (int i = 0; i < commits.size(); i++) {
 			if (s.conflicts(commits.get(i).getTimes())) {
