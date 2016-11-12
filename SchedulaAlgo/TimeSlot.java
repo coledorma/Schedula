@@ -58,7 +58,7 @@ public class TimeSlot {
 	 *	Function:	string formatted representation of this TimeSlot obj
 	 *	@params	n/a
 	 *	
-	**/
+	 **/
 	public String toString(){
 		String s = "\tTIMESLOT\nTerm:\t\t"+term+start.get(Calendar.YEAR)+"\nDay:\t\t";
 		switch(start.get(Calendar.DAY_OF_WEEK)){
