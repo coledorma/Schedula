@@ -17,7 +17,7 @@ public final class SubSection extends Section{
 	 *			tr = term section is in
 	 *			time = time of section, including days of the week
 	 *
-	**/
+	 **/
 	public SubSection(String s, String t, int c, int tr, String time){
 		super(s,t,c,tr,time,null);
 	}
@@ -31,5 +31,6 @@ public final class SubSection extends Section{
 		String s = "\nSection:\t"+ID+"\nType:\t\t"+prof+"\n"; //<<----TODO: super param Section.prof = type of section (TUT/LAB...etc.)
 		for(TimeSlot t : times) if (t != null) s += t;
 		return s+"\n";
-	}*/
+	}
+*/
 }
