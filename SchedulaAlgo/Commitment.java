@@ -20,7 +20,7 @@ public class Commitment {
 	 *			s = array list of sections of particular course
 	 *			te = term of commitment 
 	 *			ti = time of commitment, including days of the week
-    **/
+	 **/
 	public Commitment(String ty, int te, String ti){
 		type = ty;
 		term = te;
@@ -31,7 +31,7 @@ public class Commitment {
 	 *	Function:	string formatted representation of this Commitment obj
 	 *	@params	n/a
 	 *	
-	**/
+	 **/
 	public String toString(){ 
 		return times.toString();
 	}
