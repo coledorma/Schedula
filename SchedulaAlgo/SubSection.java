@@ -4,7 +4,6 @@
  *	SubSection CLASS
  *
 **/
-
 package SchedulaAlgo;
 
 public final class SubSection extends Section{

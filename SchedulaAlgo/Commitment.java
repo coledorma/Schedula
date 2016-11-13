@@ -4,7 +4,6 @@
  *	Commitment CLASS
  *
 **/
-
 package SchedulaAlgo;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Commitment {
 		term = te;
 		times = new SubSection(null, ty, 0,  te, ti);
 	}
-	
+
 	/** TO STRING
 	 *	Function:	string formatted representation of this Commitment obj
 	 *	@params	n/a

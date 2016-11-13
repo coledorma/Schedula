@@ -4,7 +4,6 @@
  *	TimeSlot CLASS
  *
 **/
-
 package SchedulaAlgo;
 
 import java.util.Calendar;

@@ -4,7 +4,6 @@
  *	Course CLASS
  *
 **/
-
 package SchedulaAlgo;
 
 import java.util.ArrayList;
@@ -44,5 +43,4 @@ public class Course {
 		Course otherCourse = (Course) other;
 		return this.code.equals(otherCourse.code);
 	}
-
 }

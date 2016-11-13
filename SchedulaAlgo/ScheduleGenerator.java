@@ -40,57 +40,48 @@ public class ScheduleGenerator {
 	 **/
 	private void generate(int size){
 		int searchCount = 0, subCount;
-		for(int i = 0; i < size;){
+		while(schedules.size() != size){
+			generator.setSeed(System.nanoTime());
 			subCount = courses.size();
 			Schedule posSchedg = new Schedule();
 			Collections.shuffle(courses, generator);
 			for (Course c : courses){
 				Collections.shuffle(c.sections, generator);
 				for (Section s : c.sections){
-					if (periods.size() == 2) {
+					switch (periods.size()) {
+					case 2:	
 						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
 							if (s.getSubSecs() == null) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1)) {  
-								if (!posSchedg.add(ss)) {
-									posSchedg.getSections().removeLast();
-								}
-							}
-						}
-					} else if (periods.size() == 1) {
+							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+						} break;
+					case 1:
 						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0)) {
 							if (s.getSubSecs() == null) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0)) { 
-								if (!posSchedg.add(ss)) {
-									posSchedg.getSections().removeLast();
-								}
-							}
-						}
-					} else {
+							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+						} break;
+					default:
 						if (posSchedg.add(s) && !commitConflicts(s)) {
 							if (s.getSubSecs() == null) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss)) {
-								if (!posSchedg.add(ss)) {
-									posSchedg.getSections().removeLast();
-								}
-							}
-						}
+							if (!commitConflicts(ss))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+						} break;
 					}
+					if (posSchedg.contains(s)) break;
 				}
 			}
 			if (posSchedg.getSize() == ((courses.size()*2)- subCount))
-			if(!schedules.contains(posSchedg)){
-				schedules.add(posSchedg);
-				i += 1;
-			}
+			if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
 			if (searchCount>=size*10) break;
 			else searchCount+=1;
 		}
