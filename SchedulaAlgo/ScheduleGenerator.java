@@ -83,7 +83,7 @@ public class ScheduleGenerator {
 			if (posSchedg.getSize() == ((courses.size()*2)- subCount))
 			if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
 			if (searchCount>=size*10) break;
-			else searchCount+=1;
+			else ++searchCount;
 		}
 		System.out.println(searchCount + " = # of loops\n" + toString());
     }
