@@ -18,7 +18,7 @@ public final class SubSection extends Section{
 	 *
 	 **/
 	public SubSection(String s, String t, int c, int tr, String time){
-		super(s,t,c,tr,time,null);
+		super(s,t,c,tr,time,new ArrayList<SubSection>());
 	}
 	
 	/** TO STRING
