@@ -82,39 +82,67 @@ public class TaskXMLParser extends AsyncTask<Object, Void, Void> {
                          * Make a new Section on SubSection based on sectionData.
                          */
                         if (sectionData.get(4).length() > 1) {
-                            SubSection subSection = new SubSection(sectionData.get(4), sectionData.get(5), Integer.parseInt(sectionData.get(1)), Integer.parseInt(sectionData.get(0)), sectionData.get(7));
+                            SubSection subSection = new SubSection(sectionData.get(2) + "\n" + sectionData.get(3) + sectionData.get(4), sectionData.get(5), Integer.parseInt(sectionData.get(1)), Integer.parseInt(sectionData.get(0)), sectionData.get(7));
                             /*
                              * Based on the structure of the DB (how elements are ordered),
                              * SubSections should already have their parent Section/Course created.
                              * Check anyway.
                              * Create the SubSection and add it to it's parent Section.
                              */
-                            if (States.courses.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)) != -1) {
-                                Course course = States.courses.get(States.courses.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
-                                for (Section section : course.sections) {
-                                    if (section.getID().equals(sectionData.get(4).substring(0, 2))) {
-                                        section.addSubSection(subSection);
-                                        break;
+                            if (sectionData.get(0).equals("201710")) {
+                                if (States.coursesWint.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)) != -1) {
+                                    Course course = States.coursesWint.get(States.coursesWint.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
+                                    for (Section section : course.sections) {
+                                        if (section.getID().equals(sectionData.get(4).substring(0, 2))) {
+                                            section.addSubSection(subSection);
+                                            break;
+                                        }
                                     }
+                                } else {
+                                    // deal with the parents not being created
+                                    dead++;
                                 }
                             } else {
-                                // deal with the parents not being created
-                                dead++;
+                                if (States.coursesFall.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)) != -1) {
+                                    Course course = States.coursesFall.get(States.coursesFall.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
+
+                                    for (Section section : course.sections) {
+                                        if (section.getID().substring(9).equals(sectionData.get(4).substring(0, 1))) {
+                                            section.addSubSection(subSection);
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    // deal with the parents not being created
+                                    dead++;
+                                }
                             }
+
                         } else {
-                            Section section = new Section(sectionData.get(4), sectionData.get(6), Integer.parseInt(sectionData.get(1)), Integer.parseInt(sectionData.get(0)), sectionData.get(7), null);
+                            Section section = new Section(sectionData.get(2) + "\n" + sectionData.get(3) + sectionData.get(4), sectionData.get(6), Integer.parseInt(sectionData.get(1)), Integer.parseInt(sectionData.get(0)), sectionData.get(7), new ArrayList<SubSection>());
 
                             /*
                              * Verify if a Course exists for this Section, do as necessary.
                              * Add the Section to it's parent Course.
                              */
-                            if (States.courses.contains(new Course(sectionData.get(2) + sectionData.get(3), null))) {
-                                Course course = States.courses.get(States.courses.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
-                                course.sections.add(section);
+                            if (sectionData.get(0).equals("201710")) {
+                                if (States.coursesWint.contains(new Course(sectionData.get(2) + sectionData.get(3), null))) {
+                                    Course course = States.coursesWint.get(States.coursesWint.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
+                                    course.sections.add(section);
+                                } else {
+                                    Course course = new Course(sectionData.get(2) + sectionData.get(3), new ArrayList<Section>());
+                                    course.sections.add(section);
+                                    States.coursesWint.add(course);
+                                }
                             } else {
-                                Course course = new Course(sectionData.get(2) + sectionData.get(3), new ArrayList<Section>());
-                                course.sections.add(section);
-                                States.courses.add(course);
+                                if (States.coursesFall.contains(new Course(sectionData.get(2) + sectionData.get(3), null))) {
+                                    Course course = States.coursesFall.get(States.coursesFall.indexOf(new Course(sectionData.get(2) + sectionData.get(3), null)));
+                                    course.sections.add(section);
+                                } else {
+                                    Course course = new Course(sectionData.get(2) + sectionData.get(3), new ArrayList<Section>());
+                                    course.sections.add(section);
+                                    States.coursesFall.add(course);
+                                }
                             }
                         }
                     }
@@ -126,7 +154,7 @@ public class TaskXMLParser extends AsyncTask<Object, Void, Void> {
             long endTime = System.nanoTime();
             Log.i(TAG, "TaskXMLParser DONE" +
                     "\n    lines parsed:             " + lineCount +
-                    "\n    Courses created:          " + States.courses.size() +
+                    "\n    Courses created:          " + (States.coursesFall.size() + States.coursesWint.size()) +
                     "\n    Courses discarded:        " + dead +
                     "\n    time taken, seconds:      " + ((endTime - startTime) / 1000000000.0));
         } catch (Exception e) {
