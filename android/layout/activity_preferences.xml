@@ -13,15 +13,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:layout_alignParentTop="true">
-
-
-    </LinearLayout>
-
     <Button
         android:text="GENERATE"
         android:layout_width="wrap_content"
@@ -49,7 +40,7 @@
         android:layout_marginTop="20dp"
         android:layout_alignTop="@+id/specificTimeString"
         android:layout_alignParentStart="true"
-        android:hint="24hr format (e.g. 08:35-13:00)" />
+        android:hint="24hr format (e.g. M 08:35-13:00)" />
 
     <Button
         android:text="ADD"
