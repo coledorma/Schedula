@@ -8,21 +8,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.coop.schedula.MainActivity">
+    tools:context="com.example.coop.schedulaui.ActivityMain">
 
     <Button
         android:text="START"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:id="@+id/start_button"
-        android:elevation="0dp" />
+        android:elevation="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome                     To                       Schedula"
+        android:text="Welcome\nTo\nSchedula"
         android:textSize="40sp"
         android:textAlignment="viewStart"
         android:id="@+id/welcome_text"
