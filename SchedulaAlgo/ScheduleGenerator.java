@@ -51,7 +51,7 @@ public class ScheduleGenerator {
 					switch (periods.size()) {
 					case 2:	
 						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
-							if (s.getSubSecs() == null) continue;
+							if (s.getSubSecs().size() == 0) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
@@ -60,7 +60,7 @@ public class ScheduleGenerator {
 						} break;
 					case 1:
 						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0)) {
-							if (s.getSubSecs() == null) continue;
+							if (s.getSubSecs().size() == 0) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
@@ -69,7 +69,7 @@ public class ScheduleGenerator {
 						} break;
 					default:
 						if (posSchedg.add(s) && !commitConflicts(s)) {
-							if (s.getSubSecs() == null) continue;
+							if (s.getSubSecs().size() == 0) continue;
 							subCount -= 1;
 							Collections.shuffle(s.getSubSecs(), generator);
 							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
