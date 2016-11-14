@@ -14,12 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import SchedulaAlgo.Commitment;
-import SchedulaAlgo.Schedule;
+import SchedulaAlgo.ScheduleGenerator;
 
 
 /**
@@ -28,22 +27,36 @@ import SchedulaAlgo.Schedule;
 
 public class ActivityPreferences extends AppCompatActivity{
 
+    /*
+     * UI Elements
+     */
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
-    Button generateButton;
-    String preferredTOD = "";
     EditText preferredTime;
     Button addTime;
-    List<String> specificTimes = new ArrayList<String>();
-    List<Character> specificDays = new ArrayList<Character>();
+    Button generateButton;
     TextView specificTimesList;
+
+    /*
+     * Data Elements
+     */
+    String preferredTOD = "";
+    List<String> specificTimes = new ArrayList<String>();
+    List<String> expandableListTitle;
+    ArrayList<String> specificDays = new ArrayList<>();
+    HashMap<String, List<String>> expandableListDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+
+        if (States.PREF_SET){
+            Log.i("myTag", "Prefs loaded");
+            preferredTOD = States.preferredTOD;
+            specificDays = States.specificDays;
+            specificTimes = States.specificTimes;
+        }
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
@@ -59,11 +72,16 @@ public class ActivityPreferences extends AppCompatActivity{
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                specificTimes.add(preferredTime.getText().toString());
-
                 Log.d("myTag", "This is in preferredDay: " + specificTimes);
 
-                specificTimesList.setText("Specific Time(s) Listed: " + specificTimes.toString());
+                if (preferredTime.getText().toString().indexOf(":") == 4 && preferredTime.getText().toString().indexOf("-") == 7 &&
+                        preferredTime.getText().toString().charAt(10) == ':' && preferredTime.getText().toString().length() == 13){
+                    specificTimes.add(preferredTime.getText().toString());
+                    specificTimesList.setText("Specific Time(s) Listed: " + specificTimes.toString());
+                } else {
+                    Toast.makeText(getApplicationContext(), "Incorrect format of time. Try again.", Toast.LENGTH_SHORT).show();
+                    specificTimes.remove(preferredTime.getText().toString());
+                }
 
                 preferredTime.setText("");
             }
@@ -75,10 +93,10 @@ public class ActivityPreferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkMon.isChecked()) {
                     checkMon.setChecked(false);
-                    specificDays.remove('M');
+                    specificDays.remove(specificDays.indexOf("M"));
                 }else {
                     checkMon.setChecked(true);
-                    specificDays.add('M');
+                    specificDays.add("M");
                 }
 
             }
@@ -90,10 +108,10 @@ public class ActivityPreferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkTue.isChecked()) {
                     checkTue.setChecked(false);
-                    specificDays.remove('T');
+                    specificDays.remove(specificDays.indexOf("T"));
                 }else {
                     checkTue.setChecked(true);
-                    specificDays.add('T');
+                    specificDays.add("T");
                 }
 
             }
@@ -105,10 +123,10 @@ public class ActivityPreferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkWed.isChecked()) {
                     checkWed.setChecked(false);
-                    specificDays.remove('W');
+                    specificDays.remove(specificDays.indexOf("W"));
                 }else {
                     checkWed.setChecked(true);
-                    specificDays.add('W');
+                    specificDays.add("W");
                 }
 
             }
@@ -120,10 +138,10 @@ public class ActivityPreferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkThu.isChecked()) {
                     checkThu.setChecked(false);
-                    specificDays.remove('R');
+                    specificDays.remove(specificDays.indexOf("R"));
                 }else {
                     checkThu.setChecked(true);
-                    specificDays.add('R');
+                    specificDays.add("R");
                 }
 
             }
@@ -135,10 +153,10 @@ public class ActivityPreferences extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkFri.isChecked()) {
                     checkFri.setChecked(false);
-                    specificDays.remove('F');
+                    specificDays.remove(specificDays.indexOf("F"));
                 }else {
                     checkFri.setChecked(true);
-                    specificDays.add('F');
+                    specificDays.add("F");
                 }
 
             }
@@ -148,82 +166,24 @@ public class ActivityPreferences extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                long start = System.nanoTime();
-                System.out.println(States.SELECTED_COURSES);
-                States.SCHEDULE = new Schedule(new ArrayList<Commitment>(), States.SELECTED_COURSES);
-                long stop = System.nanoTime();
-                System.out.println("Finished generating: " + (start - stop) / 1000000000.0 + "s");
+                ArrayList<Commitment> commitments = new ArrayList<>();
+                for (String time : specificTimes) {
+                    Commitment commitment = new Commitment("Commitment", Integer.parseInt(States.term), time.replace(":", ""));
+                    commitments.add(commitment);
+                }
 
-                Intent intent = new Intent(ActivityPreferences.this, ActivityFinal.class);
-                Bundle bundle = new Bundle();
+                ScheduleGenerator schedules = new ScheduleGenerator(States.SELECTED_COURSES, commitments, specificDays, 10);
+                States.SCHEDULES = schedules.getSchedules();
 
-                ArrayList<ArrayList<Object>> eventSetA = new ArrayList<>();
-                ArrayList<ArrayList<Object>> eventSetB = new ArrayList<>();
-                ArrayList<ArrayList<Object>> eventSetC = new ArrayList<>();
-
-                ArrayList<Object> startEndPairA = new ArrayList<>();
-                ArrayList<Object> startEndPairB = new ArrayList<>();
-
-                // Populate the week view with some events.
-                Calendar startTime;
-                Calendar endTime;
-
-                startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR, 10);
-                startTime.set(Calendar.MINUTE, 5);
-                startTime.set(Calendar.AM_PM, Calendar.AM);
-                startTime.set(Calendar.MONTH, Calendar.NOVEMBER);
-                startTime.set(Calendar.DAY_OF_MONTH, 1);
-                startTime.set(Calendar.YEAR, 2016);
-                startEndPairA.add(startTime);
-
-                endTime = Calendar.getInstance();
-                endTime.set(Calendar.HOUR, 11);
-                endTime.set(Calendar.MINUTE, 25);
-                endTime.set(Calendar.AM_PM, Calendar.AM);
-                endTime.set(Calendar.MONTH, Calendar.NOVEMBER);
-                endTime.set(Calendar.DAY_OF_MONTH, 1);
-                endTime.set(Calendar.YEAR, 2016);
-                startEndPairA.add(endTime);
-                startEndPairA.add("COMP\n3004");
-
-                startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR, 10);
-                startTime.set(Calendar.MINUTE, 5);
-                startTime.set(Calendar.AM_PM, Calendar.AM);
-                startTime.set(Calendar.MONTH, Calendar.NOVEMBER);
-                startTime.set(Calendar.DAY_OF_MONTH, 3);
-                startTime.set(Calendar.YEAR, 2016);
-                startEndPairB.add(startTime);
-
-                endTime = Calendar.getInstance();
-                endTime.set(Calendar.HOUR, 11);
-                endTime.set(Calendar.MINUTE, 25);
-                endTime.set(Calendar.AM_PM, Calendar.AM);
-                endTime.set(Calendar.MONTH, Calendar.NOVEMBER);
-                endTime.set(Calendar.DAY_OF_MONTH, 3);
-                endTime.set(Calendar.YEAR, 2016);
-                startEndPairB.add(endTime);
-                startEndPairB.add("COMP\n3000");
-
-                eventSetA.add(startEndPairA);
-
-                eventSetB.add(startEndPairB);
-
-                eventSetC.add(startEndPairA);
-                eventSetC.add(startEndPairB);
-
-                ArrayList<ArrayList<ArrayList<Object>>> eventSets = new ArrayList<>();
-                eventSets.add(eventSetA);
-                eventSets.add(eventSetB);
-                eventSets.add(eventSetC);
-
-                bundle.putSerializable(States.eventSets, eventSets);
-                intent.putExtras(bundle);
+                States.preferredTOD = preferredTOD;
+                States.specificTimes = specificTimes;
+                States.specificDays = specificDays;
 
                 Log.d("myTag", "This is in specificDay: " + specificDays);
 
-                startActivity(intent);
+                States.PREF_SET = true;
+
+                startActivity(new Intent(ActivityPreferences.this, ActivityFinal.class));
             }
         });
 
