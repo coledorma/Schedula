@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.coop.schedula.CoursesFinal"
+    tools:context="com.example.coop.schedulaui.ActivityFinal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme"
             app:eventTextColor="@android:color/white"
             app:textSize="12sp"
-            app:hourHeight="57dp"
+            app:hourHeight="65dp"
             app:headerColumnPadding="8dp"
             app:headerColumnTextColor="#8f000000"
             app:headerRowPadding="12dp"
@@ -36,7 +36,7 @@
             app:dayBackgroundColor="#05000000"
             app:todayBackgroundColor="#05000000"
             app:headerColumnBackground="#ffffffff"
-            app:firstDayOfWeek="monday" />
+            app:firstDayOfWeek="monday"/>
 
         <LinearLayout
             android:orientation="horizontal"
