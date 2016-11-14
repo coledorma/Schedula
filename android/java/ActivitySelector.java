@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import SchedulaAlgo.Course;
@@ -26,7 +27,8 @@ public class ActivitySelector extends AppCompatActivity {
      * UI elements
      */
     private ClearableAutoCompleteTextView course_selector;
-    private ListView courseList;
+    private Button fallButton;
+    private Button winterButton;
 
     /*
      * Data elements
@@ -46,28 +48,13 @@ public class ActivitySelector extends AppCompatActivity {
     }
 
     /*
-     * Return a calendar event title with course code, section and time
-     */
-    public String generateCourseName(String code, Calendar startTime, Calendar endTime) {
-        String courseName = code;
-
-        String startHour = (startTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(startTime.get(Calendar.HOUR_OF_DAY)) : ("0" + startTime.get(Calendar.HOUR_OF_DAY));
-        String startMin = (startTime.get(Calendar.MINUTE) > 9) ? Integer.toString(startTime.get(Calendar.MINUTE)) : ("0" + startTime.get(Calendar.MINUTE));
-        String endHour = (endTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(endTime.get(Calendar.HOUR_OF_DAY)) : ("0" + endTime.get(Calendar.HOUR_OF_DAY));
-        String endMin = (endTime.get(Calendar.MINUTE) > 9) ? Integer.toString(endTime.get(Calendar.MINUTE)) : ("0" + endTime.get(Calendar.MINUTE));
-
-        courseName += "\n\n" + startHour + ":" + startMin;
-        courseName += "\n" + endHour + ":" + endMin;
-
-        return courseName;
-    }
-
-    /*
      * Called before onCreate of the new Configuration.
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
+        System.out.println(States.SELECTED_COURSES);
 
         States.AVAILABLE_COURSES = availableCourses;
         States.SELECTED_COURSES = selectedCourses;
@@ -80,9 +67,61 @@ public class ActivitySelector extends AppCompatActivity {
         setContentView(R.layout.activity_selector);
 
         /*
+         * Init the fall term button
+         */
+        fallButton = (Button) findViewById(R.id.button_fall);
+        fallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                States.term = "201630";
+                fallButton.setClickable(false);
+                fallButton.setAlpha(0.3f);
+                winterButton.setClickable(true);
+                winterButton.setAlpha(1.0f);
+                availableCourses.addAll(selectedCourses);
+                selectedCourses.clear();
+                availableCourses = States.coursesFall;
+
+                course_selector.setText("");
+                listAdapter.notifyDataSetChanged();
+                updateSelector();
+            }
+        });
+
+        /*
+         * Init the winter term button
+         */
+        winterButton = (Button) findViewById(R.id.button_winter);
+        winterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                States.term = "201710";
+                winterButton.setClickable(false);
+                winterButton.setAlpha(0.3f);
+                fallButton.setClickable(true);
+                fallButton.setAlpha(1.0f);
+                availableCourses.addAll(selectedCourses);
+                selectedCourses.clear();
+                availableCourses = States.coursesWint;
+
+                course_selector.setText("");
+                listAdapter.notifyDataSetChanged();
+                updateSelector();
+            }
+        });
+
+        /*
          * Setup additional resources needed
          */
-        availableCourses = States.courses;
+        if (States.term.equals("201710")) {
+            availableCourses = States.coursesWint;
+            winterButton.setClickable(false);
+            winterButton.setAlpha(0.3f);
+        } else {
+            availableCourses = States.coursesFall;
+            fallButton.setClickable(false);
+            fallButton.setAlpha(0.3f);
+        }
         selectedCourses = new ArrayList<>();
 
         /*
@@ -128,7 +167,7 @@ public class ActivitySelector extends AppCompatActivity {
         /*
          * Init the chosen courses object
          */
-        courseList = (ListView) findViewById(R.id.course_list);
+        ListView courseList = (ListView) findViewById(R.id.course_list);
         courseList.setAdapter(listAdapter);
         courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,16 +179,12 @@ public class ActivitySelector extends AppCompatActivity {
             }
         });
 
-
         /*
          * Init the next button
          */
         findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                 * When data needs to be passed to the next screen...
-                 */
                 States.AVAILABLE_COURSES = availableCourses;
                 States.SELECTED_COURSES = selectedCourses;
                 States.IS_SET = true;
