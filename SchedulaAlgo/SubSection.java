@@ -6,6 +6,8 @@
 **/
 package SchedulaAlgo;
 
+import java.util.ArrayList;
+
 public final class SubSection extends Section{
 
 	/** CONSTRUCTOR
