@@ -31,26 +31,17 @@ public class ActivityMain extends AppCompatActivity {
         /*
          * Start the parsing of the courses immediately when the app loads
          */
-        if (!States.dbQuerried) {
+        if (!States.dbQueried) {
             InputStream stream = getResources().openRawResource(R.raw.courses);
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             new TaskXMLParser().execute(reader);
-            States.dbQuerried = true;
+            States.dbQueried = true;
         }
 
         findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(ActivityMain.this, ActivitySelector.class);
-
-                /*
-                When data needs to be passed...
-
-                Bundle bundle = new Bundle();
-                */
-
-                startActivity(intent);
+                startActivity(new Intent(ActivityMain.this, ActivitySelector.class));
             }
         });
     }
