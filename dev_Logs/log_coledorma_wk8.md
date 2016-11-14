@@ -2,11 +2,11 @@
 
 ## Duties
  - [X] Create and update weekly Dev Log
- - [ ] Add finishing touches to all of UI
- - [ ] Work collectively with Evan to finish Page 4 of UI
- - [ ] Finalize and finish Page 4 of UI
- - [ ] Weekly group meeting
- - [ ] Start integrating UI with Algorithm for prototype
+ - [X] Add finishing touches to all of UI
+ - [X] Work collectively with Evan to finish Page 4 of UI
+ - [X] Finalize and finish Page 4 of UI
+ - [X] Weekly group meeting
+ - [X] Start integrating UI with Algorithm for prototype
 
 ## Time Spent:
-* **0** _hours_ and **30** _minutes_
+* **12** _hours_ and **30** _minutes_
