@@ -16,9 +16,6 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
-	public Calendar getStart() { return start; }
-	public Calendar getEnd() { return end; }
-
 	/** CONSTRUCTOR
 	 *	Function:	creates Gregorian Calendar TimeSlots
 	 *	@params	c = course code
@@ -144,4 +141,8 @@ public class TimeSlot {
 		}
 		return difference;
 	}
+	
+	// Getters
+	public Calendar getStart() { return start; }
+	public Calendar getEnd() { return end; }
 }
