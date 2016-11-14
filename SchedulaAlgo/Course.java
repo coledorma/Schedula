@@ -28,7 +28,7 @@ public class Course {
 	 *	
 	 **/
 	public String toString(){
-		return "Course Code:" + code + "\n" + sections;
+		return code;
 	}
 	
 	// Getters
