@@ -2,12 +2,14 @@ package com.example.coop.schedulaui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import android.content.Intent;
-import android.graphics.RectF;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +22,10 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import SchedulaAlgo.Schedule;
+import SchedulaAlgo.Section;
+import SchedulaAlgo.TimeSlot;
+
 /**
  * Created by coop on 2016-10-20.
  */
@@ -27,78 +33,29 @@ import com.alamkanak.weekview.WeekViewEvent;
 /*
  * TODO
  * Implement selectButton
- * setMaxDate for mWeekView
  */
 
-public class ActivityFinal extends AppCompatActivity implements MonthLoader.MonthChangeListener, WeekView.ScrollListener, WeekView.EventClickListener {
+public class ActivityFinal extends AppCompatActivity implements MonthLoader.MonthChangeListener, WeekView.ScrollListener {
 
+    /*
+     * UI Elements
+     */
     private WeekView mWeekView;
     private Button selectButton;
 
+    /*
+     * Data Elements
+     */
+    private List<WeekViewEvent> activeCourseSet;
+    private ArrayList<List<WeekViewEvent>> availableCourseSets;
+
     private Boolean mWeekViewLoaded;
     private Boolean mWeekViewSet;
-
-    private List<WeekViewEvent> activeCourseSet;
-    public ArrayList<List<WeekViewEvent>> availableCourseSets;
-
-    /*
-     * Scrolls the WeekView to the previous Monday
-     */
-    private void scrollWeekViewToDay() {
-        Calendar prevMon = Calendar.getInstance();
-        prevMon.set(Calendar.DAY_OF_YEAR, activeCourseSet.get(0).getStartTime().get(Calendar.DAY_OF_YEAR));
-
-        while (prevMon.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            prevMon.set(Calendar.DAY_OF_YEAR, prevMon.get(Calendar.DAY_OF_YEAR) - 1);
-        }
-
-        if (!mWeekViewSet) {
-            mWeekView.setMinDate(prevMon);
-            mWeekViewSet = true;
-        }
-
-        mWeekView.goToDate(prevMon);
-    }
-
-    /*
-     * Scrolls the WeekView to the hour of day for the earliest course in the schedule
-     */
-    private void scrollWeekViewToHour() {
-        double minHour = 24L;
-        for (int i = 0; i < activeCourseSet.size(); i++) {
-            if (activeCourseSet.get(i).getStartTime().get(Calendar.HOUR_OF_DAY) < minHour) {
-                minHour = activeCourseSet.get(i).getStartTime().get(Calendar.HOUR_OF_DAY);
-            }
-        }
-
-        mWeekView.goToHour(minHour);
-    }
-
-    /*
-     * Return a calendar event title with course code, section and time
-     */
-    public String generateCourseName(String code, Calendar startTime, Calendar endTime) {
-        String courseName = code;
-
-        String startHour = (startTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(startTime.get(Calendar.HOUR_OF_DAY)) : ("0" + startTime.get(Calendar.HOUR_OF_DAY));
-        String startMin = (startTime.get(Calendar.MINUTE) > 9) ? Integer.toString(startTime.get(Calendar.MINUTE)) : ("0" + startTime.get(Calendar.MINUTE));
-        String endHour = (endTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(endTime.get(Calendar.HOUR_OF_DAY)) : ("0" + endTime.get(Calendar.HOUR_OF_DAY));
-        String endMin = (endTime.get(Calendar.MINUTE) > 9) ? Integer.toString(endTime.get(Calendar.MINUTE)) : ("0" + endTime.get(Calendar.MINUTE));
-
-        courseName += "\n\n" + startHour + ":" + startMin;
-        courseName += "\n" + endHour + ":" + endMin;
-
-        return courseName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
-
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        ArrayList<ArrayList<ArrayList<Calendar>>> eventSets = (ArrayList<ArrayList<ArrayList<Calendar>>>) bundle.getSerializable(States.eventSets);
 
         mWeekViewLoaded = false;
         mWeekViewSet = false;
@@ -109,10 +66,10 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
         availableCourseSets = new ArrayList<>();
         activeCourseSet = null;
 
-        for (int i = 0; i < eventSets.size(); i++) {
+        for (int i = 0; i < States.SCHEDULES.size(); i++) {
             /*
              * Create a button for each schedule generated
-             * Each button is paired with a data type
+             * Each button is paired with a schedule data set
              * The data set of the WeekView will change with the button click
              */
 
@@ -141,12 +98,12 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
                 }
             });
 
-            scheduleSelector.addView(aButton);
-
             if (i == 0) {
                 aButton.setAlpha(0.3f);
                 aButton.setClickable(false);
             }
+
+            scheduleSelector.addView(aButton);
         }
 
         selectButton = (Button) findViewById(R.id.select_button);
@@ -157,16 +114,15 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
             }
         });
 
-        // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
         mWeekView.setMonthChangeListener(this);
         mWeekView.setScrollListener(this);
-        mWeekView.setOnEventClickListener(this);
 
         setupDateTimeInterpreter(true);
     }
 
-    /**
+    /*
+     * For the WeekView...
      * Set up a date time interpreter which will show short date values when in week view and long
      * date values otherwise.
      * @param shortDate True if the date values should be short.
@@ -206,50 +162,52 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
         });
     }
 
-    @Override
-    public void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay) {
-        // Essentially disable horizontal scrolling
-        if (mWeekViewLoaded) {
-            scrollWeekViewToDay();
-        }
-    }
-
-    @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        System.out.println(event.getStartTime().get(Calendar.HOUR));
-    }
-
-    private boolean eventMatches(WeekViewEvent event, int year, int month) {
-        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1) ||
-                (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
-    }
-
+    /*
+     * Main method for WeekView
+     * Populate the WeekView with events for current month, previous month, and next month
+     */
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        // Provide the events for the WeekView
-
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        ArrayList<ArrayList<ArrayList<Object>>> eventSets = (ArrayList<ArrayList<ArrayList<Object>>>) bundle.getSerializable(States.eventSets);
-
-        for (ArrayList<ArrayList<Object>> eventSet : eventSets) {
+        for (Schedule schedule : States.SCHEDULES) {
             List<WeekViewEvent> events = new ArrayList<>();
 
-            for (ArrayList<Object> rawEvent : eventSet) {
-                Calendar startTime = (Calendar) rawEvent.get(0);
-                Calendar endTime = (Calendar) rawEvent.get(1);
-                String eventName = (String) rawEvent.get(2);
-                WeekViewEvent event = new WeekViewEvent(1, generateCourseName(eventName, startTime, endTime), startTime, endTime);
-                if (eventMatches(event, newYear, newMonth)) {
-                    events.add(event);
+            for (Section section : schedule.getSections()) {
+
+                int colourIndex = 0;
+                ArrayList<Integer> colours = new ArrayList<>();
+                colours.add(R.color.event_color_01);
+                colours.add(R.color.event_color_02);
+                colours.add(R.color.event_color_03);
+                colours.add(R.color.event_color_04);
+
+                for (TimeSlot timeSlot : section.getTimes()) {
+                    if (timeSlot == null) continue;
+
+                    Calendar start = Calendar.getInstance();
+                    start.set(Calendar.HOUR_OF_DAY, timeSlot.getStart().get(Calendar.HOUR_OF_DAY));
+                    start.set(Calendar.MINUTE, timeSlot.getStart().get(Calendar.MINUTE));
+                    start.set(Calendar.DAY_OF_WEEK, timeSlot.getStart().get(Calendar.DAY_OF_WEEK));
+                    start.set(Calendar.YEAR, timeSlot.getStart().get(Calendar.YEAR));
+
+                    Calendar end = Calendar.getInstance();
+                    end.set(Calendar.HOUR_OF_DAY, timeSlot.getEnd().get(Calendar.HOUR_OF_DAY));
+                    end.set(Calendar.MINUTE, timeSlot.getEnd().get(Calendar.MINUTE));
+                    end.set(Calendar.DAY_OF_WEEK, timeSlot.getEnd().get(Calendar.DAY_OF_WEEK));
+                    end.set(Calendar.YEAR, timeSlot.getEnd().get(Calendar.YEAR));
+
+                    WeekViewEvent event = new WeekViewEvent(1, generateCourseName(section.getID(), start, end), start, end);
+//                    event.setColor(R.color.event_color_02);
+                    if (eventMatches(event, newYear, newMonth)) {
+                        events.add(event);
+                    }
                 }
             }
 
             if (!events.isEmpty()) {
                 try {
-                    availableCourseSets.set(eventSets.indexOf(eventSet), events);
+                    availableCourseSets.set(States.SCHEDULES.indexOf(schedule), events);
                 } catch (IndexOutOfBoundsException e) {
-                    availableCourseSets.add(eventSets.indexOf(eventSet), events);
+                    availableCourseSets.add(States.SCHEDULES.indexOf(schedule), events);
                 }
             }
         }
@@ -269,5 +227,74 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
             return activeCourseSet;
         }
         return new ArrayList<>();
+    }
+
+    /*
+     * Horizontal scroll listener for WeekView
+     */
+    @Override
+    public void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay) {
+        // Essentially disable horizontal scrolling
+        if (mWeekViewLoaded) {
+            scrollWeekViewToDay();
+        }
+    }
+
+
+    /*
+     * WeekView helper method
+     * Check if an event is part of the current month that is being loaded in onMonthChange
+     */
+    private boolean eventMatches(WeekViewEvent event, int year, int month) {
+        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1) ||
+                (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
+    }
+
+    /*
+     * Helper method
+     * Scrolls the WeekView to the previous Monday
+     */
+    private void scrollWeekViewToDay() {
+        Calendar prevMon = Calendar.getInstance();
+        prevMon.set(Calendar.DAY_OF_YEAR, activeCourseSet.get(0).getStartTime().get(Calendar.DAY_OF_YEAR));
+
+        while (prevMon.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            prevMon.set(Calendar.DAY_OF_YEAR, prevMon.get(Calendar.DAY_OF_YEAR) - 1);
+        }
+
+        if (!mWeekViewSet) {
+            mWeekView.setMinDate(prevMon);
+            mWeekViewSet = true;
+        }
+
+        mWeekView.goToDate(prevMon);
+    }
+
+    /*
+     * Helper method
+     * Scrolls the WeekView to the hour of day for the earliest course in the schedule
+     */
+    private void scrollWeekViewToHour() {
+        double minHour = 24L;
+        for (int i = 0; i < activeCourseSet.size(); i++) {
+            if (activeCourseSet.get(i).getStartTime().get(Calendar.HOUR_OF_DAY) < minHour) {
+                minHour = activeCourseSet.get(i).getStartTime().get(Calendar.HOUR_OF_DAY);
+            }
+        }
+
+        mWeekView.goToHour(minHour);
+    }
+
+    /*
+     * Helper method
+     * Return a calendar event title with course code, section and time
+     */
+    public String generateCourseName(String code, Calendar startTime, Calendar endTime) {
+        String startHour = (startTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(startTime.get(Calendar.HOUR_OF_DAY)) : ("0" + startTime.get(Calendar.HOUR_OF_DAY));
+        String startMin = (startTime.get(Calendar.MINUTE) > 9) ? Integer.toString(startTime.get(Calendar.MINUTE)) : ("0" + startTime.get(Calendar.MINUTE));
+        String endHour = (endTime.get(Calendar.HOUR_OF_DAY) > 9) ? Integer.toString(endTime.get(Calendar.HOUR_OF_DAY)) : ("0" + endTime.get(Calendar.HOUR_OF_DAY));
+        String endMin = (endTime.get(Calendar.MINUTE) > 9) ? Integer.toString(endTime.get(Calendar.MINUTE)) : ("0" + endTime.get(Calendar.MINUTE));
+
+        return code + "\n\n" + startHour + ":" + startMin + "\n" + endHour + ":" + endMin;
     }
 }
