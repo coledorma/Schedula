@@ -6,8 +6,6 @@
 **/
 package SchedulaAlgo;
 
-import java.util.ArrayList;
-
 public class Commitment {
 	protected String type;
 	protected int term;
