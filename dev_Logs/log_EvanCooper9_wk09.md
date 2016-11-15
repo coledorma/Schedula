@@ -2,9 +2,9 @@
 
 ## Duties
  - [X] Create and update weekly dev log
- - [ ] Weekly team meeting
- - [ ] Fully implement algorithm when it's finished
- - [ ] Document files
+ - [X] Weekly team meeting
+ - [X] Fully implement algorithm when it's finished
+ - [X] Document files
 
 ## Time Spent:
-* **0** _hours_ and **0** _minutes_
+* **12** _hours_ and **0** _minutes_
