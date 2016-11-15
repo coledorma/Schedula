@@ -2,14 +2,10 @@ package com.example.coop.schedulaui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -172,14 +168,6 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
             List<WeekViewEvent> events = new ArrayList<>();
 
             for (Section section : schedule.getSections()) {
-
-                int colourIndex = 0;
-                ArrayList<Integer> colours = new ArrayList<>();
-                colours.add(R.color.event_color_01);
-                colours.add(R.color.event_color_02);
-                colours.add(R.color.event_color_03);
-                colours.add(R.color.event_color_04);
-
                 for (TimeSlot timeSlot : section.getTimes()) {
                     if (timeSlot == null) continue;
 
@@ -187,16 +175,14 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
                     start.set(Calendar.HOUR_OF_DAY, timeSlot.getStart().get(Calendar.HOUR_OF_DAY));
                     start.set(Calendar.MINUTE, timeSlot.getStart().get(Calendar.MINUTE));
                     start.set(Calendar.DAY_OF_WEEK, timeSlot.getStart().get(Calendar.DAY_OF_WEEK));
-                    start.set(Calendar.YEAR, timeSlot.getStart().get(Calendar.YEAR));
 
                     Calendar end = Calendar.getInstance();
                     end.set(Calendar.HOUR_OF_DAY, timeSlot.getEnd().get(Calendar.HOUR_OF_DAY));
                     end.set(Calendar.MINUTE, timeSlot.getEnd().get(Calendar.MINUTE));
                     end.set(Calendar.DAY_OF_WEEK, timeSlot.getEnd().get(Calendar.DAY_OF_WEEK));
-                    end.set(Calendar.YEAR, timeSlot.getEnd().get(Calendar.YEAR));
 
                     WeekViewEvent event = new WeekViewEvent(1, generateCourseName(section.getID(), start, end), start, end);
-//                    event.setColor(R.color.event_color_02);
+
                     if (eventMatches(event, newYear, newMonth)) {
                         events.add(event);
                     }
@@ -212,20 +198,24 @@ public class ActivityFinal extends AppCompatActivity implements MonthLoader.Mont
             }
         }
 
-        if (activeCourseSet == null) {
+        if (activeCourseSet == null && availableCourseSets.size() != 0) {
             // This will only occur the first time this Activity loads
             activeCourseSet = availableCourseSets.get(0);
+        }
+
+        if (availableCourseSets.size() == 0) {
+            return new ArrayList<>();
         }
 
         if (eventMatches(activeCourseSet.get(0), newYear, newMonth)) {
             scrollWeekViewToHour();
             if (!mWeekViewLoaded) {
-                System.out.println(true);
                 scrollWeekViewToDay();
                 mWeekViewLoaded = true;
             }
             return activeCourseSet;
         }
+
         return new ArrayList<>();
     }
 
