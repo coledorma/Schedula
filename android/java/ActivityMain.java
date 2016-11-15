@@ -41,7 +41,7 @@ public class ActivityMain extends AppCompatActivity {
         findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityMain.this, ActivitySelector.class));
+                startActivity(new Intent(ActivityMain.this, ActivitySelect.class));
             }
         });
     }
