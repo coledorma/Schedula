@@ -30,21 +30,21 @@ public class ActivityPreferences extends AppCompatActivity{
     /*
      * UI Elements
      */
-    ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    EditText preferredTime;
-    Button addTime;
-    Button generateButton;
-    TextView specificTimesList;
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private EditText preferredTime;
+    private Button addTime;
+    private Button generateButton;
+    private TextView specificTimesList;
 
     /*
      * Data Elements
      */
-    String preferredTOD = "";
-    List<String> specificTimes = new ArrayList<String>();
-    List<String> expandableListTitle;
-    ArrayList<String> specificDays = new ArrayList<>();
-    HashMap<String, List<String>> expandableListDetail;
+    private String preferredTOD = "";
+    private List<String> specificTimes = new ArrayList<String>();
+    private List<String> expandableListTitle;
+    private ArrayList<String> specificDays = new ArrayList<>();
+    private HashMap<String, List<String>> expandableListDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,12 +168,39 @@ public class ActivityPreferences extends AppCompatActivity{
 
                 ArrayList<Commitment> commitments = new ArrayList<>();
                 for (String time : specificTimes) {
+                    System.out.println(time.replace(":", ""));
                     Commitment commitment = new Commitment("Commitment", Integer.parseInt(States.term), time.replace(":", ""));
                     commitments.add(commitment);
                 }
 
-                ScheduleGenerator schedules = new ScheduleGenerator(States.SELECTED_COURSES, commitments, specificDays, 10);
-                States.SCHEDULES = schedules.getSchedules();
+                for (String dayOff : specificDays) {
+                    String time = "";
+                    switch (dayOff) {
+                        case "M":
+                            time = "M 0001-2359"; break;
+                        case "T":
+                            time = "T 0001-2359"; break;
+                        case "W":
+                            time = "W 0001-2359"; break;
+                        case "R":
+                            time = "R 0001-2359"; break;
+                        case "F":
+                            time = "F 0001-2359"; break;
+                    }
+                    Commitment commitment = new Commitment("Day Off", Integer.parseInt(States.term), time);
+                    commitments.add(commitment);
+                }
+
+                System.out.println(commitments);
+
+                if (States.term.equals("201710")) {
+                    ScheduleGenerator schedules = new ScheduleGenerator(States.SELECTED_COURSES_WINT, commitments, new ArrayList<String>(), 10);
+                    States.SCHEDULES = schedules.getSchedules();
+
+                } else {
+                    ScheduleGenerator schedules = new ScheduleGenerator(States.SELECTED_COURSES_FALL, commitments, new ArrayList<String>(), 10);
+                    States.SCHEDULES = schedules.getSchedules();
+                }
 
                 States.preferredTOD = preferredTOD;
                 States.specificTimes = specificTimes;
