@@ -81,16 +81,16 @@ public class Section {
 	 *	
 	 **/
 	public boolean conflicts(Section s) {
-		boolean b = false;
-		if (this == null || s == null) return b;
-		for(TimeSlot t1 : times){
+		if (this == null || s == null) return false;
+
+		for(TimeSlot t1 : times) {
 			if (t1 == null) continue;
 			for (TimeSlot t2 : s.times){
 				if (t2 == null) continue;
-				b = (t1.conflicts(t2) || t2.conflicts(t1));
+				if (t1.conflicts(t2) || t2.conflicts(t1)) return true;
 			}
 		}
-		return b;
+		return false;
 	}
 
 	/** ADD SUB-SECTION
