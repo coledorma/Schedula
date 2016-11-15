@@ -16,6 +16,9 @@ public class TimeSlot {
 	private Calendar end;
 	private String term;
 
+	public Calendar getStart() { return start; }
+	public Calendar getEnd() { return end; }
+
 	/** CONSTRUCTOR
 	 *	Function:	creates Gregorian Calendar TimeSlots
 	 *	@params	c = course code
@@ -86,15 +89,16 @@ public class TimeSlot {
 		if (!term.equals(t.term)) return false;
 		if (start.compareTo(t.start) == 0) return true;
 		if (end.compareTo(t.end) == 0) return true;
-		return	(start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
-				((start.get(Calendar.HOUR_OF_DAY) <= t.start.get(Calendar.HOUR_OF_DAY) && 
-				t.start.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY)) ||
-				(start.get(Calendar.HOUR_OF_DAY) <= t.end.get(Calendar.HOUR_OF_DAY) &&
-				t.end.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY))) &&
-				((start.get(Calendar.MINUTE) <= t.start.get(Calendar.MINUTE) && 
-				t.start.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)) ||
-				(start.get(Calendar.MINUTE) <= t.end.get(Calendar.MINUTE) &&
-				t.end.get(Calendar.MINUTE) <= end.get(Calendar.MINUTE)));
+
+		int startMin = start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE);
+		int endMin = end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE);
+		int startMinT = t.start.get(Calendar.HOUR_OF_DAY)*60 + t.start.get(Calendar.MINUTE);
+		int endMinT = t.end.get(Calendar.HOUR_OF_DAY)*60 + t.end.get(Calendar.MINUTE);
+
+		return (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
+				((startMinT >= startMin && startMinT <= endMin) ||
+				(endMinT >= startMin && endMinT <= endMin) ||
+				(startMinT <= startMin && endMinT >= endMin));
 	}
 
 	/** PERIOD
@@ -141,8 +145,4 @@ public class TimeSlot {
 		}
 		return difference;
 	}
-	
-	// Getters
-	public Calendar getStart() { return start; }
-	public Calendar getEnd() { return end; }
 }
