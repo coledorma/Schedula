@@ -29,9 +29,12 @@ public class ScheduleGenerator {
 		courses = cr;
 		commits = cm;
 		periods = p;
-		schedules = new LinkedList<Schedule>();
+		schedules = new LinkedList<>();
 		generator = new Random(System.nanoTime());
+		long startTime = System.nanoTime();
 		generate(size);
+		long endTime = System.nanoTime();
+		System.out.println("Execution time : " + 1e-6 * (endTime - startTime));
 	}
 
 	/** GENERATE (MAIN LOGICAL ASPECT)
@@ -49,39 +52,46 @@ public class ScheduleGenerator {
 				Collections.shuffle(c.sections, generator);
 				for (Section s : c.sections){
 					switch (periods.size()) {
-					case 2:	
-						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
-							if (s.getSubSecs().size() == 0) continue;
-							subCount -= 1;
-							Collections.shuffle(s.getSubSecs(), generator);
-							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1))
-							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+					case 2:
+						if (!commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
+							if (posSchedg.add(s)) {
+								if (s.getSubSecs().size() == 0) continue;
+								subCount -= 1;
+								Collections.shuffle(s.getSubSecs(), generator);
+								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
+								if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1))
+									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							}
 						} break;
 					case 1:
-						if (posSchedg.add(s) && !commitConflicts(s) && s.getTimes()[0].period() == periods.get(0)) {
-							if (s.getSubSecs().size() == 0) continue;
-							subCount -= 1;
-							Collections.shuffle(s.getSubSecs(), generator);
-							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0))
-							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+						if (!commitConflicts(s) && s.getTimes()[0].period() == periods.get(0)) {
+							if (posSchedg.add(s)) {
+								if (s.getSubSecs().size() == 0) continue;
+								subCount -= 1;
+								Collections.shuffle(s.getSubSecs(), generator);
+								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
+								if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0))
+									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							}
 						} break;
 					default:
-						if (posSchedg.add(s) && !commitConflicts(s)) {
-							if (s.getSubSecs().size() == 0) continue;
-							subCount -= 1;
-							Collections.shuffle(s.getSubSecs(), generator);
-							SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
-							if (!commitConflicts(ss))
-							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+						if (!commitConflicts(s)) {
+							if (posSchedg.add(s)) {
+								System.out.println(posSchedg);
+								if (s.getSubSecs().size() == 0) continue;
+								subCount -= 1;
+								Collections.shuffle(s.getSubSecs(), generator);
+								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
+								if (!commitConflicts(ss))
+									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							}
 						} break;
 					}
 					if (posSchedg.contains(s)) break;
 				}
 			}
 			if (posSchedg.getSize() == ((courses.size()*2)- subCount))
-			if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
+				if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
 			if (searchCount>=size*10) break;
 			else ++searchCount;
 		}
@@ -98,7 +108,7 @@ public class ScheduleGenerator {
 		s += "INPUT COMMITMENTS:\n";
 		for (Commitment c : commits) s += c+"\n";
 		s += "POSSIBLE SCHEDULES:\n";
-		for (Schedule sc : schedules) s += schedules.indexOf(sc) + ": " + sc+"\n";
+		for (Schedule sc : schedules) s += schedules.indexOf(sc) + " size: " + sc.getSize() + ": " + sc+"\n";
 		return s;
 	}
  
@@ -108,11 +118,8 @@ public class ScheduleGenerator {
 	 *	@return boolean indicating if given Section s conflicts with a commitment in commits 
 	 **/
 	public boolean commitConflicts(Section s) {
-		for (int i = 0; i < commits.size(); i++) {
-			if (s.conflicts(commits.get(i).getTimes())) {
-				return true;
-			}
-		}
+		for (Commitment commitment : commits)
+			if ((s.conflicts(commitment.getTimes())) || commitment.getTimes().conflicts(s)) return true;
 		return false;
 	}
 	
