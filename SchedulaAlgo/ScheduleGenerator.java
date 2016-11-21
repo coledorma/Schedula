@@ -33,6 +33,7 @@ public class ScheduleGenerator {
 		generator = new Random(System.nanoTime());
 		long startTime = System.nanoTime();
 		generate(size);
+		//Collections.sort(schedules, new MyComparator());
 		long endTime = System.nanoTime();
 		System.out.println("Execution time : " + 1e-6 * (endTime - startTime));
 	}
@@ -95,6 +96,7 @@ public class ScheduleGenerator {
 			if (searchCount>=size*10) break;
 			else ++searchCount;
 		}
+		Collections.sort(schedules, new MyComparator());
 		System.out.println(searchCount + " = # of loops\n" + toString());
     }
  

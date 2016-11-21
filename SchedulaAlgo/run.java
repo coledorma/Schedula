@@ -35,7 +35,7 @@ public final class run{
 		subsections1.add(new SubSection("A2","TUT",211112,201630,"W 1605-1755"));
 		subsections2.add(new SubSection("B1","TUT",311113,201630,"W 1405-1855"));
 		subsections2.add(new SubSection("B2","TUT",411114,201630,"W 1605-1755"));
-		subsections3.add(new SubSection("A1","TUT",522221,201630,"R 1305-1455"));
+		subsections3.add(new SubSection("A1","TUT",522221,201630,"M 1305-1355"));
 		subsections3.add(new SubSection("A2","TUT",622222,201630,"M 1605-1755"));
 		subsections4.add(new SubSection("A1","TUT",733331,201630,"F 1405-1555"));
 		subsections4.add(new SubSection("A2","TUT",833332,201630,"W 1605-1755"));

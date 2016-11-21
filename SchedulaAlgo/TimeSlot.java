@@ -12,12 +12,10 @@ import java.lang.String;
 
 public class TimeSlot {
 	private static final char MONDAY = 'M', TUESDAY = 'T', WEDNESDAY = 'W', THURSDAY = 'R', FRIDAY = 'F';
+	private char day;
 	private Calendar start;
 	private Calendar end;
 	private String term;
-
-	public Calendar getStart() { return start; }
-	public Calendar getEnd() { return end; }
 
 	/** CONSTRUCTOR
 	 *	Function:	creates Gregorian Calendar TimeSlots
@@ -31,6 +29,7 @@ public class TimeSlot {
 	 *			termYear = year timeslot is in		
 	 **/
 	public TimeSlot(char dayOfWeek, int startHour, int startMinute, int endHour, int endMinute, int termMonth, int termYear) {
+		day = dayOfWeek;
 		int tm,dw,sd; tm=dw=sd=0;
 		switch(dayOfWeek){
 			default: break;
@@ -145,4 +144,11 @@ public class TimeSlot {
 		}
 		return difference;
 	}
+
+	public char getDay() { return day; }
+	public Calendar getStart() { return start; }
+	public Calendar getEnd() { return end; }
+	public int getStartMins() { return start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE); }
+	public int getEndMins() { return end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE);}
+
 }
