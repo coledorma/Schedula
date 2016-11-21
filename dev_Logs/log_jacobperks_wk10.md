@@ -1,12 +1,11 @@
 # Dev Log - Week: 10
  
 ## Duties:
-  - [ ] Weekly meeting with group
-  - [ ] Bug fixing
-  - [ ] Add online course preference selection
-  - [ ] Work on optimization with difference() function (in progress)
-  - [ ] Refactoring (in progress)
+  - [X] Weekly meeting with group
+  - [X] Bug fixing
+  - [X] Work on optimization with difference() function (in progress)
+  - [X] Refactoring (in progress)
 
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 8 _hours_ and 0 _minutes_
