@@ -2,12 +2,12 @@
 
 ## Duties
  - [X] Create and update weekly Dev Log
- - [ ] Weekly group meeting
- - [ ] Double check functionality of migration of UI and Algorithm
- - [ ] Clean up migration code
+ - [X] Weekly group meeting
+ - [X] Double check functionality of migration of UI and Algorithm
+ - [X] Clean up migration code
  - [X] Contribute to Deliverable 2
- - [ ] Work on in-class demo presentation
- - [ ] Work on additional UI features
+ - [X] Work on in-class demo presentation
+ - [X] Work on additional UI features
 
 ## Time Spent:
-* **4** _hours_ and **0** _minutes_
+* **14** _hours_ and **30** _minutes_
