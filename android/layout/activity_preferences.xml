@@ -1,126 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".ActivityPrefs">
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="GENERATE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/generateButton" />
-
-    <TextView
-        android:text="Specific Time(s) Not Available:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/specificTimeString"
-        android:layout_marginBottom="260dp"
-        android:textSize="17sp"
-        android:layout_above="@+id/generateButton"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/specificTime"
-        android:layout_marginTop="20dp"
-        android:layout_alignTop="@+id/specificTimeString"
         android:layout_alignParentStart="true"
-        android:hint="24hr format (e.g. M 08:35-13:00)" />
+        android:weightSum="1">
 
-    <Button
-        android:text="ADD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addTime"
-        android:layout_below="@+id/specificTime"
-        android:layout_alignStart="@+id/generateButton" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <CheckedTextView
-        android:text="Monday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkMon"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:checked="false"
-        android:layout_below="@+id/specificDayString"
-        android:layout_alignParentStart="true" />
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_height="179dp"
+                android:layout_width="match_parent"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0.5dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
 
-    <CheckedTextView
-        android:text="Tuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkTue"
-        android:layout_weight="1"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:checked="false"
-        android:layout_below="@+id/specificDayString"
-        android:layout_alignStart="@+id/addTime" />
+        </LinearLayout>
 
-    <TextView
-        android:text="Specific Day(s) Not Available:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/specificDayString"
-        android:textSize="17sp"
-        android:layout_marginTop="60dp"
-        android:layout_below="@+id/addTime"
-        android:layout_alignParentStart="true" />
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
 
-    <CheckedTextView
-        android:text="Wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:checked="false"
-        android:id="@+id/checkWed"
-        android:layout_alignBottom="@+id/checkTue"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:text="Specific Time(s) Not Available:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/specificTimeString"
+            android:layout_weight="0.00"
+            android:textSize="18sp" />
 
-    <CheckedTextView
-        android:text="Thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkThu"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:checked="false"
-        android:layout_marginStart="62dp"
-        android:layout_below="@+id/checkMon"
-        android:layout_alignParentStart="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
-    <CheckedTextView
-        android:text="Friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkFri"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:checked="false"
-        android:layout_below="@+id/checkTue"
-        android:layout_toEndOf="@+id/checkTue" />
 
-    <TextView
-        android:text="Specific Time(s) Listed: "
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/specificTimesList"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/addTime"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="viewStart" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/specificTimeStart"
+                android:layout_weight="0.36"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="Start Time" />
+
+            <TextView
+                android:text=" TO "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toString"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/specificTimeEnd"
+                android:layout_weight="0.36"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:text="End Time" />
+
+            <Spinner
+                android:layout_width="142dp"
+                android:layout_height="45dp"
+                android:id="@+id/daySpinner" />
+        </LinearLayout>
+
+        <Button
+            android:text="ADD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addTime"
+            android:elevation="0dp"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <TextView
+            android:text="Sepcific Time(s) List:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/specificTimeListString"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="(tap on a menu time to remove it)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/removeString" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/specificTimeSpinner" />
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:text="Specific Day(s) Not Available:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/specificDayString"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+            <CheckBox
+                android:text="Mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkMon"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:text="Tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkTue"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:text="Wed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkWed"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:text="Thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkThu"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:text="Fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkFri"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="25dp" />
+
+        <Button
+            android:text="Generate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/generateButton"
+            style="@style/Widget.AppCompat.Button.Colored" />
+    </LinearLayout>
 
 </RelativeLayout>
