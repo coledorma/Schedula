@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,44 +11,57 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.coop.schedulaui.ActivityMain">
 
-    <Button
-        android:text="START"
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/infoFAB"
+        app:elevation="3dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_media_play"
         android:layout_alignParentBottom="true"
-        android:id="@+id/start_button"
-        android:elevation="0dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/startFAB"
+        app:elevation="3dp" />
+
+    <TextView
+        android:text="Your painless and powerful course scheduling application."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descripText"
+        android:textSize="15sp"
+        android:layout_marginBottom="164dp"
+        android:layout_above="@+id/beginText"
         android:layout_alignParentStart="true"
+        android:textColor="@android:color/holo_red_light" />
+
+    <TextView
+        android:text="Click here to begin!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/beginText"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_above="@+id/startFAB"
         android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome\nTo\nSchedula"
-        android:textSize="40sp"
+        android:text="Schedula"
+        android:textSize="60sp"
         android:textAlignment="viewStart"
         android:id="@+id/welcome_text"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Click the START button to begin choosing your courses that you are taking for this upcoming semester."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:textAlignment="viewStart"
-        android:textSize="20sp"
-        android:layout_above="@+id/start_button"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Your course scheduling application that generates all possible schedules according to your chosen courses."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/description_text"
-        android:textAlignment="textEnd"
-        android:textSize="20sp"
-        android:layout_centerVertical="true"
+        android:textColor="@android:color/black"
+        android:layout_above="@+id/descripText"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
