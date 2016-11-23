@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Schedula</string>
+
+    <string name="main_activity_title">Main</string>
+
+    <string name="course_selector_title">Course Selector</string>
+    <string name="course_selector_hint">Course Code (COMP3004)</string>
+    <string name="selected_courses_title">Selected Courses</string>
+
+    <string name="next_button">Next</string>
+    <string name="back_button">Back</string>
+    <string name="select_button">Select</string>
+    <string name="fall_button">Fall Term</string>
+    <string name="wint_button">Winter Term</string>
+    <string name="title_activity_prefs">ActivityPrefs</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_select">ActivitySelect</string>
+    <string name="title_activity_fin">Your Schedules</string>
+
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+</resources>
