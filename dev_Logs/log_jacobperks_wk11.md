@@ -3,9 +3,7 @@
 ## Duties:
   - [ ] Weekly meeting with group
   - [ ] Bug fixing
-  - [ ] Work on TA's feature
-  - [ ] Refactoring (in progress)
-  - [ ] Work on getting app to app store with dummy data
+  - [ ] Work on deliverable 3 - architecture written and diagram components
 
  
 ## Time Spent: 
