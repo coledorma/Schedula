@@ -93,8 +93,7 @@ public class TimeSlot {
 	public boolean conflicts(TimeSlot t) {
 		if (this == null || t == null) return false;
 		if (!term.equals(t.term)) return false;
-		if (start.compareTo(t.start) == 0) return true;
-		if (end.compareTo(t.end) == 0) return true;
+		if (start.compareTo(t.start) == 0 || end.compareTo(t.end) == 0) return true;
 
 		int	startMin = start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE),
 			endMin = end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE),
@@ -127,9 +126,8 @@ public class TimeSlot {
 	 **/
 	public int difference(TimeSlot t) {
 		int difference, startMinutes, endMinutes; difference = startMinutes = endMinutes  = 0;
-		if (conflicts(t) == true) {
-			return difference;
-		} else {
+		if (conflicts(t) == true) return difference;
+		else {
 			if (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) {
 				if (((start.get(Calendar.HOUR_OF_DAY)*60) + (start.get(Calendar.MINUTE))) >= ((t.end.get(Calendar.HOUR_OF_DAY)*60) + (t.end.get(Calendar.MINUTE)))) {
 					startMinutes += start.get(Calendar.HOUR_OF_DAY) * 60;
@@ -143,9 +141,7 @@ public class TimeSlot {
 					endMinutes += end.get(Calendar.MINUTE);
 				}
 				difference = startMinutes - endMinutes;
-			} else {
-				return -1;
-			}
+			} else return -1;
 		}
 		return difference;
 	}
