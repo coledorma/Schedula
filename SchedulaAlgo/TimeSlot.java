@@ -55,6 +55,13 @@ public class TimeSlot {
 		end.set(Calendar.DAY_OF_WEEK, dw);
 	}
 	
+	// Getters
+	public char getDay()		{ return day; }
+	public Calendar getStart()	{ return start; }
+	public Calendar getEnd()	{ return end; }
+	public int getStartMins()	{ return start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE); }
+	public int getEndMins()		{ return end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE); }
+	
 	/** TO STRING
 	 *	Function:	string formatted representation of this TimeSlot obj
 	 *	@params	n/a
@@ -89,12 +96,12 @@ public class TimeSlot {
 		if (start.compareTo(t.start) == 0) return true;
 		if (end.compareTo(t.end) == 0) return true;
 
-		int startMin = start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE);
-		int endMin = end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE);
-		int startMinT = t.start.get(Calendar.HOUR_OF_DAY)*60 + t.start.get(Calendar.MINUTE);
-		int endMinT = t.end.get(Calendar.HOUR_OF_DAY)*60 + t.end.get(Calendar.MINUTE);
+		int	startMin = start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE),
+			endMin = end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE),
+			startMinT = t.start.get(Calendar.HOUR_OF_DAY)*60 + t.start.get(Calendar.MINUTE),
+			endMinT = t.end.get(Calendar.HOUR_OF_DAY)*60 + t.end.get(Calendar.MINUTE);
 
-		return (start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
+		return	(start.get(Calendar.DAY_OF_WEEK) == t.start.get(Calendar.DAY_OF_WEEK)) &&
 				((startMinT >= startMin && startMinT <= endMin) ||
 				(endMinT >= startMin && endMinT <= endMin) ||
 				(startMinT <= startMin && endMinT >= endMin));
@@ -119,9 +126,7 @@ public class TimeSlot {
 	 *
 	 **/
 	public int difference(TimeSlot t) {
-		int difference = 0;
-		int startMinutes = 0;
-		int endMinutes = 0;
+		int difference, startMinutes, endMinutes; difference = startMinutes = endMinutes  = 0;
 		if (conflicts(t) == true) {
 			return difference;
 		} else {
@@ -144,11 +149,4 @@ public class TimeSlot {
 		}
 		return difference;
 	}
-
-	public char getDay() { return day; }
-	public Calendar getStart() { return start; }
-	public Calendar getEnd() { return end; }
-	public int getStartMins() { return start.get(Calendar.HOUR_OF_DAY)*60 + start.get(Calendar.MINUTE); }
-	public int getEndMins() { return end.get(Calendar.HOUR_OF_DAY)*60 + end.get(Calendar.MINUTE);}
-
 }

@@ -1,7 +1,7 @@
 /**
  *	Authors: Daniel Fitzhenry and Jacob Perks
  *	ALACRITYDEVELOPMENT©
- *  RUN CLASS (MAIN)
+ *  RUN CLASS (MAIN TEST CLASS)
  *
 **/
 package SchedulaAlgo;

@@ -21,18 +21,8 @@ public class Course implements Comparable<Course> {
 		code = c;
 		sections = s;
 	}
-
-	/** TO STRING
-	 *	Function:	string formatted representation of this Course obj
-	 *	@params	n/a
-	 *	
-	 **/
-	public String toString(){
-		return code;
-	}
 	
-	// Getters
-	//TODO:
+	//TODO: Getter (possibly unnecessary)
 	
 	// Overrides
 	@Override
@@ -48,4 +38,11 @@ public class Course implements Comparable<Course> {
 	public int compareTo(Course o) {
 		return code.compareTo(o.code);
 	}
+
+	/** TO STRING
+	 *	Function:	string formatted representation of this Course obj
+	 *	@params	n/a
+	 *	
+	 **/
+	public String toString(){ return code; }
 }

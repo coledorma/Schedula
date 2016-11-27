@@ -1,334 +1,115 @@
 /**
- *	Authors: Daniel Fitzhenry and Jacob Perks
+ *	Authors: Jacob Perks and Daniel Fitzhenry
  *	ALACRITYDEVELOPMENT©
- *  Custom Comparator CLASS (MAIN)
+ *  Custom Comparator CLASS
  *
 **/
-
 package SchedulaAlgo;
-import java.util.*;
+
+import java.util.Comparator;
+import java.util.LinkedList;
 
 public class MyComparator implements Comparator<Schedule>{
+	private static final char MONDAY = 'M', TUESDAY = 'T', WEDNESDAY = 'W', THURSDAY = 'R', FRIDAY = 'F';
+	private TimeSlot min1, max1, min2, max2;
 
-	public MyComparator() {
-		
-	}
+	/** CONSTRUCTOR
+	 *	Function:	creates new Comparator operable on List<Schedule> objs
+	 *	@params	n/a
+	 **/
+	public MyComparator() {}
 
+	// Overrides
 	@Override 
 	public int compare(Schedule s1, Schedule s2) {
-		int dif1 = 0;
-		int dif2 = 0;
-		int min1Counter = 0;
-		int max1Counter = 0;
-		int min2Counter = 0;
-		int max2Counter = 0;
-		TimeSlot min1 = null;
-		TimeSlot max1 = null;
-		TimeSlot min2 = null;
-		TimeSlot max2 = null;
+		// Initialize useful values
+		int dif1, dif2, min1Counter, max1Counter, min2Counter, max2Counter;
+		/**
+		 *	MONDAY
+		 **/
+		// Reset values
+		min1 = max1 = min2 = max2 = null;
+		dif1 = dif2 = min1Counter = max1Counter = min2Counter = max2Counter = 0;
+		//Compute and add differences, respectively
+		compute(s1.getSections(), min1Counter, max1Counter,MONDAY);
+		dif1 += (min1 != null && max1 != null) ? min1.difference(max1):0;
+		compute(s2.getSections(), min1Counter, max2Counter,MONDAY);
+		dif2 += (min2 != null && max2 != null) ? min2.difference(max2):0;
+		/**
+		 *	TUESDAY
+		 **/
+		// Reset values
+		min1 = max1 = min2 = max2 = null;
+		min1Counter = max1Counter = min2Counter = max2Counter = 0;
+		// Compute and add differences, respectively
+		compute(s1.getSections(), min1Counter, max1Counter,TUESDAY);
+		dif1 += (min1 != null && max1 != null) ? min1.difference(max1):0;
+		compute(s2.getSections(), min1Counter, max2Counter,TUESDAY);
+		dif2 += (min2 != null && max2 != null) ? min2.difference(max2):0;
+		/**
+		 *	Wednesday
+		 **/
+		// Reset values
+		min1 = max1 = min2 = max2 = null;
+		min1Counter = max1Counter = min2Counter = max2Counter = 0;
+		// Compute and add differences, respectively
+		compute(s1.getSections(), min1Counter, max1Counter,WEDNESDAY);
+		dif1 += (min1 != null && max1 != null) ? min1.difference(max1):0;
+		compute(s2.getSections(), min1Counter, max2Counter,WEDNESDAY);
+		dif2 += (min2 != null && max2 != null) ? min2.difference(max2):0;
+		/**
+		 *	THURSDAY
+		 **/
+		// Reset values
+		min1 = max1 = min2 = max2 = null;
+		min1Counter = max1Counter = min2Counter = max2Counter = 0;
+		// Compute and add differences, respectively
+		compute(s1.getSections(), min1Counter, max1Counter,THURSDAY);
+		dif1 += (min1 != null && max1 != null) ? min1.difference(max1):0;
+		compute(s2.getSections(), min2Counter, max2Counter,THURSDAY);
+		dif2 += (min2 != null && max2 != null) ? min2.difference(max2):0;
+		/**
+		 *	FRIDAY
+		 **/
+		// Reset values
+		min1 = max1 = min2 = max2 = null;
+		min1Counter = max1Counter = min2Counter = max2Counter = 0;
+		// Compute and add differences, respectively
+		compute(s1.getSections(), min1Counter, max1Counter,FRIDAY);
+		dif1 += (min1 != null && max1 != null) ? min1.difference(max1):0;
+		compute(s2.getSections(), min2Counter, max2Counter,FRIDAY);
+		dif2 += (min2 != null && max2 != null) ? min2.difference(max2):0;
 
-		////////////////////////
-		// MONDAY COMPARISONS //
-		////////////////////////
-
-		for (Section s : s1.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'M' && min1Counter == 0) {
-						min1 = t;
-						min1Counter++;
-					} else if (t.getDay() == 'M' && max1Counter == 0) {
-						max1 = t;
-						max1Counter++;
-					} else if (min1Counter > 0 && t.getDay() == 'M' && t.getStartMins() < min1.getStartMins()) {
-						min1 = t;
-						min1Counter++;
-					} else if (max1Counter > 0 && t.getDay() == 'M' && max1.getEndMins() < t.getEndMins()) {
-						max1 = t;
-						max1Counter++;
-					}
-				}	
-			}
-		}
-
-		if (min1 != null && max1 != null) {
-			dif1 += min1.difference(max1);
-		}
-
-		for (Section s : s2.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'M' && min2Counter == 0) {
-						min2 = t;
-						min2Counter++;
-					} else if (t.getDay() == 'M' && max2Counter == 0) {
-						max2 = t;
-						max2Counter++;
-					} else if (min2Counter > 0 && t.getDay() == 'M' && t.getStartMins() < min2.getStartMins()) {
-						min2 = t;
-						min2Counter++;
-					} else if (max2Counter > 0 && t.getDay() == 'M' && max2.getEndMins() < t.getEndMins()) {
-						max2 = t;
-						max2Counter++;
-					}
+		// FINAL COMPARISON
+		if (dif1 > dif2) return 1;
+		else if (dif1 < dif2) return -1;
+		else return 0;
+	}
+	
+	/** COMPUTE (HELPER FUNCTION)
+	 *	function:	Compares time spread between individual TimeSlots for two 
+	 *				given times for a specific schedule
+	 *	@params:	LinkedList<Sections>, 
+	 *
+	 **/
+	private void compute(LinkedList<Section> sec, int minCounter, int maxCounter, char dayOfWeek){
+		for (Section s : sec)
+			for (TimeSlot t : s.getTimes()){
+				if (t == null) continue;
+				if (t.getDay() == dayOfWeek && minCounter == 0) {
+					min1 = t;
+					++minCounter;
+				} else if (t.getDay() == dayOfWeek && maxCounter == 0) {
+					max1 = t;
+					++maxCounter;
+				} else if (minCounter > 0 && t.getDay() == dayOfWeek && t.getStartMins() < min1.getStartMins()) {
+					min1 = t;
+					++minCounter;
+				} else if (maxCounter > 0 && t.getDay() == dayOfWeek && max1.getEndMins() < t.getEndMins()) {
+					max1 = t;
+					++maxCounter;
 				}
 			}
-		}
-
-		if (min2 != null && max2 != null) {
-			dif2 += min2.difference(max2);
-		}
-
-		min1 = null;
-		max1 = null;
-		min2 = null;
-		max2 = null;
-		min1Counter = 0;
-		max1Counter = 0;
-		min2Counter = 0;
-		max2Counter = 0;
-
-		/////////////////////////
-		// TUESDAY COMPARISONS //
-		/////////////////////////
-
-		for (Section s : s1.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'T' && min1Counter == 0) {
-						min1 = t;
-						min1Counter++;
-					} else if (t.getDay() == 'T' && max1Counter == 0) {
-						max1 = t;
-						max1Counter++;
-					} else if (min1Counter > 0 && t.getDay() == 'T' && t.getStartMins() < min1.getStartMins()) {
-						min1 = t;
-						min1Counter++;
-					} else if (max1Counter > 0 && t.getDay() == 'T' && max1.getEndMins() < t.getEndMins()) {
-						max1 = t;
-						max1Counter++;
-					}
-				}	
-			}
-		}
-
-		if (min1 != null && max1 != null) {
-			dif1 += min1.difference(max1);
-		}
-
-		for (Section s : s2.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'T' && min2Counter == 0) {
-						min2 = t;
-						min2Counter++;
-					} else if (t.getDay() == 'T' && max2Counter == 0) {
-						max2 = t;
-						max2Counter++;
-					} else if (min2Counter > 0 && t.getDay() == 'T' && t.getStartMins() < min2.getStartMins()) {
-						min2 = t;
-						min2Counter++;
-					} else if (max2Counter > 0 && t.getDay() == 'T' && max2.getEndMins() < t.getEndMins()) {
-						max2 = t;
-						max2Counter++;
-					}
-				}
-			}
-		}
-
-		if (min2 != null && max2 != null) {
-			dif2 += min2.difference(max2);
-		}
-
-		min1 = null;
-		max1 = null;
-		min2 = null;
-		max2 = null;
-		min1Counter = 0;
-		max1Counter = 0;
-		min2Counter = 0;
-		max2Counter = 0;
-
-		/////////////////////////
-		// WEDNESDAY COMPARISONS //
-		/////////////////////////
-
-		for (Section s : s1.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'W' && min1Counter == 0) {
-						min1 = t;
-						min1Counter++;
-					} else if (t.getDay() == 'W' && max1Counter == 0) {
-						max1 = t;
-						max1Counter++;
-					} else if (min1Counter > 0 && t.getDay() == 'W' && t.getStartMins() < min1.getStartMins()) {
-						min1 = t;
-						min1Counter++;
-					} else if (max1Counter > 0 && t.getDay() == 'W' && max1.getEndMins() < t.getEndMins()) {
-						max1 = t;
-						max1Counter++;
-					}
-				}	
-			}
-		}
-
-		if (min1 != null && max1 != null) {
-			dif1 += min1.difference(max1);
-		}
-
-		for (Section s : s2.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'W' && min2Counter == 0) {
-						min2 = t;
-						min2Counter++;
-					} else if (t.getDay() == 'W' && max2Counter == 0) {
-						max2 = t;
-						max2Counter++;
-					} else if (min2Counter > 0 && t.getDay() == 'W' && t.getStartMins() < min2.getStartMins()) {
-						min2 = t;
-						min2Counter++;
-					} else if (max2Counter > 0 && t.getDay() == 'W' && max2.getEndMins() < t.getEndMins()) {
-						max2 = t;
-						max2Counter++;
-					}
-				}
-			}
-		}
-
-		if (min2 != null && max2 != null) {
-			dif2 += min2.difference(max2);
-		}
-
-		min1 = null;
-		max1 = null;
-		min2 = null;
-		max2 = null;
-		min1Counter = 0;
-		max1Counter = 0;
-		min2Counter = 0;
-		max2Counter = 0;
-
-		/////////////////////////
-		// THURSDAY COMPARISONS //
-		/////////////////////////
-
-		for (Section s : s1.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'R' && min1Counter == 0) {
-						min1 = t;
-						min1Counter++;
-					} else if (t.getDay() == 'R' && max1Counter == 0) {
-						max1 = t;
-						max1Counter++;
-					} else if (min1Counter > 0 && t.getDay() == 'R' && t.getStartMins() < min1.getStartMins()) {
-						min1 = t;
-						min1Counter++;
-					} else if (max1Counter > 0 && t.getDay() == 'R' && max1.getEndMins() < t.getEndMins()) {
-						max1 = t;
-						max1Counter++;
-					}
-				}	
-			}
-		}
-
-		if (min1 != null && max1 != null) {
-			dif1 += min1.difference(max1);
-		}
-
-		for (Section s : s2.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'R' && min2Counter == 0) {
-						min2 = t;
-						min2Counter++;
-					} else if (t.getDay() == 'R' && max2Counter == 0) {
-						max2 = t;
-						max2Counter++;
-					} else if (min2Counter > 0 && t.getDay() == 'R' && t.getStartMins() < min2.getStartMins()) {
-						min2 = t;
-						min2Counter++;
-					} else if (max2Counter > 0 && t.getDay() == 'R' && max2.getEndMins() < t.getEndMins()) {
-						max2 = t;
-						max2Counter++;
-					}
-				}
-			}
-		}
-
-		if (min2 != null && max2 != null) {
-			dif2 += min2.difference(max2);
-		}
-
-		min1 = null;
-		max1 = null;
-		min2 = null;
-		max2 = null;
-		min1Counter = 0;
-		max1Counter = 0;
-		min2Counter = 0;
-		max2Counter = 0;
-
-		/////////////////////////
-		// FRIDAY COMPARISONS //
-		/////////////////////////
-
-		for (Section s : s1.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'F' && min1Counter == 0) {
-						min1 = t;
-						min1Counter++;
-					} else if (t.getDay() == 'F' && max1Counter == 0) {
-						max1 = t;
-						max1Counter++;
-					} else if (min1Counter > 0 && t.getDay() == 'F' && t.getStartMins() < min1.getStartMins()) {
-						min1 = t;
-						min1Counter++;
-					} else if (max1Counter > 0 && t.getDay() == 'F' && max1.getEndMins() < t.getEndMins()) {
-						max1 = t;
-						max1Counter++;
-					}
-				}	
-			}
-		}
-
-		if (min1 != null && max1 != null) {
-			dif1 += min1.difference(max1);
-		}
-
-		for (Section s : s2.getSections()) {
-			for (TimeSlot t : s.getTimes()) {
-				if (t != null) {
-					if (t.getDay() == 'F' && min2Counter == 0) {
-						min2 = t;
-						min2Counter++;
-					} else if (t.getDay() == 'F' && max2Counter == 0) {
-						max2 = t;
-						max2Counter++;
-					} else if (min2Counter > 0 && t.getDay() == 'F' && t.getStartMins() < min2.getStartMins()) {
-						min2 = t;
-						min2Counter++;
-					} else if (max2Counter > 0 && t.getDay() == 'F' && max2.getEndMins() < t.getEndMins()) {
-						max2 = t;
-						max2Counter++;
-					}
-				}
-			}
-		}
-
-		if (min2 != null && max2 != null) {
-			dif2 += min2.difference(max2);
-		}
-
-		if (dif1 > dif2) {
-			return 1;
-		} else if (dif1 < dif2) {
-			return -1;
-		} else {
-			return 0;
-		}
+		return;
 	}
 }

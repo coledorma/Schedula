@@ -23,18 +23,16 @@ public class Commitment {
 		term = te;
 		times = new SubSection(null, ty, 0,  te, ti);
 	}
+	
+	// Getters
+	public SubSection getTimes()	{ return times; }
+	public String getType()			{ return type; }
+	public int getTerm()			{ return term; }
 
 	/** TO STRING
 	 *	Function:	string formatted representation of this Commitment obj
 	 *	@params	n/a
 	 *	
 	 **/
-	public String toString(){ 
-		return times.toString();
-	}
-
-	// Getters
-	public SubSection getTimes() { return times; }
-	public String getType() { return type; }
-	public int getTerm() { return term; }
+	public String toString(){ return times.toString(); }
 }

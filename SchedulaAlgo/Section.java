@@ -61,6 +61,24 @@ public class Section {
 			times[2] = new TimeSlot(time.charAt(2),startHour,startMinute,endHour,endMinute,semester,year);
 		} else times[0] = times[1] = times[2] = null;
 	}
+	
+	// Getters
+	public String getID() { return ID;}
+	public String getProf() { return prof;}
+	public int getCrn() { return crn;}
+	public int numDays() { int count = 0; for(TimeSlot t : times) count += (t!=null) ? 1:0; return count; }
+	public TimeSlot[] getTimes() { return times;}
+	public ArrayList<SubSection> getSubSecs() { return subSec;}
+
+	// Overrides
+	@Override
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (other == this) return true;
+		if (!(other instanceof Section))return false;
+		Section otherSec = (Section) other;
+		return this.crn == otherSec.crn;
+	}
 
 	/** TO STRING
 	 *	Function:	string formatted representation of this Section obj
@@ -99,22 +117,4 @@ public class Section {
 	 *
 	 **/
 	public void addSubSection(SubSection subSection) { subSec.add(subSection); }
-
-   	 // Getters
-	public String getID() { return ID;}
-	public String getProf() { return prof;}
-	public int getCrn() { return crn;}
-	public int numDays() { int count = 0; for(TimeSlot t : times) count += (t!=null) ? 1:0; return count; }
-	public TimeSlot[] getTimes() { return times;}
-	public ArrayList<SubSection> getSubSecs() { return subSec;}
-
-	// Overrides
-	@Override
-	public boolean equals(Object other){
-		if (other == null) return false;
-		if (other == this) return true;
-		if (!(other instanceof Section))return false;
-		Section otherSec = (Section) other;
-		return this.crn == otherSec.crn;
-	}    
 }

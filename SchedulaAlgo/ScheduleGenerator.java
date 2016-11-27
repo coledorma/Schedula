@@ -33,21 +33,20 @@ public class ScheduleGenerator {
 		generator = new Random(System.nanoTime());
 		long startTime = System.nanoTime();
 		generate(size);
-		//Collections.sort(schedules, new MyComparator());
 		long endTime = System.nanoTime();
 		System.out.println("Execution time : " + 1e-6 * (endTime - startTime));
 	}
 
 	/** GENERATE (MAIN LOGICAL ASPECT)
 	 *	Function:	generates Schedule objects and stores them in linked list schedules
-	 *	@params	size = max number of schedules wanted to generate
+	 *	@params	size = max number of schedules wanted to generate, and size*10 upper bound O(10n)
 	 **/
 	private void generate(int size){
 		int searchCount = 0, subCount;
 		while(schedules.size() != size){
+			Schedule posSchedg = new Schedule();
 			generator.setSeed(System.nanoTime());
 			subCount = courses.size();
-			Schedule posSchedg = new Schedule();
 			Collections.shuffle(courses, generator);
 			for (Course c : courses){
 				Collections.shuffle(c.sections, generator);
@@ -92,7 +91,7 @@ public class ScheduleGenerator {
 				}
 			}
 			if (posSchedg.getSize() == ((courses.size()*2)- subCount))
-				if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
+			if(!schedules.contains(posSchedg)) schedules.add(posSchedg);
 			if (searchCount>=size*10) break;
 			else ++searchCount;
 		}
@@ -121,7 +120,8 @@ public class ScheduleGenerator {
 	 **/
 	public boolean commitConflicts(Section s) {
 		for (Commitment commitment : commits)
-			if ((s.conflicts(commitment.getTimes())) || commitment.getTimes().conflicts(s)) return true;
+		if ((s.conflicts(commitment.getTimes())) || commitment.getTimes().conflicts(s))
+		return true;
 		return false;
 	}
 	
