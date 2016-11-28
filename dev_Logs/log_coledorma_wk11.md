@@ -9,4 +9,4 @@
  - [X] Read and start working/preparing for Deliverable 3
 
 ## Time Spent:
-* **15** _hours_ and **00** _minutes_
+* **12** _hours_ and **00** _minutes_
