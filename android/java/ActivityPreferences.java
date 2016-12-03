@@ -54,6 +54,8 @@ public class ActivityPreferences extends AppCompatActivity{
     private String dayString;
     private Spinner specificTimeSpinner;
     private boolean isSpinnerTouched = false;
+    private boolean onlinePref = false;
+
 
 
     /*
@@ -301,6 +303,23 @@ public class ActivityPreferences extends AppCompatActivity{
                     checkFri.setChecked(true);
                     specificDays.add("F");
                 }
+
+            }
+        });
+        
+        final CheckBox onlineYesCheck = (CheckBox) findViewById(R.id.onlineYesCheck);
+        checkFri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!onlineYesCheck.isChecked()) {
+                    onlineYesCheck.setChecked(false);
+                    onlinePref = false;
+                }else {
+                    onlineYesCheck.setChecked(true);
+                    onlinePref = true;
+                }
+
+                Log.d("myTag", "Online Classes Preference: " + onlinePref);
 
             }
         });
