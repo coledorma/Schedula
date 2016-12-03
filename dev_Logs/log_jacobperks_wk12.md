@@ -1,10 +1,10 @@
 # Dev Log - Week: 12
  
 ## Duties:
-  - [ ] Weekly meeting with group
-  - [ ] Oral Exam
+  - [X] Weekly meeting with group
+  - [X] Oral Exam
   - [ ] Work on deliverable 4
 
  
 ## Time Spent: 
-  * **** _hours_ and **** _minutes_
+  * 6 _hours_ and 30 _minutes_
