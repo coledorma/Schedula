@@ -26,20 +26,27 @@ public class ScheduleGenerator {
 	 *			size = max number of schedules wanted to generate
 	 **/
 	public ScheduleGenerator(ArrayList<Course> cr, ArrayList<Commitment> cm, ArrayList<String> p,  int size, boolean prefOnline){
-		if (prefOnline){
-			courses = new ArrayList<Course>();
-			for (Course c: cr){
-				Course onlineSecs = new Course(c.code,new ArrayList<Section>());
-				for (Section s : c.sections){
+		courses = new ArrayList<Course>();
+		for (Course c: cr){
+			Course sects = new Course(c.code,new ArrayList<Section>());
+			for (Section s : c.sections){
+				if (prefOnline){
 					if (s.getID().equals("V")){
-						onlineSecs.sections.add(s);
+						sects.sections.add(s);
+					}
+				} else {
+					if (!s.getID().equals("V")){
+						sects.sections.add(s);
 					}
 				}
-				if (!onlineSecs.sections.isEmpty()){
-					courses.add(onlineSecs);
-				} else courses.add(c);
 			}
-		} else courses = cr;
+			if (!sects.sections.isEmpty()){
+				courses.add(sects);
+			} else {
+				if (prefOnline) courses.add(c);
+			}
+		}
+		System.out.println(courses);
 		commits = cm;
 		periods = p;
 		schedules = new LinkedList<>();

@@ -50,17 +50,17 @@ public final class run{
 		sections2.add(new Section("A", "John", 222220,201630,"TR 1135-1255",subsections3));
 		sections3.add(new Section("A", "Hannah", 333330,201630,"MF 1135-1255",subsections4));
 		sections3.add(new Section("B", "Samuel", 333300,201630,"TR 1135-1255",subsections5));
-		sections4.add(new Section("C", "Mike", 111000,201630,"W 1135-1355",subsections6));
+		sections4.add(new Section("V", "Mike", 111000,201630,"W 1135-1355",new ArrayList<SubSection>()));
 		
 		courses.add(new Course("COMP300", sections1));
 		courses.add(new Course("COMP100", sections2));
 		courses.add(new Course("COMP500", sections3));
-	//	courses.add(new Course("COMP666", sections4));
+		courses.add(new Course("COMP666", sections4));
 		
 		periods.add("Morning");
 		periods.add("Afternoon");
 		
-		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 4, true);
+		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 4, false);
 
 	/**
 	 *	RESULTS
