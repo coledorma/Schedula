@@ -60,7 +60,7 @@ public final class run{
 		periods.add("Morning");
 		periods.add("Afternoon");
 		
-		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 4);
+		ScheduleGenerator schedgs = new ScheduleGenerator(courses, commitments, periods, 4, true);
 
 	/**
 	 *	RESULTS

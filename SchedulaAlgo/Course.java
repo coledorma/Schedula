@@ -12,7 +12,7 @@ public class Course implements Comparable<Course> {
     public String code;
     public ArrayList<Section> sections;
 
-	/** CONSTRUCTOR
+	/** CONSTRUCTORS
 	 *	Function:	Construct a course obj
 	 *	@params	c = course code
 	 *			s = array list of sections of particular course
