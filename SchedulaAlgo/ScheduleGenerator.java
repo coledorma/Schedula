@@ -26,22 +26,16 @@ public class ScheduleGenerator {
 	 *			size = max number of schedules wanted to generate
 	 **/
 	public ScheduleGenerator(ArrayList<Course> cr, ArrayList<Commitment> cm, ArrayList<String> p,  int size, boolean prefOnline){
-		courses = new ArrayList<Course>();
-		for (Course c: cr){
-			Course sects = new Course(c.code,new ArrayList<Section>());
-			for (Section s : c.sections){
-				if (prefOnline){
-					if (s.numDays() == 0) sects.sections.add(s);
-				} else {
-					if (s.numDays() != 0) sects.sections.add(s);
-				}
+		if (prefOnline){
+			courses = new ArrayList<Course>();
+			for (Course c: cr){
+				Course sects = new Course(c.code,new ArrayList<Section>());
+				for (Section s : c.sections)
+				if (s.numDays() == 0) sects.sections.add(s);
+				if (!sects.sections.isEmpty()) courses.add(sects);
+				else courses.add(c);
 			}
-			if (!sects.sections.isEmpty()){
-				courses.add(sects);
-			} else {
-				if (prefOnline) courses.add(c);
-			}
-		}
+		} else courses = cr;
 		commits = cm;
 		periods = p;
 		schedules = new LinkedList<Schedule>();
@@ -66,7 +60,32 @@ public class ScheduleGenerator {
 			for (Course c : courses){
 				Collections.shuffle(c.sections, generator);
 				for (Section s : c.sections){
-					if (s.numDays() == 0){ posSchedg.add(s); break; }
+					
+					/* IF ONLINE COURSE */
+					if (s.numDays() == 0){
+						posSchedg.add(s);
+						if (s.getSubSecs().size() == 0) continue;
+						subCount -= 1;
+						Collections.shuffle(s.getSubSecs(), generator);
+						SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
+						switch (periods.size()) {
+						case 2:
+							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							break;
+						case 1:
+							if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							break;
+						default:
+							if (!commitConflicts(ss))
+							if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+							break;
+						}
+						if (posSchedg.contains(s)) break;
+					}
+					
+					/* ELSE */
 					switch (periods.size()) {
 					case 2:
 						if (!commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
@@ -76,7 +95,7 @@ public class ScheduleGenerator {
 								Collections.shuffle(s.getSubSecs(), generator);
 								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
 								if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0) || ss.getTimes()[0].period() == periods.get(1))
-									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+								if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
 							}
 						} break;
 					case 1:
@@ -87,7 +106,7 @@ public class ScheduleGenerator {
 								Collections.shuffle(s.getSubSecs(), generator);
 								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
 								if (!commitConflicts(ss) && ss.getTimes()[0].period() == periods.get(0))
-									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+								if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
 							}
 						} break;
 					default:
@@ -98,7 +117,7 @@ public class ScheduleGenerator {
 								Collections.shuffle(s.getSubSecs(), generator);
 								SubSection ss = s.getSubSecs().get(generator.nextInt(s.getSubSecs().size()));
 								if (!commitConflicts(ss))
-									if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
+								if (!posSchedg.add(ss)) posSchedg.getSections().removeLast();
 							}
 						} break;
 					}
