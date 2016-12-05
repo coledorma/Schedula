@@ -3,7 +3,7 @@
 ## Dutys:
  - [X] Add online-course prefrence to algorithm
  - [X] Camera man for the video
- - [X] Upoladed to youtube @ https://www.youtube.com/watch?v=dsOauDNPGRs&feature=youtu.be
+ - [X] Upoladed to youtube @ https://www.youtube.com/watch?v=h0qDTsQHAFU
  - [ ] Continue to inquire about app store
  - [ ] Submit final Deliverable
  - [X] Create and update weekly dev log
