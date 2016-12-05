@@ -31,13 +31,9 @@ public class ScheduleGenerator {
 			Course sects = new Course(c.code,new ArrayList<Section>());
 			for (Section s : c.sections){
 				if (prefOnline){
-					if (s.getID().equals("V")){
-						sects.sections.add(s);
-					}
+					if (s.numDays() == 0) sects.sections.add(s);
 				} else {
-					if (!s.getID().equals("V")){
-						sects.sections.add(s);
-					}
+					if (s.numDays() != 0) sects.sections.add(s);
 				}
 			}
 			if (!sects.sections.isEmpty()){
@@ -46,10 +42,9 @@ public class ScheduleGenerator {
 				if (prefOnline) courses.add(c);
 			}
 		}
-		System.out.println(courses);
 		commits = cm;
 		periods = p;
-		schedules = new LinkedList<>();
+		schedules = new LinkedList<Schedule>();
 		generator = new Random(System.nanoTime());
 		long startTime = System.nanoTime();
 		generate(size);
@@ -71,6 +66,7 @@ public class ScheduleGenerator {
 			for (Course c : courses){
 				Collections.shuffle(c.sections, generator);
 				for (Section s : c.sections){
+					if (s.numDays() == 0){ posSchedg.add(s); break; }
 					switch (periods.size()) {
 					case 2:
 						if (!commitConflicts(s) && s.getTimes()[0].period() == periods.get(0) || s.getTimes()[0].period() == periods.get(1)) {
@@ -97,7 +93,6 @@ public class ScheduleGenerator {
 					default:
 						if (!commitConflicts(s)) {
 							if (posSchedg.add(s)) {
-								System.out.println(posSchedg);
 								if (s.getSubSecs().size() == 0) continue;
 								subCount -= 1;
 								Collections.shuffle(s.getSubSecs(), generator);

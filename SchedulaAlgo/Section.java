@@ -66,9 +66,14 @@ public class Section {
 	public String getID() { return ID;}
 	public String getProf() { return prof;}
 	public int getCrn() { return crn;}
-	public int numDays() { int count = 0; for(TimeSlot t : times) count += (t!=null) ? 1:0; return count; }
 	public TimeSlot[] getTimes() { return times;}
 	public ArrayList<SubSection> getSubSecs() { return subSec;}
+	public int numDays() {
+		int count = 0; 
+		if (times == null) return count;
+		for(TimeSlot t : times) count += (t!=null) ? 1:0; 
+		return count;
+	}
 
 	// Overrides
 	@Override
