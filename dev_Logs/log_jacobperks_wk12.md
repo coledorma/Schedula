@@ -3,8 +3,8 @@
 ## Duties:
   - [X] Weekly meeting with group
   - [X] Oral Exam
-  - [ ] Work on deliverable 4
+  - [X] Work on deliverable 4
 
  
 ## Time Spent: 
-  * 6 _hours_ and 30 _minutes_
+  * 8 _hours_ and 30 _minutes_
