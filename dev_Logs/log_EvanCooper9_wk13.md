@@ -3,8 +3,8 @@
 ## Duties
  - [X] Create and update weekly Dev Log
  - [X] Practice final presentation
- - [ ] Investigate with group about publishing to store
+ - [X] Investigate with group about publishing to store
  - [ ] Publish to store
 
 ## Time Spent:
-* **5** _hours_ and **30** _minutes_
+* **6** _hours_ and **30** _minutes_
